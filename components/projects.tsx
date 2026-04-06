@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Layers, Database, Code, DollarSign, Settings, PieChart, Briefcase, Cpu, CheckCircle2 } from 'lucide-react'
+import { ExternalLink, Layers, Database, Code, DollarSign, Settings, PieChart, Briefcase, CheckCircle2, FileText, Cpu } from 'lucide-react'
 
 const projectsData = [
   // FEATURED
@@ -16,7 +16,8 @@ const projectsData = [
     problem: 'Manual reporting and fragmented data across city business teams slowed down daily decision-making.',
     impact: 'Automated 7+ city pipelines · Enabled real-time KPI tracking · Reduced manual effort · Improved decision speed.',
     tags: ['SQL', 'Python', 'Analytics', 'Automation'],
-    link: '#'
+    link: '#',
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/LICIOUS_FINAL_REVIEW%20(3)%20(1).pdf'
   },
   {
     id: 'stock-predictor',
@@ -154,35 +155,12 @@ const projectsData = [
     problem: 'Traditional models fail to capture price volatility during market stress events.',
     impact: 'Processed 4.5 years of dataset · Built VaR (Value at Risk) models · CAPM, ARIMA, GARCH.',
     tags: ['Quant Finance', 'Python', 'VaR'],
-    link: '#'
+    link: '#',
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/16_EKC_EMAMILTD_ENGINERSIN_ESABINDIA.pdf'
   },
   {
-    id: 'portfolio-opt',
-    title: 'Multi-Asset Portfolio Optimization',
-    cat: 'finance',
-    displayCat: 'Finance',
-    icon: <DollarSign size={16} />,
-    catClass: 'bg-orange-400/10 text-orange-400 border-orange-400/20',
-    problem: 'Inefficient asset allocation across 8+ assets lowering risk-adjusted returns.',
-    impact: 'Built "Minimum Variance Portfolio" model · Significantly improved Sharpe ratio.',
-    tags: ['Markowitz', 'Optimization', 'Excel'],
-    link: '#'
-  },
-  {
-    id: 'derivatives',
-    title: 'Derivatives & Options Trading Engine',
-    cat: 'finance',
-    displayCat: 'Finance',
-    icon: <DollarSign size={16} />,
-    catClass: 'bg-orange-400/10 text-orange-400 border-orange-400/20',
-    problem: 'Complexity in visualizing pay-off structures of multi-leg option strategies.',
-    impact: 'Built 5+ strategies (Bull Call, Iron Condor, etc.) · Real-time pay-off calculation.',
-    tags: ['Options', 'Risk Mgmt', 'Strategy'],
-    link: '#'
-  },
-  {
-    id: 'statement-analysis',
-    title: 'Automated Financial Statement Analysis',
+    id: 'fofa-analysis',
+    title: 'FOFA Financial Statement Analysis',
     cat: 'finance',
     displayCat: 'Finance',
     icon: <DollarSign size={16} />,
@@ -190,19 +168,8 @@ const projectsData = [
     problem: 'Manual comparison of 10+ financial ratios across multi-company benchmarks is slow.',
     impact: 'Built comparison engine · Automated 10+ core ratio computations.',
     tags: ['Ratios', 'Comparison', 'Efficiency'],
-    link: '#'
-  },
-  {
-    id: 'wacc-lt',
-    title: 'L&T Capital Cost Model (WACC Analysis)',
-    cat: 'finance',
-    displayCat: 'Finance',
-    icon: <DollarSign size={16} />,
-    catClass: 'bg-orange-400/10 text-orange-400 border-orange-400/20',
-    problem: 'Estimating cost of capital for a ₹1.83 lakh crore diversified conglomerate.',
-    impact: 'Detailed capital cost modeling · Provided valuation baseline for infrastructure segments.',
-    tags: ['Valuation', 'WACC', 'Infrastructure'],
-    link: '#'
+    link: '#',
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/39_FOFA_Assignment.pdf'
   },
   {
     id: 'industry-ambuja',
@@ -214,7 +181,47 @@ const projectsData = [
     problem: 'Understanding competitive moats in a commoditized cement market segment.',
     impact: 'Revenue split breakdown (80-85% core) · Detailed multi-competitor mapping.',
     tags: ['Strategy', 'Competitor Mapping', 'Cement'],
-    link: '#'
+    link: '#',
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/Ambuja.pdf'
+  },
+  {
+    id: 'manappuram-derivatives',
+    title: 'Manappuram Finance – Derivatives Analysis',
+    cat: 'finance',
+    displayCat: 'Finance',
+    icon: <DollarSign size={16} />,
+    catClass: 'bg-orange-400/10 text-orange-400 border-orange-400/20',
+    problem: 'Complexity in visualizing pay-off structures of multi-leg option strategies.',
+    impact: 'Built 5+ strategies (Bull Call, Iron Condor, etc.) · Real-time pay-off calculation.',
+    tags: ['Options', 'Risk Mgmt', 'Strategy'],
+    link: '#',
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/Group_44-Manappuram_Finance.pdf'
+  },
+  {
+    id: 'portfolio-opt',
+    title: 'Multi-Asset Portfolio Optimization',
+    cat: 'finance',
+    displayCat: 'Finance',
+    icon: <DollarSign size={16} />,
+    catClass: 'bg-orange-400/10 text-orange-400 border-orange-400/20',
+    problem: 'Inefficient asset allocation across 8+ assets lowering risk-adjusted returns.',
+    impact: 'Built "Minimum Variance Portfolio" model · Significantly improved Sharpe ratio.',
+    tags: ['Markowitz', 'Optimization', 'Excel'],
+    link: '#',
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/SAPM%20Project%20.pdf'
+  },
+  {
+    id: 'wacc-lt',
+    title: 'L&T Capital Cost Model (WACC Analysis)',
+    cat: 'finance',
+    displayCat: 'Finance',
+    icon: <DollarSign size={16} />,
+    catClass: 'bg-orange-400/10 text-orange-400 border-orange-400/20',
+    problem: 'Estimating cost of capital for a ₹1.83 lakh crore diversified conglomerate.',
+    impact: 'Detailed capital cost modeling · Provided valuation baseline for infrastructure segments.',
+    tags: ['Valuation', 'WACC', 'Infrastructure'],
+    link: '#',
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/Wacc%20LnT.pdf'
   },
 
   // BUSINESS / STRATEGY
@@ -336,16 +343,31 @@ export const Projects = () => {
                   ))}
                 </div>
                 
-                {proj.link !== '#' && (
-                  <a 
-                    href={proj.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="inline-flex items-center gap-2 text-xs text-[#e8c97a] mt-6 font-black hover:translate-x-2 transition-all no-underline tracking-widest"
-                  >
-                    LIVE CASE STUDY <ExternalLink size={12} />
-                  </a>
-                )}
+                {/* Buttons Container */}
+                <div className="flex flex-wrap gap-3 mt-8">
+                  {proj.link !== '#' && (
+                    <a 
+                      href={proj.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="inline-flex items-center gap-2 text-xs text-[#e8c97a] font-black hover:translate-x-2 transition-all no-underline tracking-widest bg-[#e8c97a]/5 px-4 py-2 rounded-lg border border-[#e8c97a]/10 hover:border-[#e8c97a]/30"
+                    >
+                      LIVE DEMO <ExternalLink size={12} />
+                    </a>
+                  )}
+
+                  {proj.caseStudy && (
+                    <a
+                      href={proj.caseStudy}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-xs text-[#e8c97a] font-black hover:bg-[#e8c97a] hover:text-[#0a0a0f] transition-all no-underline tracking-widest border border-[#e8c97a]/30 px-4 py-2 rounded-lg"
+                      title="Opens detailed case study in a new tab"
+                    >
+                      📊 VIEW CASE STUDY
+                    </a>
+                  )}
+                </div>
               </motion.div>
             ))}
           </AnimatePresence>

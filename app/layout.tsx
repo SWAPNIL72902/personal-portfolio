@@ -39,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="overflow-x-hidden">
-      <body className={`${sora.variable} ${inter.variable} ${jetbrains.variable} font-body bg-[#0B0B0F] text-white antialiased selection:bg-[#D4AF37]/30`}>
+      <body className={`${sora.variable} ${inter.variable} ${jetbrains.variable} font-body bg-bg-main text-text-primary antialiased selection-gold`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

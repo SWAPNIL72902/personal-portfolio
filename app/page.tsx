@@ -10,17 +10,21 @@ import { Skills } from '@/components/skills'
 import { Contact } from '@/components/contact'
 import { Chatbot } from '@/components/chatbot'
 import { Footer } from '@/components/footer'
+import { ProjectSearch } from '@/components/project-search'
 
 export default function Home() {
   return (
-    <div className="bg-[#0a0a0f] min-h-screen text-[#e8e8f0] font-sans selection:bg-[#e8c97a]/20 selection:text-[#e8c97a] overflow-x-hidden antialiased">
+    <div className="bg-bg-main min-h-screen text-text-primary overflow-x-hidden antialiased transition-colors duration-500">
       <Navbar />
-      <Hero />
-      <About />
-      <Experience />
-      <Projects />
-      <Skills />
-      <Contact />
+      <main>
+        <Hero />
+        <ProjectSearch />
+        <About />
+        <Experience />
+        <Projects />
+        <Skills />
+        <Contact />
+      </main>
       <Chatbot />
       <Footer />
     </div>

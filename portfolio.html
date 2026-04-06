@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swapnil Pahari – Product & Analytics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #18181f;
+    --border: rgba(255,255,255,0.07);
+    --accent: #e8c97a;
+    --accent2: #6ee7b7;
+    --accent3: #a78bfa;
+    --text: #e8e8f0;
+    --text-muted: #8888a8;
+    --text-dim: #555570;
+    --card-bg: rgba(255,255,255,0.03);
+    --card-hover: rgba(255,255,255,0.06);
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
+  [data-theme="light"] {
+    --bg: #f4f3ef;
+    --surface: #eeede8;
+    --surface2: #e8e7e1;
+    --border: rgba(0,0,0,0.08);
+    --text: #1a1a2e;
+    --text-muted: #555570;
+    --text-dim: #aaaabc;
+    --card-bg: rgba(0,0,0,0.03);
+    --card-hover: rgba(0,0,0,0.05);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+    height: 60px;
+    transition: background 0.3s;
+  }
+  [data-theme="light"] nav { background: rgba(244,243,239,0.85); }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--text-muted); text-decoration: none; font-size: 0.875rem;
+    font-weight: 500; letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+  .theme-btn {
+    background: none; border: 1px solid var(--border); color: var(--text-muted);
+    width: 36px; height: 36px; border-radius: 8px; cursor: pointer;
+    font-size: 1rem; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .nav-cta {
+    background: var(--accent); color: #0a0a0f; border: none;
+    padding: 0.4rem 1rem; border-radius: 8px; font-size: 0.8rem; font-weight: 600;
+    cursor: pointer; letter-spacing: 0.3px; font-family: 'DM Sans', sans-serif;
+    text-decoration: none; transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* SECTIONS */
+  section { padding: 5rem clamp(1.5rem, 8vw, 8rem); }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    color: var(--text); line-height: 1.2; margin-bottom: 0.75rem;
+  }
+  .section-sub { color: var(--text-muted); font-size: 0.95rem; max-width: 520px; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding-top: 100px;
+    position: relative; overflow: hidden;
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 4rem; align-items: center; width: 100%; max-width: 1100px;
+  }
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+    color: var(--accent2); letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: inline-block; width: 32px; height: 1px; background: var(--accent2);
+  }
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1.05; margin-bottom: 1.25rem;
+    background: linear-gradient(135deg, var(--text) 60%, var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-tagline {
+    font-size: clamp(1rem, 1.5vw, 1.2rem); color: var(--text-muted);
+    max-width: 500px; margin-bottom: 0.75rem; line-height: 1.6;
+  }
+  .hero-sub {
+    font-size: 0.9rem; color: var(--text-dim); max-width: 440px; margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: #0a0a0f;
+    padding: 0.75rem 1.75rem; border-radius: 10px; font-weight: 600;
+    text-decoration: none; font-size: 0.9rem; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; letter-spacing: 0.3px;
+    transition: opacity 0.2s, transform 0.2s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: var(--text);
+    padding: 0.75rem 1.75rem; border-radius: 10px; font-weight: 500;
+    text-decoration: none; font-size: 0.9rem;
+    border: 1px solid var(--border); cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: border-color 0.2s, transform 0.2s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-ghost:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .hero-stat-col {
+    display: flex; flex-direction: column; gap: 1.25rem;
+  }
+  .hero-stat {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem; min-width: 160px;
+    text-align: center;
+  }
+  .hero-stat-num {
+    font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--accent);
+    display: block;
+  }
+  .hero-stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .hero-bg-glow {
+    position: absolute; top: 20%; right: -10%; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(232,201,122,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ABOUT */
+  #about { background: var(--surface); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem; }
+  .about-text p span { color: var(--text); font-weight: 500; }
+  .about-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .pill {
+    background: var(--card-bg); border: 1px solid var(--border);
+    padding: 0.35rem 0.85rem; border-radius: 100px; font-size: 0.78rem;
+    color: var(--text-muted); font-family: 'JetBrains Mono', monospace;
+  }
+  .about-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 2rem;
+  }
+  .about-card h3 {
+    font-family: 'DM Serif Display', serif; font-size: 1.1rem; margin-bottom: 1.25rem;
+    color: var(--text);
+  }
+  .trait { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1rem; }
+  .trait-icon { font-size: 1.1rem; margin-top: 0.1rem; }
+  .trait-text { font-size: 0.875rem; color: var(--text-muted); }
+  .trait-text strong { color: var(--text); display: block; font-size: 0.875rem; }
+
+  /* EDUCATION */
+  .edu-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 2rem 2.5rem;
+    display: flex; align-items: center; gap: 2.5rem;
+    max-width: 800px;
+  }
+  .edu-logo {
+    width: 64px; height: 64px; border-radius: 12px;
+    background: linear-gradient(135deg, #f4a261, #e76f51);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: white;
+    flex-shrink: 0;
+  }
+  .edu-info h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--text); }
+  .edu-info p { color: var(--text-muted); font-size: 0.875rem; margin-top: 0.25rem; }
+  .edu-meta { display: flex; gap: 1rem; margin-top: 0.75rem; flex-wrap: wrap; }
+  .edu-tag {
+    background: rgba(232,201,122,0.1); border: 1px solid rgba(232,201,122,0.2);
+    color: var(--accent); padding: 0.2rem 0.7rem; border-radius: 6px; font-size: 0.78rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* COURSES */
+  #courses { background: var(--surface); }
+  .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+  .course-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .course-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .course-cat {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--accent2); margin-bottom: 0.5rem;
+  }
+  .course-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
+  .course-card p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+  .course-skills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .skill-tag {
+    background: var(--surface2); padding: 0.2rem 0.5rem; border-radius: 4px;
+    font-size: 0.7rem; color: var(--text-dim);
+  }
+
+  /* EXPERIENCE */
+  .exp-container { display: flex; flex-direction: column; gap: 2.5rem; margin-top: 2.5rem; }
+  .exp-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 2.5rem; position: relative; overflow: hidden;
+  }
+  .exp-card.featured { border-color: rgba(232,201,122,0.25); }
+  .exp-card.featured::before {
+    content: 'FEATURED'; position: absolute; top: 1.5rem; right: 1.5rem;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 2px;
+    color: var(--accent); background: rgba(232,201,122,0.1);
+    padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid rgba(232,201,122,0.2);
+  }
+  .exp-header { display: flex; align-items: flex-start; gap: 1.25rem; margin-bottom: 1.5rem; }
+  .exp-logo {
+    width: 48px; height: 48px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1rem; color: white;
+  }
+  .exp-logo.licious { background: linear-gradient(135deg, #e63946, #c1121f); }
+  .exp-logo.nrityatech { background: linear-gradient(135deg, #4361ee, #3a0ca3); }
+  .exp-meta h3 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--text); }
+  .exp-meta p { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .exp-period {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+    color: var(--text-dim); margin-top: 0.3rem;
+  }
+  .exp-overview { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 2rem; line-height: 1.7; }
+  .initiatives { display: flex; flex-direction: column; gap: 1.5rem; }
+  .initiative {
+    background: var(--surface2); border-radius: var(--radius); padding: 1.5rem;
+    border-left: 3px solid var(--accent);
+  }
+  .initiative h4 { font-weight: 600; color: var(--text); margin-bottom: 1rem; font-size: 0.95rem; }
+  .init-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .init-block label {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--accent2); display: block; margin-bottom: 0.35rem;
+  }
+  .init-block p { font-size: 0.82rem; color: var(--text-muted); }
+  .impact-num { color: var(--accent); font-weight: 600; }
+  .exp-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .tool-tag {
+    background: rgba(110,231,183,0.08); border: 1px solid rgba(110,231,183,0.15);
+    color: var(--accent2); padding: 0.25rem 0.7rem; border-radius: 6px;
+    font-size: 0.75rem; font-family: 'JetBrains Mono', monospace;
+  }
+  .view-ppt-btn {
+    margin-top: 1.5rem; display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(232,201,122,0.1); border: 1px solid rgba(232,201,122,0.25);
+    color: var(--accent); padding: 0.5rem 1.25rem; border-radius: 8px;
+    font-size: 0.82rem; font-weight: 500; cursor: pointer; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .view-ppt-btn:hover { background: rgba(232,201,122,0.18); }
+
+  /* PROJECTS */
+  #projects { background: var(--surface); }
+  .proj-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; margin-top: 1rem; }
+  .proj-tab {
+    background: var(--card-bg); border: 1px solid var(--border);
+    color: var(--text-muted); padding: 0.4rem 1rem; border-radius: 8px;
+    font-size: 0.8rem; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .proj-tab.active, .proj-tab:hover {
+    background: rgba(232,201,122,0.1); border-color: rgba(232,201,122,0.3); color: var(--accent);
+  }
+  .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
+  .proj-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 2rem;
+    transition: border-color 0.2s, transform 0.2s;
+    display: flex; flex-direction: column;
+  }
+  .proj-card:hover { border-color: rgba(232,201,122,0.3); transform: translateY(-3px); }
+  .proj-cat-badge {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 4px;
+    display: inline-block; margin-bottom: 1rem; width: fit-content;
+  }
+  .cat-pm { background: rgba(167,139,250,0.1); color: var(--accent3); border: 1px solid rgba(167,139,250,0.2); }
+  .cat-data { background: rgba(110,231,183,0.1); color: var(--accent2); border: 1px solid rgba(110,231,183,0.2); }
+  .cat-tech { background: rgba(232,201,122,0.1); color: var(--accent); border: 1px solid rgba(232,201,122,0.2); }
+  .cat-finance { background: rgba(251,146,60,0.1); color: #fb923c; border: 1px solid rgba(251,146,60,0.2); }
+  .cat-mech { background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.2); }
+  .proj-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--text); margin-bottom: 0.75rem; }
+  .proj-block { margin-bottom: 0.75rem; }
+  .proj-block label {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text-dim); display: block; margin-bottom: 0.25rem;
+  }
+  .proj-block p { font-size: 0.82rem; color: var(--text-muted); }
+  .proj-block .highlight { color: var(--accent); font-weight: 600; }
+  .proj-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; padding-top: 1rem; }
+  .proj-link {
+    margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.4rem;
+    color: var(--accent); font-size: 0.8rem; text-decoration: none; font-weight: 500;
+  }
+  .proj-link:hover { text-decoration: underline; }
+  .proj-card.hidden { display: none; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2.5rem; }
+  .skills-col h3 {
+    font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--text);
+    margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
+  }
+  .skill-row { margin-bottom: 1.1rem; }
+  .skill-row-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; }
+  .skill-name { font-size: 0.85rem; color: var(--text); }
+  .skill-level { font-size: 0.72rem; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
+  .skill-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .skill-fill { height: 100%; border-radius: 2px; transition: width 1s ease; }
+  .fill-product { background: linear-gradient(90deg, var(--accent3), var(--accent)); }
+  .fill-analytics { background: linear-gradient(90deg, var(--accent2), #22d3ee); }
+  .fill-tech { background: linear-gradient(90deg, var(--accent), #fb923c); }
+
+  /* ACHIEVEMENTS */
+  #achievements { background: var(--surface); }
+  .ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 2rem; }
+  .ach-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem; text-align: center;
+  }
+  .ach-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .ach-card h4 { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+  .ach-card p { font-size: 0.78rem; color: var(--text-muted); }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 2.5rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem; text-decoration: none;
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); transform: translateX(4px); }
+  .contact-icon {
+    width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center;
+    justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    background: var(--surface2);
+  }
+  .contact-link-text span { display: block; font-size: 0.78rem; color: var(--text-dim); }
+  .contact-link-text strong { font-size: 0.9rem; color: var(--text); }
+  .contact-cta h3 {
+    font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--text);
+    margin-bottom: 0.75rem; line-height: 1.3;
+  }
+  .contact-cta p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border); padding: 2rem clamp(1.5rem, 8vw, 8rem);
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--text-dim); font-size: 0.78rem;
+  }
+
+  /* CHATBOT */
+  .chat-fab {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 1000;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--accent); color: #0a0a0f;
+    border: none; cursor: pointer; font-size: 1.5rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 24px rgba(232,201,122,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .chat-fab:hover { transform: scale(1.05); box-shadow: 0 6px 32px rgba(232,201,122,0.45); }
+  .chat-window {
+    position: fixed; bottom: 5.5rem; right: 2rem; z-index: 1000;
+    width: 380px; max-height: 520px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); display: flex; flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4); overflow: hidden;
+    transform: scale(0.95) translateY(10px); opacity: 0;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+  }
+  .chat-window.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: all; }
+  .chat-header {
+    background: linear-gradient(135deg, rgba(232,201,122,0.15), rgba(110,231,183,0.1));
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.25rem; display: flex; align-items: center; gap: 0.75rem;
+  }
+  .chat-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--accent); display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: #0a0a0f; font-weight: 700; flex-shrink: 0;
+  }
+  .chat-header-info { flex: 1; }
+  .chat-header-info strong { font-size: 0.9rem; color: var(--text); display: block; }
+  .chat-header-info span { font-size: 0.72rem; color: var(--accent2); }
+  .chat-close {
+    background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 1.1rem;
+    padding: 0.25rem; border-radius: 4px; transition: color 0.2s;
+  }
+  .chat-close:hover { color: var(--text); }
+  .chat-messages {
+    flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-track { background: transparent; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .msg {
+    max-width: 85%; padding: 0.65rem 1rem; border-radius: 12px;
+    font-size: 0.82rem; line-height: 1.55;
+  }
+  .msg.bot {
+    background: var(--card-bg); border: 1px solid var(--border); color: var(--text);
+    align-self: flex-start; border-bottom-left-radius: 4px;
+  }
+  .msg.user {
+    background: var(--accent); color: #0a0a0f; font-weight: 500;
+    align-self: flex-end; border-bottom-right-radius: 4px;
+  }
+  .chat-suggestions {
+    padding: 0.5rem 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem;
+    border-top: 1px solid var(--border); background: var(--surface);
+  }
+  .chat-sug {
+    background: var(--card-bg); border: 1px solid var(--border);
+    color: var(--text-muted); padding: 0.3rem 0.7rem; border-radius: 100px;
+    font-size: 0.72rem; cursor: pointer; transition: all 0.2s;
+  }
+  .chat-sug:hover { border-color: var(--accent); color: var(--accent); }
+  .chat-input-row {
+    padding: 0.75rem 1rem; border-top: 1px solid var(--border);
+    display: flex; gap: 0.5rem;
+  }
+  .chat-input {
+    flex: 1; background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.5rem 0.875rem; color: var(--text);
+    font-size: 0.82rem; font-family: 'DM Sans', sans-serif; outline: none;
+    transition: border-color 0.2s;
+  }
+  .chat-input:focus { border-color: var(--accent); }
+  .chat-send {
+    background: var(--accent); color: #0a0a0f; border: none;
+    border-radius: 8px; width: 36px; height: 36px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; transition: opacity 0.2s;
+  }
+  .chat-send:hover { opacity: 0.85; }
+  .typing { display: flex; align-items: center; gap: 0.25rem; padding: 0.65rem 1rem; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-dim); animation: bounce 1.2s infinite; }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-stat-col { flex-direction: row; }
+    .about-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .init-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .chat-window { width: calc(100vw - 2rem); right: 1rem; bottom: 5rem; }
+    .edu-card { flex-direction: column; gap: 1rem; }
+  }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SP</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-btn" id="themeBtn" title="Toggle theme">🌙</button>
+    <a href="https://www.linkedin.com/in/swapnil-pahari" target="_blank" class="nav-cta">Let's Connect</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-glow"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">Product · Analytics · Strategy</div>
+      <h1 class="hero-name">Swapnil<br>Pahari</h1>
+      <p class="hero-tagline">I identify problems, dig into data, and build solutions that drive real impact.</p>
+      <p class="hero-sub">Final-year student at BITS Pilani Hyderabad, working at the intersection of product, analytics, and systems thinking. Open to PM, analytics, and program management roles.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-primary">View Projects ↓</a>
+        <a href="#contact" class="btn-ghost">Contact Me</a>
+        <a href="https://github.com/SWAPNIL72902" target="_blank" class="btn-ghost">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="hero-stat-col">
+      <div class="hero-stat">
+        <span class="hero-stat-num">15+</span>
+        <span class="hero-stat-label">Real-world Projects</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">7+</span>
+        <span class="hero-stat-label">Cities — Licious Impact</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">82%</span>
+        <span class="hero-stat-label">ML Model Accuracy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="fade-up">
+    <div class="section-label">// about me</div>
+    <h2 class="section-title">A problem-solver at heart</h2>
+  </div>
+  <div class="about-grid fade-up" style="margin-top:2.5rem;">
+    <div class="about-text">
+      <p>I'm a <span>Mechanical Engineering student with a Finance minor</span> at BITS Pilani Hyderabad — but my real passion sits at the intersection of product thinking and data-driven decision-making.</p>
+      <p>At Licious, I built analytics systems from scratch — automating reporting pipelines, enabling real-time city-level insights, and driving decisions across 7+ cities. That experience taught me how to operate in ambiguity, move fast, and tie every action back to business impact.</p>
+      <p>I enjoy working on problems where <span>data meets product strategy</span> — whether it's designing a feature to reduce cart abandonment or building a financial risk model from a 4.5-year dataset.</p>
+      <p>I'm always open to discussing ideas, products, or interesting problems. If you're building something ambitious — I'd love to hear about it.</p>
+      <div class="about-pills">
+        <span class="pill">Product Thinking</span>
+        <span class="pill">Data Analytics</span>
+        <span class="pill">Systems Design</span>
+        <span class="pill">Stakeholder Mgmt</span>
+        <span class="pill">Financial Modeling</span>
+        <span class="pill">Automation</span>
+      </div>
+    </div>
+    <div class="about-card">
+      <h3>How I work</h3>
+      <div class="trait">
+        <div class="trait-icon">🎯</div>
+        <div class="trait-text">
+          <strong>Problem-first thinking</strong>
+          I start with the problem, not the solution. Every project begins with "what's actually broken here?"
+        </div>
+      </div>
+      <div class="trait">
+        <div class="trait-icon">📊</div>
+        <div class="trait-text">
+          <strong>Data-driven decisions</strong>
+          Gut feel is a starting point — data is the validator. I build dashboards and models before drawing conclusions.
+        </div>
+      </div>
+      <div class="trait">
+        <div class="trait-icon">⚡</div>
+        <div class="trait-text">
+          <strong>Bias for action</strong>
+          I'd rather ship a working V1 and iterate than wait for perfect conditions.
+        </div>
+      </div>
+      <div class="trait">
+        <div class="trait-icon">🤝</div>
+        <div class="trait-text">
+          <strong>Cross-functional mindset</strong>
+          I thrive bridging data teams, ops, and leadership — translating insights into action.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="fade-up">
+    <div class="section-label">// education</div>
+    <h2 class="section-title">Academic Foundation</h2>
+  </div>
+  <div class="edu-card fade-up" style="margin-top:2rem;">
+    <div class="edu-logo">B</div>
+    <div class="edu-info">
+      <h3>BITS Pilani, Hyderabad Campus</h3>
+      <p>B.E. Mechanical Engineering · Minor in Finance</p>
+      <div class="edu-meta">
+        <span class="edu-tag">2022 – 2026</span>
+        <span class="edu-tag">Hyderabad, India</span>
+        <span class="edu-tag">Mechanical + Finance Minor</span>
+      </div>
+      <p style="margin-top:0.75rem; font-size:0.82rem; color:var(--text-muted);">Strong exposure to engineering systems, financial modeling, and quantitative analysis — forming the backbone of my product and analytics thinking.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="fade-up">
+    <div class="section-label">// relevant coursework</div>
+    <h2 class="section-title">Courses & Certifications</h2>
+    <p class="section-sub">Academic and self-learning building blocks that directly shape how I solve problems.</p>
+  </div>
+  <div class="courses-grid fade-up">
+    <div class="course-card">
+      <div class="course-cat">Product Management</div>
+      <h4>NextLeap PM Fellowship</h4>
+      <p>Intensive PM training covering product strategy, user research, roadmapping, and PRD writing with real case studies.</p>
+      <div class="course-skills"><span class="skill-tag">PRD Writing</span><span class="skill-tag">Roadmapping</span><span class="skill-tag">User Research</span></div>
+    </div>
+    <div class="course-card">
+      <div class="course-cat">Finance</div>
+      <h4>Bloomberg Market Concepts (BMC)</h4>
+      <p>Bloomberg's professional certification covering economics, currencies, fixed income, and equities fundamentals.</p>
+      <div class="course-skills"><span class="skill-tag">Equities</span><span class="skill-tag">Fixed Income</span><span class="skill-tag">Bloomberg Terminal</span></div>
+    </div>
+    <div class="course-card">
+      <div class="course-cat">Finance Minor</div>
+      <h4>Security Analysis & Portfolio Mgmt (SAPM)</h4>
+      <p>Portfolio optimization, risk modeling, and asset allocation using CAPM, ARIMA, GARCH frameworks.</p>
+      <div class="course-skills"><span class="skill-tag">CAPM</span><span class="skill-tag">ARIMA</span><span class="skill-tag">VaR</span><span class="skill-tag">Python</span></div>
+    </div>
+    <div class="course-card">
+      <div class="course-cat">Finance Minor</div>
+      <h4>Fundamentals of Financial Analysis (FOFA)</h4>
+      <p>Financial ratio analysis, liquidity, profitability, and leverage metrics across multi-company datasets.</p>
+      <div class="course-skills"><span class="skill-tag">Ratio Analysis</span><span class="skill-tag">Financial Modeling</span><span class="skill-tag">Excel</span></div>
+    </div>
+    <div class="course-card">
+      <div class="course-cat">Finance Minor</div>
+      <h4>Derivatives & Options Trading</h4>
+      <p>Option strategies (Bull Call Spread, Iron Condor, Short Strangle) with fundamental + technical analysis.</p>
+      <div class="course-skills"><span class="skill-tag">Options</span><span class="skill-tag">Technical Analysis</span><span class="skill-tag">Risk Management</span></div>
+    </div>
+    <div class="course-card">
+      <div class="course-cat">Mechanical Engineering</div>
+      <h4>Manufacturing & Design Processes</h4>
+      <p>End-to-end product design and fabrication — from CAD modeling to CNC machining and assembly.</p>
+      <div class="course-skills"><span class="skill-tag">CAD</span><span class="skill-tag">Design Thinking</span><span class="skill-tag">Systems</span></div>
+    </div>
+    <div class="course-card">
+      <div class="course-cat">HSS / Economics</div>
+      <h4>Principles of Economics</h4>
+      <p>Macro and micro-economic theory applied to business and market decision-making frameworks.</p>
+      <div class="course-skills"><span class="skill-tag">Economics</span><span class="skill-tag">Market Analysis</span></div>
+    </div>
+    <div class="course-card">
+      <div class="course-cat">Corporate Finance</div>
+      <h4>WACC & Capital Structure Analysis</h4>
+      <p>Calculated WACC using top-down and bottom-up approaches for L&T over a 5-year period (FY19–FY24).</p>
+      <div class="course-skills"><span class="skill-tag">WACC</span><span class="skill-tag">Valuation</span><span class="skill-tag">Corporate Finance</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="fade-up">
+    <div class="section-label">// work experience</div>
+    <h2 class="section-title">Where I've delivered impact</h2>
+  </div>
+  <div class="exp-container">
+
+    <!-- LICIOUS -->
+    <div class="exp-card featured fade-up">
+      <div class="exp-header">
+        <div class="exp-logo licious">L</div>
+        <div class="exp-meta">
+          <h3>Licious</h3>
+          <p>Program Management & Data Analytics Intern · City Business Team</p>
+          <div class="exp-period">Jul 2025 – Dec 2025</div>
+        </div>
+      </div>
+      <p class="exp-overview">Drove data-backed decision-making at Licious by building scalable analytics systems, automating reporting pipelines, and enabling real-time business insights across 7+ cities. Worked at the intersection of program management and analytics — bridging BA, Ops, and City leadership teams to improve execution speed and data visibility.</p>
+
+      <div class="initiatives">
+        <div class="initiative">
+          <h4>📊 Analytics Automation & Dashboard Infrastructure</h4>
+          <div class="init-grid">
+            <div class="init-block">
+              <label>Problem</label>
+              <p>No structured metric tracking at key ID (3×3 level); manual reporting consumed significant team bandwidth every week.</p>
+            </div>
+            <div class="init-block">
+              <label>Action</label>
+              <p>Built automated weekly/monthly scripts, toggle-based dashboards for granular RCA, and semi-automated pipelines with Google Sheets integration.</p>
+            </div>
+            <div class="init-block">
+              <label>Impact</label>
+              <p><span class="impact-num">7+ cities</span> now have real-time data visibility. Significantly reduced manual reporting effort across the BA team.</p>
+            </div>
+            <div class="init-block">
+              <label>Analysis</label>
+              <p>Custom SQL/Python queries built for coupon analysis, lapsed users tracking, and unique transactor identification.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="initiative">
+          <h4>🌐 Web Scraping & Data Independence Project</h4>
+          <div class="init-grid">
+            <div class="init-block">
+              <label>Problem</label>
+              <p>City teams were dependent on the Analytics team for city-wise society data, causing delays in local decision-making.</p>
+            </div>
+            <div class="init-block">
+              <label>Action</label>
+              <p>Built an independent web scraping solution to extract city-level society data, reducing cross-team dependency.</p>
+            </div>
+            <div class="init-block">
+              <label>Impact</label>
+              <p>Reduced turnaround time for city-level decision execution. Improved <span class="impact-num">data independence</span> for City Delivery Managers (CDMs).</p>
+            </div>
+            <div class="init-block">
+              <label>Tools</label>
+              <p>Python (BeautifulSoup/Selenium), Google Sheets, SQL</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="initiative">
+          <h4>📈 NPI Analysis & PUJO Campaign Measurement</h4>
+          <div class="init-grid">
+            <div class="init-block">
+              <label>Problem</label>
+              <p>New initiatives (newspaper inserts, campaigns) lacked structured measurement frameworks for validating business impact.</p>
+            </div>
+            <div class="init-block">
+              <label>Action</label>
+              <p>Conducted Test vs Control analysis for NPI; built growth visuals and impact dashboards for PUJO campaign across cities and categories.</p>
+            </div>
+            <div class="init-block">
+              <label>Impact</label>
+              <p>Enabled <span class="impact-num">data-backed validation</span> of new initiatives. Identified city-wise campaign effectiveness variations, informing future marketing investments.</p>
+            </div>
+            <div class="init-block">
+              <label>Stakeholders</label>
+              <p>City Heads (CHs), City Delivery Managers (CDMs), BA Team, Ops Leadership</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="initiative">
+          <h4>🧠 Program Management & Leadership Reporting</h4>
+          <div class="init-grid">
+            <div class="init-block">
+              <label>Problem</label>
+              <p>Siloed execution across BA → Ops → City teams led to misaligned priorities and slow decision-making.</p>
+            </div>
+            <div class="init-block">
+              <label>Action</label>
+              <p>Built centralized OKR tracking sheets, led weekly cross-functional calls with MoMs, reported validated KPIs in leadership meetings. Conducted 2-hour Data Immersion session — now standardized for onboarding.</p>
+            </div>
+            <div class="init-block">
+              <label>Impact</label>
+              <p>Reported across <span class="impact-num">top 7 cities</span> in leadership meetings. Data Immersion session became a <span class="impact-num">standardized onboarding program</span> for new joiners.</p>
+            </div>
+            <div class="init-block">
+              <label>Society Tracker</label>
+              <p>Designed micro-level tracker for Orders, Transactors, New Transactors at society level — enabling granular BTL activation strategies.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-tools">
+        <span class="tool-tag">SQL</span>
+        <span class="tool-tag">Python</span>
+        <span class="tool-tag">Google Sheets</span>
+        <span class="tool-tag">Apps Script</span>
+        <span class="tool-tag">Excel</span>
+        <span class="tool-tag">Web Scraping</span>
+        <span class="tool-tag">Dashboard Design</span>
+        <span class="tool-tag">Stakeholder Mgmt</span>
+      </div>
+      <a href="#" class="view-ppt-btn">📊 View Internship PPT (Placeholder)</a>
+    </div>
+
+    <!-- NRITYATECH -->
+    <div class="exp-card fade-up">
+      <div class="exp-header">
+        <div class="exp-logo nrityatech">N</div>
+        <div class="exp-meta">
+          <h3>NrityaTech</h3>
+          <p>Backend Developer Intern</p>
+          <div class="exp-period">Prior Experience</div>
+        </div>
+      </div>
+      <p class="exp-overview">Worked on backend development and API infrastructure, contributing to performance improvements and system scalability. Gained hands-on experience in building production-grade APIs and working with database systems.</p>
+      <div class="exp-tools">
+        <span class="tool-tag">Django</span>
+        <span class="tool-tag">REST APIs</span>
+        <span class="tool-tag">MySQL</span>
+        <span class="tool-tag">Python</span>
+        <span class="tool-tag">Backend Development</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="fade-up">
+    <div class="section-label">// projects</div>
+    <h2 class="section-title">Case Studies & Builds</h2>
+    <p class="section-sub">15+ projects across product, analytics, finance, and engineering. Each one taught me something new about how to solve real problems.</p>
+  </div>
+  <div class="proj-tabs fade-up">
+    <button class="proj-tab active" data-filter="all">All</button>
+    <button class="proj-tab" data-filter="pm">Product Management</button>
+    <button class="proj-tab" data-filter="data">Data & Analytics</button>
+    <button class="proj-tab" data-filter="tech">Tech</button>
+    <button class="proj-tab" data-filter="finance">Finance</button>
+    <button class="proj-tab" data-filter="mech">Engineering</button>
+  </div>
+  <div class="proj-grid fade-up" id="projGrid">
+
+    <!-- STOCK PREDICTOR -->
+    <div class="proj-card" data-cat="tech">
+      <span class="proj-cat-badge cat-tech">Tech / Data Science</span>
+      <h3>AI Stock Intelligence Dashboard</h3>
+      <div class="proj-block">
+        <label>Problem</label>
+        <p>Retail investors lack a unified, AI-powered view of stock movement — data, predictions, and sentiment are scattered across platforms.</p>
+      </div>
+      <div class="proj-block">
+        <label>Solution</label>
+        <p>Built a real-time analytics platform combining market data, AI-based predictions, news sentiment signals, and interactive visualizations — all in one dark fintech-style dashboard.</p>
+      </div>
+      <div class="proj-block">
+        <label>Impact</label>
+        <p><span class="highlight">Live UP/DOWN predictions</span> with confidence scores · 30-day price trends · Auto-refresh every 60s · Full glassmorphism UI</p>
+      </div>
+      <div class="proj-tools">
+        <span class="skill-tag">Next.js</span><span class="skill-tag">AI/ML</span><span class="skill-tag">Data Viz</span><span class="skill-tag">Real-time APIs</span>
+      </div>
+      <a href="https://stock-predictor-beige.vercel.app/" target="_blank" class="proj-link">↗ Live Demo</a>
+    </div>
+
+    <!-- FOODSWIFT -->
+    <div class="proj-card" data-cat="pm">
+      <span class="proj-cat-badge cat-pm">Product Management</span>
+      <h3>FoodSwift – Restaurant Reliability PM Case Study</h3>
+      <div class="proj-block">
+        <label>Problem</label>
+        <p>Orders/user dropped from 3.2 → 2.8 and NPS fell from 42 → 35 across a 50K-restaurant, 2M MAU platform.</p>
+      </div>
+      <div class="proj-block">
+        <label>Insight</label>
+        <p>Root cause: <span class="highlight">39.6% failures from inventory issues</span>, peak-hour capacity drops (~81.6% success at lunch), and underperforming partners (~69% success rate).</p>
+      </div>
+      <div class="proj-block">
+        <label>Solution</label>
+        <p>Designed 3 core systems: real-time inventory sync, capacity throttling, and a demand forecasting dashboard. Built phased rollout strategy.</p>
+      </div>
+      <div class="proj-tools"><span class="skill-tag">PRD</span><span class="skill-tag">User Research</span><span class="skill-tag">Metrics Design</span></div>
+    </div>
+
+    <!-- INSTAGRAM -->
+    <div class="proj-card" data-cat="pm">
+      <span class="proj-cat-badge cat-pm">Product Management</span>
+      <h3>Instagram Reels – Content Personalization Strategy</h3>
+      <div class="proj-block">
+        <label>Problem</label>
+        <p>12% drop in watch time for 50M users in India due to algorithm stagnation and lack of intent signals.</p>
+      </div>
+      <div class="proj-block">
+        <label>Solution</label>
+        <p>Proposed "Content Mood Selector" feature (Laugh / Learn / Relax) capturing user intent before feed loads.</p>
+      </div>
+      <div class="proj-block">
+        <label>Impact</label>
+        <p><span class="highlight">+4.5 min/session</span> projected increase · <span class="highlight">₹350 Cr/year</span> estimated ad revenue uplift · RICE score of ~23M</p>
+      </div>
+      <div class="proj-tools"><span class="skill-tag">RICE Framework</span><span class="skill-tag">KPI Design</span><span class="skill-tag">A/B Testing</span></div>
+    </div>
+
+    <!-- SKILLSYNC -->
+    <div class="proj-card" data-cat="pm">
+      <span class="proj-cat-badge cat-pm">Product Management · 0→1</span>
+      <h3>SkillSync – AI-Powered Learning Path Product</h3>
+      <div class="proj-block">
+        <label>Problem</label>
+        <p>68% young professionals feel stuck on "what to learn next." 55% waste money on wrong courses. 72% lack structured guidance.</p>
+      </div>
+      <div class="proj-block">
+        <label>Solution</label>
+        <p>End-to-end 0→1 product: Onboarding → AI Skill Gap Analysis → Personalized Roadmap → Progress Tracking. Targeting <span class="highlight">$28.4B India edtech market</span>.</p>
+      </div>
+      <div class="proj-block">
+        <label>Process</label>
+        <p>38 survey responses + interviews · RICE prioritization (MVP score: 135) · Full GTM strategy defined</p>
+      </div>
+      <div class="proj-tools"><span class="skill-tag">Primary Research</span><span class="skill-tag">RICE</span><span class="skill-tag">GTM Strategy</span><span class="skill-tag">AI Product</span></div>
+    </div>
+
+    <!-- GNANI AI -->
+    <div class="proj-card" data-cat="pm">
+      <span class="proj-cat-badge cat-pm">Product Management · AI</span>
+      <h3>Gnani AI – Reverse Logistics Verification System</h3>
+      <div class="proj-block">
+        <label>Problem</label>
+        <p>Unverified pickup failures causing high refund delays and inflated logistics costs in reverse logistics operations.</p>
+      </div>
+      <div class="proj-block">
+        <label>Solution</label>
+        <p>Designed AI-powered call verification flow (pre-pickup, during, post-failure) creating an AI "truth layer" for logistics accountability. Scalable to <span class="highlight">100K+ daily calls</span>.</p>
+      </div>
+      <div class="proj-block">
+        <label>Impact</label>
+        <p><span class="highlight">30–40% cost reduction</span> · <span class="highlight">50–60% fewer repeat attempts</span> projected</p>
+      </div>
+      <div class="proj-tools"><span class="skill-tag">Conversational AI</span><span class="skill-tag">System Design</span><span class="skill-tag">Logistics</span></div>
+    </div>
+
+    <!-- MEESHO -->
+    <div class="proj-card" data-cat="pm">
+      <span class="proj-cat-badge cat-pm">Product Management</span>
+      <h3>Meesho – Cart Abandonment Reduction Case Study</h3>
+      <div class="proj-block">
+        <label>Problem</label>
+        <p>Conversion rate at 45% — 15 points below industry benchmark (60%). Root cause: reseller uncertainty around returns, margins, and delivery reliability.</p>
+      </div>
+      <div class="proj-block">
+        <label>Solution</label>
+        <p>Designed "Reseller Confidence Bar" showing returns policy, margin clarity, and delivery commitment inline on product pages.</p>
+      </div>
+      <div class="proj-block">
+        <label>Impact</label>
+        <p><span class="highlight">45% → 49.5%</span> projected conversion lift · <span class="highlight">500K additional monthly orders</span></p>
+      </div>
+      <div class="proj-tools"><span class="skill-tag">Funnel Analysis</span><span class="skill-tag">UX Research</span><span class="skill-tag">Roadmapping</span></div>
+    </div>
+
+    <!-- HEALTHCARE ML -->
+    <div class="proj-card" data-cat="data">
+      <span class="proj-cat-badge cat-data">Data Science</span>
+      <h3>Predictive Healthcare Analytics – Patient Readmission ML</h3>
+      <div class="proj-block">
+        <label>Problem</label>
+        <p>Hospitals lack early warning systems for patient readmission risk, leading to reactive (vs. preventive) care.</p>
+      </div>
+      <div class="proj-block">
+        <label>Approach</label>
+        <p>EDA on <span class="highlight">10,000+ patient records</span>, engineered features (length of stay, age segmentation, disease categories), reducing noise by ~20%.</p>
+      </div>
+      <div class="proj-block">
+        <label>Impact</label>
+        <p><span class="highlight">~82% prediction accuracy</span> via Decision Tree & Logistic Regression · 30% improvement in data understanding for downstream modeling</p>
+      </div>
+      <div class="proj-tools"><span class="skill-tag">Python</span><span class="skill-tag">Scikit-learn</span><span class="skill-tag">EDA</span><span class="skill-tag">Feature Engineering</span></div>
+    </div>
+
+    <!-- EDTECH DASHBOARD -->
+    <div class="proj-card" data-cat="data">
+      <span class="proj-cat-badge cat-data">Data Analytics</span>
+      <h3>EdTech Lecture Engagement Dashboard</h3>
+      <div class="proj-block">
+        <label>Problem</label>
+        <p>EdTech platform lacked visibility into what drives course engagement — no structured analytics on content performance.</p>
+      </div>
+      <div class="proj-block">
+        <label>Solution</label>
+        <p>Interactive Power BI dashboard analyzing <span class="highlight">1,000+ course records</span> — tracking views, engagement rates, and skill demand trends.</p>
+      </div>
+      <div class="proj-block">
+        <label>Impact</label>
+        <p><span class="highlight">25% improvement</span> in content strategy insights · Enabled targeted recommendations for <span class="highlight">top 10% instructors</span></p>
+      </div>
+      <div class="proj-tools"><span class="skill-tag">Power BI</span><span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">Pandas</span></div>
+    </div>
+
+    <!-- ECOMMERCE SALES -->
+    <div class="proj-card" data-cat="data">
+      <span class="proj-cat-badge cat-data">Business Analytics</span>
+      <h3>E-commerce Sales Performance Dashboard</h3>
+      <div class="proj-block">
+        <label>Problem</label>
+        <p>No unified view of sales performance across regions — decisions made without clear AOV, revenue, or conversion trend visibility.</p>
+      </div>
+      <div class="proj-block">
+        <label>Solution</label>
+        <p>Built interactive dashboard analyzing <span class="highlight">5,000+ transactions</span> with dynamic KPI filters (AOV, revenue growth, conversion trends) and geo-map visualizations.</p>
+      </div>
+      <div class="proj-block">
+        <label>Impact</label>
+        <p><span class="highlight">35% improvement</span> in decision-making efficiency · Identified top regions contributing <span class="highlight">~40% of total sales</span></p>
+      </div>
+      <div class="proj-tools"><span class="skill-tag">Power BI</span><span class="skill-tag">Excel</span><span class="skill-tag">SQL</span></div>
+    </div>
+
+    <!-- FINANCIAL RISK -->
+    <div class="proj-card" data-cat="finance">
+      <span class="proj-cat-badge cat-finance">Finance · Quantitative</span>
+      <h3>Financial Risk Analytics – CAPM + ARIMA + GARCH + VaR</h3>
+      <div class="proj-block">
+        <label>Scope</label>
+        <p>4 companies (EKC, EMAMILTD, ENGINERSIN, ESABINDIA) · 4.5-year dataset (Apr 2020 – Sep 2024) · 1,000+ daily data points</p>
+      </div>
+      <div class="proj-block">
+        <label>Solution</label>
+        <p>Built 4 predictive models (CAPM for beta estimation, ARIMA for time-series forecasting, GARCH/EGARCH for volatility) + Python-based VaR computation.</p>
+      </div>
+      <div class="proj-block">
+        <label>Impact</label>
+        <p>Quantified <span class="highlight">downside risk via VaR</span> · Delivered market risk exposure (beta) insights · Identified volatility clustering patterns</p>
+      </div>
+      <div class="proj-tools"><span class="skill-tag">Python</span><span class="skill-tag">CAPM</span><span class="skill-tag">ARIMA</span><span class="skill-tag">GARCH</span><span class="skill-tag">VaR</span></div>
+    </div>
+
+    <!-- PORTFOLIO OPTIMIZATION -->
+    <div class="proj-card" data-cat="finance">
+      <span class="proj-cat-badge cat-finance">Finance · Portfolio</span>
+      <h3>Portfolio Optimization & Asset Allocation (SAPM)</h3>
+      <div class="proj-block">
+        <label>Scope</label>
+        <p>8+ assets across domestic & international markets including equities, Microsoft stock, and Ethereum (crypto).</p>
+      </div>
+      <div class="proj-block">
+        <label>Solution</label>
+        <p>Minimum Variance Portfolio and Tangency Portfolio optimization. Built correlation matrix for diversification efficiency analysis.</p>
+      </div>
+      <div class="proj-block">
+        <label>Impact</label>
+        <p><span class="highlight">Higher Sharpe Ratio</span> vs benchmark · <span class="highlight">Reduced portfolio risk</span> via minimum variance optimization</p>
+      </div>
+      <div class="proj-tools"><span class="skill-tag">Python</span><span class="skill-tag">Portfolio Theory</span><span class="skill-tag">Sharpe Ratio</span><span class="skill-tag">SAPM</span></div>
+    </div>
+
+    <!-- APPLE SUPPLY CHAIN -->
+    <div class="proj-card" data-cat="mech">
+      <span class="proj-cat-badge cat-mech">Engineering · Strategy</span>
+      <h3>Apple Supply Chain Management – Case Study</h3>
+      <div class="proj-block">
+        <label>Scope</label>
+        <p>50+ countries · 200+ suppliers · 3M+ workforce — deep-dive on operational efficiency, vertical integration, and sustainability.</p>
+      </div>
+      <div class="proj-block">
+        <label>Key Findings</label>
+        <p><span class="highlight">5-day inventory turnover</span> vs industry avg ~18 days · <span class="highlight">90% forecast accuracy</span> via AI-driven ops · <span class="highlight">30% reduction in excess inventory</span></p>
+      </div>
+      <div class="proj-block">
+        <label>Insight</label>
+        <p>Vertical integration of chips, hardware, and software is Apple's core moat. Sustainability impact: <span class="highlight">55% emissions reduction since 2015</span>.</p>
+      </div>
+      <div class="proj-tools"><span class="skill-tag">Supply Chain</span><span class="skill-tag">Operations</span><span class="skill-tag">Strategy</span><span class="skill-tag">Case Study</span></div>
+    </div>
+
+    <!-- EPICYCLIC GEARBOX -->
+    <div class="proj-card" data-cat="mech">
+      <span class="proj-cat-badge cat-mech">Mechanical Engineering</span>
+      <h3>Epicyclic Gearbox Design & Fabrication</h3>
+      <div class="proj-block">
+        <label>Project</label>
+        <p>Designed and fabricated a 3-planet epicyclic gearbox from scratch — CAD modeling through CNC machining and assembly.</p>
+      </div>
+      <div class="proj-block">
+        <label>Execution</label>
+        <p>Material selection (acrylic, mild steel, aluminum) → CNC machining → gear cutting → lathe operations → testing. Built BoM with cost optimization.</p>
+      </div>
+      <div class="proj-block">
+        <label>Learnings</label>
+        <p>End-to-end project lifecycle management · Real-world manufacturing tolerances · Systems thinking applied to physical products</p>
+      </div>
+      <div class="proj-tools"><span class="skill-tag">CAD</span><span class="skill-tag">CNC</span><span class="skill-tag">Manufacturing</span><span class="skill-tag">Systems Design</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="fade-up">
+    <div class="section-label">// skills</div>
+    <h2 class="section-title">What I bring to the table</h2>
+  </div>
+  <div class="skills-grid fade-up">
+    <div class="skills-col">
+      <h3>🎯 Product Management</h3>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">PRD Writing</span><span class="skill-level">Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-product" style="width:85%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">Roadmapping</span><span class="skill-level">Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-product" style="width:80%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">User Research</span><span class="skill-level">Intermediate</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-product" style="width:75%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">RICE / Prioritization</span><span class="skill-level">Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-product" style="width:82%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">Funnel Analysis</span><span class="skill-level">Intermediate</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-product" style="width:70%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">Stakeholder Management</span><span class="skill-level">Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-product" style="width:88%"></div></div>
+      </div>
+    </div>
+    <div class="skills-col">
+      <h3>📊 Analytics</h3>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">SQL</span><span class="skill-level">Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-analytics" style="width:85%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">Python (Pandas, NumPy)</span><span class="skill-level">Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-analytics" style="width:82%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">Power BI</span><span class="skill-level">Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-analytics" style="width:80%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">Excel / Google Sheets</span><span class="skill-level">Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-analytics" style="width:90%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">Data Storytelling</span><span class="skill-level">Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-analytics" style="width:85%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">Financial Modeling</span><span class="skill-level">Intermediate</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-analytics" style="width:72%"></div></div>
+      </div>
+    </div>
+    <div class="skills-col">
+      <h3>⚙️ Technical</h3>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">Django / REST APIs</span><span class="skill-level">Intermediate</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-tech" style="width:70%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">MySQL</span><span class="skill-level">Intermediate</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-tech" style="width:72%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">Web Scraping</span><span class="skill-level">Intermediate</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-tech" style="width:68%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">Google Apps Script</span><span class="skill-level">Intermediate</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-tech" style="width:65%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">Machine Learning</span><span class="skill-level">Intermediate</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-tech" style="width:68%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-top"><span class="skill-name">Next.js / Frontend</span><span class="skill-level">Beginner</span></div>
+        <div class="skill-bar"><div class="skill-fill fill-tech" style="width:45%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="fade-up">
+    <div class="section-label">// achievements</div>
+    <h2 class="section-title">Certifications & Recognition</h2>
+  </div>
+  <div class="ach-grid fade-up">
+    <div class="ach-card">
+      <div class="ach-icon">🏆</div>
+      <h4>NextLeap PM Fellowship</h4>
+      <p>Intensive Product Management training with real case studies and mentorship</p>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">📈</div>
+      <h4>Bloomberg Market Concepts</h4>
+      <p>Professional certification in financial markets, economics, and investment fundamentals</p>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">🎓</div>
+      <h4>BITS Pilani – Finance Minor</h4>
+      <p>Rigorous coursework in corporate finance, portfolio theory, and derivatives</p>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">🚀</div>
+      <h4>15+ Real-world Projects</h4>
+      <p>Across product, data, finance, and engineering domains with documented impact</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="fade-up">
+    <div class="section-label">// contact</div>
+    <h2 class="section-title">Let's build something</h2>
+  </div>
+  <div class="contact-grid fade-up">
+    <div class="contact-cta">
+      <h3>Open to PM, Analytics & Program Management roles</h3>
+      <p>If you're looking for someone who can bridge data and product thinking, build systems that scale, and drive real business impact — I'd love to connect. I'm also always up for an interesting conversation about products or ideas.</p>
+      <a href="mailto:swapnilpahari05@gmail.com" class="btn-primary">📧 Send me an email</a>
+    </div>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/swapnil-pahari" target="_blank" class="contact-link">
+        <div class="contact-icon">💼</div>
+        <div class="contact-link-text">
+          <span>Connect on</span>
+          <strong>LinkedIn</strong>
+        </div>
+      </a>
+      <a href="https://github.com/SWAPNIL72902" target="_blank" class="contact-link">
+        <div class="contact-icon">🐙</div>
+        <div class="contact-link-text">
+          <span>Code on</span>
+          <strong>GitHub</strong>
+        </div>
+      </a>
+      <a href="https://stock-predictor-beige.vercel.app/" target="_blank" class="contact-link">
+        <div class="contact-icon">📈</div>
+        <div class="contact-link-text">
+          <span>View live project</span>
+          <strong>Stock Predictor</strong>
+        </div>
+      </a>
+      <a href="mailto:swapnilpahari05@gmail.com" class="contact-link">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-link-text">
+          <span>Email me at</span>
+          <strong>swapnilpahari05@gmail.com</strong>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Swapnil Pahari · BITS Pilani</span>
+  <span style="font-family:'JetBrains Mono',monospace;">Built with ❤️ + data</span>
+</footer>
+
+<!-- AI CHATBOT -->
+<button class="chat-fab" id="chatFab" title="Ask Swapnil AI">💬</button>
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-avatar">S</div>
+    <div class="chat-header-info">
+      <strong>Ask Swapnil AI</strong>
+      <span>● Online — ask me anything</span>
+    </div>
+    <button class="chat-close" id="chatClose">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="msg bot">Hey! I'm Swapnil's AI assistant. I can tell you about his projects, work at Licious, skills, and career goals. What would you like to know? 👋</div>
+  </div>
+  <div class="chat-suggestions">
+    <button class="chat-sug" data-q="Tell me about yourself">About Swapnil</button>
+    <button class="chat-sug" data-q="What did you do at Licious?">Licious work</button>
+    <button class="chat-sug" data-q="What are your best projects?">Top projects</button>
+    <button class="chat-sug" data-q="What are your strengths?">Strengths</button>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chatInput" type="text" placeholder="Ask anything about Swapnil..." />
+    <button class="chat-send" id="chatSend">→</button>
+  </div>
+</div>
+
+<script>
+// THEME TOGGLE
+const themeBtn = document.getElementById('themeBtn');
+let isDark = true;
+themeBtn.addEventListener('click', () => {
+  isDark = !isDark;
+  document.body.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  themeBtn.textContent = isDark ? '🌙' : '☀️';
+});
+
+// PROJECT FILTER
+const tabs = document.querySelectorAll('.proj-tab');
+const cards = document.querySelectorAll('.proj-card');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const filter = tab.dataset.filter;
+    cards.forEach(card => {
+      if (filter === 'all' || card.dataset.cat === filter) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+});
+
+// SCROLL ANIMATIONS
+const fadeEls = document.querySelectorAll('.fade-up');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(el => {
+    if (el.isIntersecting) el.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+fadeEls.forEach(el => observer.observe(el));
+
+// CHATBOT
+const chatFab = document.getElementById('chatFab');
+const chatWindow = document.getElementById('chatWindow');
+const chatClose = document.getElementById('chatClose');
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+const chatSend = document.getElementById('chatSend');
+const chatSugs = document.querySelectorAll('.chat-sug');
+
+chatFab.addEventListener('click', () => chatWindow.classList.toggle('open'));
+chatClose.addEventListener('click', () => chatWindow.classList.remove('open'));
+chatSugs.forEach(s => s.addEventListener('click', () => sendMessage(s.dataset.q)));
+chatSend.addEventListener('click', () => sendMessage(chatInput.value));
+chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(chatInput.value); });
+
+function addMsg(text, type) {
+  const div = document.createElement('div');
+  div.className = `msg ${type}`;
+  div.textContent = text;
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  return div;
+}
+
+function showTyping() {
+  const div = document.createElement('div');
+  div.className = 'msg bot typing';
+  div.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+  div.id = 'typing-indicator';
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function removeTyping() {
+  const el = document.getElementById('typing-indicator');
+  if (el) el.remove();
+}
+
+const SYSTEM_PROMPT = `You are an AI assistant for Swapnil Pahari's portfolio website. You answer questions about Swapnil in a human, concise, and structured way. You are analytical but approachable. Never hallucinate or make up facts.
+
+KEY FACTS ABOUT SWAPNIL:
+- Final-year B.E. Mechanical Engineering student at BITS Pilani, Hyderabad with Finance Minor
+- Target roles: Product Management, Program Management, Analytics
+- Tagline: "I identify problems, dig into data, and build solutions that drive real impact."
+
+WORK EXPERIENCE:
+1. Licious (Jul–Dec 2025) – Program Management & Data Analytics Intern, City Business Team
+- Built automated analytics pipelines reducing manual reporting effort across 7+ cities
+- Built web scraping solution for city-wise society data, reducing dependency on Analytics team
+- Conducted NPI Test vs Control analysis and PUJO campaign measurement
+- Led weekly cross-functional calls, built OKR trackers, reported to leadership for top 7 cities
+- Data Immersion session he led is now standardized for onboarding
+- Tools: SQL, Python, Google Sheets, Apps Script, Excel
+
+2. NrityaTech – Backend Developer Intern
+- Built REST APIs using Django, worked with MySQL, improved system performance
+
+TOP PROJECTS:
+- Stock Predictor (live at https://stock-predictor-beige.vercel.app/) – AI stock intelligence dashboard with real-time predictions, sentiment analysis, 30-day price charts
+- FoodSwift PM Case Study – Diagnosed NPS drop (42→35), orders/user drop (3.2→2.8), designed inventory sync + capacity throttling solutions
+- Instagram Reels Strategy – "Content Mood Selector" feature → +4.5 min/session, ₹350 Cr/year revenue uplift projected
+- SkillSync – 0→1 AI-powered learning path product targeting $28.4B edtech market, 38 survey interviews
+- Gnani AI – Reverse logistics AI verification system, 30-40% cost reduction projected, 100K+ daily calls
+- Meesho Cart Abandonment – 45%→49.5% conversion lift projected, 500K additional monthly orders
+- Healthcare ML – 82% prediction accuracy on 10,000+ patient records
+- Financial Risk Analytics – CAPM, ARIMA, GARCH, VaR across 4 companies, 4.5-year dataset
+- Apple Supply Chain Case Study – 50+ countries, 5-day inventory turnover vs 18-day industry avg
+
+SKILLS: SQL, Python (Pandas, NumPy, Scikit-learn), Power BI, Excel, Google Sheets, PRD Writing, RICE Framework, Roadmapping, User Research, Django, REST APIs, MySQL, Web Scraping, CAPM, ARIMA, GARCH
+
+CERTIFICATIONS: NextLeap PM Fellowship, Bloomberg Market Concepts (BMC)
+
+PERSONALITY: Structured thinker, data-driven, problem-first mindset, bias for action, cross-functional collaborator. Interests: finance, product strategy, tech.
+
+CAREER GOALS: Roles in Product Management, Program Management, or Analytics. Wants to build products that combine data and business impact.
+
+Respond in 3-6 lines, structured and human. Use line breaks for clarity. Be confident but not arrogant.`;
+
+async function sendMessage(text) {
+  if (!text.trim()) return;
+  chatInput.value = '';
+  addMsg(text, 'user');
+  showTyping();
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: text }]
+      })
+    });
+    const data = await response.json();
+    removeTyping();
+    const reply = data.content?.[0]?.text || "I'm having trouble connecting right now. Please try again!";
+    addMsg(reply, 'bot');
+  } catch (err) {
+    removeTyping();
+    addMsg("Connection issue! You can reach Swapnil directly on LinkedIn or via email.", 'bot');
+  }
+}
+</script>
+</body>
+</html>

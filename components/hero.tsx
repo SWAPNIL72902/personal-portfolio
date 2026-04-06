@@ -16,7 +16,7 @@ export const Hero = () => {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, cubicBezier: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col gap-8 lg:gap-10"
         >
           <div className="flex items-center gap-4">

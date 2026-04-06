@@ -59,7 +59,7 @@ export const Chatbot = () => {
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.95 }}
-            transition={{ duration: 0.4, cubicBezier: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="mb-6 w-[360px] md:w-[420px] h-[550px] bg-[#111117] border border-white/5 rounded-2xl shadow-2xl overflow-hidden flex flex-col backdrop-blur-3xl"
           >
             {/* Header */}

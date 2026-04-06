@@ -2,14 +2,14 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Github, Linkedin, Send } from 'lucide-react'
+import { Mail, Globe, Users, Send } from 'lucide-react'
 
 export const Contact = () => {
   const emailHref = "mailto:swapnilpahari05@gmail.com?subject=Let's%20Connect&body=Hi%20Swapnil%2C%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect!"
 
   const socials = [
-    { icon: <Linkedin size={20} />, label: 'LinkedIn', href: 'https://linkedin.com/in/swapnil-pahari', color: 'bg-[#a78bfa]' },
-    { icon: <Github size={20} />, label: 'GitHub', href: 'https://github.com/SWAPNIL72902', color: 'bg-[#6ee7b7]' }
+    { icon: <Users size={20} />, label: 'LinkedIn', href: 'https://linkedin.com/in/swapnil-pahari', color: 'bg-[#a78bfa]' },
+    { icon: <Globe size={20} />, label: 'GitHub', href: 'https://github.com/SWAPNIL72902', color: 'bg-[#6ee7b7]' }
   ]
 
   return (

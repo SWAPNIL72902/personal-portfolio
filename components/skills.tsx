@@ -8,22 +8,46 @@ const skillCategories = [
   {
     title: 'Product Management',
     icon: <Briefcase className="text-[#D4AF37]" />,
-    skills: ['PRD Writing', 'RICE Prioritization', 'GTM Strategy', 'User Persona Development', 'Product-Market Fit']
+    skills: [
+      { name: 'PRD Writing', level: 95 },
+      { name: 'RICE Prioritization', level: 90 },
+      { name: 'GTM Strategy', level: 85 },
+      { name: 'User Persona', level: 90 },
+      { name: 'PM-Fit Strategy', level: 85 }
+    ]
   },
   {
     title: 'Data & Analytics',
     icon: <Database className="text-[#D4AF37]" />,
-    skills: ['SQL (PostgreSQL)', 'Python (Pandas/NumPy)', 'Power BI / Tableau', 'Feature Engineering', 'Market Sentiment']
+    skills: [
+      { name: 'SQL (PostgreSQL)', level: 90 },
+      { name: 'Python (Pandas)', level: 85 },
+      { name: 'Power BI / Tableau', level: 90 },
+      { name: 'Feature Engineering', level: 80 },
+      { name: 'Market Sentiment', level: 80 }
+    ]
   },
   {
     title: 'Engineering & Systems',
     icon: <Settings className="text-[#D4AF37]" />,
-    skills: ['Mechanical Systems', 'CAD (AutoCAD/Fusion360)', 'CNC Programming', 'Logic Design', 'Mechatronics']
+    skills: [
+      { name: 'Mechanical Systems', level: 90 },
+      { name: 'CAD (Solidworks)', level: 95 },
+      { name: 'CNC Programming', level: 80 },
+      { name: 'Logic Design', level: 85 },
+      { name: 'Mechatronics', level: 80 }
+    ]
   },
   {
     title: 'Quant & Finance',
     icon: <Code className="text-[#D4AF37]" />,
-    skills: ['Linear Regression', 'CAPM / WACC Analysis', 'Portfolio Selection', 'VaR Modelling', 'Derivatives Analysis']
+    skills: [
+      { name: 'Linear Regression', level: 90 },
+      { name: 'CAPM / WACC', level: 90 },
+      { name: 'Portfolio Selection', level: 85 },
+      { name: 'VaR Modelling', level: 85 },
+      { name: 'Derivatives', level: 80 }
+    ]
   }
 ]
 
@@ -62,12 +86,30 @@ export const Skills = () => {
                 <div className="w-12 h-12 bg-[#1a1a24] rounded-lg flex items-center justify-center mb-10 border border-white/5 group-hover:bg-[#D4AF37]/10 group-hover:scale-110 transition-all duration-500">
                    {cat.icon}
                 </div>
-                <h3 className="font-heading text-[21px] text-white mb-8 border-b border-white/5 pb-6 font-semibold group-hover:text-[#D4AF37] transition-colors">{cat.title}</h3>
-                <div className="flex flex-wrap gap-2.5 mt-auto">
+                <h3 className="font-heading text-[21px] text-white mb-10 border-b border-white/5 pb-6 font-semibold group-hover:text-[#D4AF37] transition-colors">{cat.title}</h3>
+                
+                <div className="flex flex-col gap-8 flex-grow">
                    {cat.skills.map((skill, idx) => (
-                     <span key={idx} className="bg-white/5 text-[#A1A1AA] text-[13px] font-bold px-4 py-2 rounded-lg border border-white/5 hover:border-[#D4AF37]/30 hover:text-white transition-all duration-300">
-                        {skill}
-                     </span>
+                     <div key={idx} className="space-y-4">
+                        <div className="flex justify-between items-center px-1">
+                           <span className="text-xs font-heading font-black text-[#A1A1AA] uppercase tracking-widest group-hover:text-white transition-colors">
+                              {skill.name}
+                           </span>
+                           <span className="text-[10px] font-mono font-black text-[#D4AF37]">
+                              {skill.level}%
+                           </span>
+                        </div>
+                        <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5 relative">
+                           {/* Static background for the bar */}
+                           <motion.div 
+                              initial={{ width: 0 }}
+                              whileInView={{ width: `${skill.level}%` }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 + idx * 0.05 }}
+                              className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#D4AF37] to-[#F5D76E] shadow-[0_0_10px_rgba(212,175,55,0.2)]"
+                           />
+                        </div>
+                     </div>
                    ))}
                 </div>
              </motion.div>

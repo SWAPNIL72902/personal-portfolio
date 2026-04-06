@@ -21,14 +21,14 @@
 
 @layer base {
   :root {
-    --bg-main: #FFFFFF;
-    --bg-card: #F8F8FA;
+    --bg-main: #F5F5F7;
+    --bg-card: #FFFFFF;
     --text-primary: #111111;
-    --text-secondary: #555555;
-    --text-muted: #888888;
-    --accent-gold: #B8962E;
-    --accent-gold-hover: #D4AF37;
-    --border-color: rgba(0, 0, 0, 0.05);
+    --text-secondary: #52525B;
+    --text-muted: #71717A;
+    --accent-gold: #C9A227;
+    --accent-gold-hover: #E6C15A;
+    --border-color: #E4E4E7;
   }
 
   .dark {
@@ -59,7 +59,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading tracking-tight;
+    @apply font-heading tracking-tight text-text-primary;
   }
 }
 
@@ -73,12 +73,13 @@
   }
 
   .premium-card {
-    @apply bg-bg-card border p-6 rounded-[--rounded-card] shadow-2xl transition hover:border-secondary/20 duration-300;
+    @apply bg-bg-card border p-6 rounded-[--rounded-card] transition hover:border-secondary/20 duration-300;
     border-color: var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   }
 
   .btn-primary {
-    @apply bg-secondary text-white dark:text-primary px-8 py-4 rounded-[--rounded-btn] font-heading font-black text-sm tracking-tight transition hover:bg-accent hover:scale-105 active:scale-95 flex items-center justify-center gap-2 duration-300;
+    @apply bg-secondary text-[#000000] px-8 py-4 rounded-[--rounded-btn] font-heading font-black text-sm tracking-tight transition hover:bg-accent hover:scale-105 active:scale-95 flex items-center justify-center gap-2 duration-300 shadow-xl;
   }
 
   .btn-secondary {

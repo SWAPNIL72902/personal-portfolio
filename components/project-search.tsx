@@ -60,9 +60,9 @@ export const ProjectSearch = () => {
             <button 
               type="submit"
               disabled={loading}
-              className="bg-accent-gold text-white dark:text-primary px-6 py-3 rounded-xl font-heading font-black text-sm tracking-tighter hover:bg-accent-gold-hover hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center gap-2"
+              className="bg-accent-gold text-[#000000] px-6 py-3 rounded-xl font-heading font-black text-sm tracking-tighter hover:bg-accent-gold-hover hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center gap-2"
             >
-               {loading ? <Loader2 size={18} className="animate-spin" /> : <>Match <Sparkles size={16} /></>}
+               {loading ? <><Loader2 size={18} className="animate-spin" /> Thinking...</> : <>Match <Sparkles size={16} /></>}
             </button>
          </div>
       </form>
@@ -77,9 +77,9 @@ export const ProjectSearch = () => {
           >
              <div className="flex items-center justify-between border-b border-border-color pb-6">
                 <h4 className="font-heading font-black text-xs uppercase tracking-[4px] text-accent-gold flex items-center gap-3">
-                   <Sparkles size={16} /> AI-Selected Intelligence for &ldquo;{query}&rdquo;
+                   <Sparkles size={16} /> {loading ? "Analyzing Context..." : `Showing best matches for "${query}"`}
                 </h4>
-                <span className="text-xs text-text-muted font-mono">{results.length} results found</span>
+                <span className="text-xs text-text-muted font-mono">{results.length} results</span>
              </div>
 
              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

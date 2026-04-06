@@ -1,49 +1,65 @@
 import { Resend } from "resend";
 
-const resendApiKey = process.env.RESEND_API_KEY;
-// For local testing without a key, we avoid crashing on initialization
-const resend = resendApiKey ? new Resend(resendApiKey) : null;
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    console.log("FORM DATA:", body);
 
-    const { name, email, referralEmail, referralLink, message } = body;
+    const {
+      name,
+      email,
+      referralEmail,
+      referralLink,
+      message,
+    } = body;
 
+    // ✅ Validation
     if (!name || !email) {
-      return Response.json({ success: false, error: "Missing required fields: name or email" }, { status: 400 });
+      return Response.json({
+        success: false,
+        error: "Name and Email are required",
+      });
     }
 
-    if (!resend) {
-      console.warn("RESEND_API_KEY is missing. Mocking success for development out of caution.");
-      return Response.json({ success: true, warning: "RESEND_API_KEY not set. Mock response." });
-    }
+    // ✅ Send Email
+    await resend.emails.send({
+      from: "onboarding@resend.dev", // keep this for now
+      to: ["swapnilpahari05@gmail.com"], // 🔥 YOUR EMAIL (DO NOT CHANGE)
+      reply_to: email, // allows you to reply directly to user
+      subject: `🚀 New Referral from ${name}`,
 
-    const response = await resend.emails.send({
-      from: "Portfolio <onboarding@resend.dev>", // Can be updated to verified domain for prod (e.g. from: "Swapnil <referral@yourdomain.com>")
-      to: ["swapnilpahari05@gmail.com"], // Must be a valid email for onboarding testing
-      subject: `New Referral from ${name}`,
       html: `
-        <h2>New Referral Received</h2>
-        <p><b>Referrer Name:</b> ${name}</p>
-        <p><b>Referrer Email:</b> ${email}</p>
-        <p><b>Hiring Email:</b> ${referralEmail || "-"}</p>
-        <p><b>Opportunity Link:</b> ${referralLink || "Not provided"}</p>
-        <p><b>Message:</b> ${message || "-"}</p>
+        <div style="font-family: Arial, sans-serif; padding: 16px;">
+          <h2>New Referral Received 🚀</h2>
+
+          <p><strong>Referrer Name:</strong> ${name}</p>
+          <p><strong>Referrer Email:</strong> ${email}</p>
+
+          <hr/>
+
+          <p><strong>Hiring Manager Email:</strong> ${referralEmail || "Not provided"}</p>
+          <p><strong>Opportunity Link:</strong> ${referralLink
+          ? `<a href="${referralLink}" target="_blank">${referralLink}</a>`
+          : "Not provided"
+        }</p>
+
+          <hr/>
+
+          <p><strong>Message:</strong></p>
+          <p>${message || "-"}</p>
+        </div>
       `,
     });
 
-    console.log("EMAIL RESPONSE:", response);
-
-    if (response.error) {
-      return Response.json({ success: false, error: response.error.message }, { status: 400 });
-    }
-
-    return Response.json({ success: true, data: response });
+    return Response.json({ success: true });
 
   } catch (error) {
-    console.error("EMAIL ERROR:", error);
-    return Response.json({ success: false, error: "Email failed to send. Check server logs." }, { status: 500 });
+    console.error("REFERRAL ERROR:", error);
+
+    return Response.json({
+      success: false,
+      error: "Failed to send email",
+    });
   }
 }

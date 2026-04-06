@@ -56,6 +56,13 @@ export const Hero = () => {
             >
               Contact Me
             </a>
+            <button 
+              onClick={() => window.dispatchEvent(new CustomEvent('open-referral'))}
+              aria-label="Refer Swapnil to a role"
+              className="px-8 py-4 rounded-[8px] font-heading font-black text-sm tracking-tight border border-secondary text-secondary hover:bg-secondary hover:text-bg-main transition-colors duration-300 flex items-center justify-center gap-2"
+            >
+              Refer Me 🚀
+            </button>
           </div>
         </motion.div>
         

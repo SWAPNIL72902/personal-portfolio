@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { ArrowDownRight, Globe, ArrowRight } from 'lucide-react'
+import { FlipWords } from './ui/flip-words'
 
 export const Hero = () => {
   const emailHref = "mailto:swapnilpahari05@gmail.com?subject=Let's%20Connect&body=Hi%20Swapnil%2C%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect!"
@@ -19,18 +20,29 @@ export const Hero = () => {
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col gap-8 lg:gap-10"
         >
-          <div className="flex items-center gap-4">
-             <span className="glass-pill">
+          <div className="flex flex-col gap-4">
+             <span className="glass-pill w-fit">
                 Strategy · Analytics · Product
              </span>
+             <h2 className="font-heading font-black text-white/50 text-xs tracking-[4px] uppercase ml-1">
+                Swapnil Pahari
+             </h2>
           </div>
           
-          <h1 className="font-heading text-[52px] leading-[1.2] font-extrabold tracking-[-0.5px] bg-gradient-to-br from-white to-[#A1A1AA] bg-clip-text text-transparent max-w-xl">
-             Swapnil Pahari
+          <h1 className="font-heading text-[52px] leading-[1.2] font-extrabold tracking-[-0.5px] text-white max-w-2xl min-h-[140px] md:min-h-0">
+             I build 
+             <br className="md:hidden" />
+             <FlipWords 
+               words={["impactful", "scalable", "data-driven", "high-growth"]} 
+               duration={2500}
+               className="text-[#D4AF37] px-0 inline-block" 
+             /> 
+             <br className="md:hidden" />
+             products.
           </h1>
           
           <p className="text-[17px] md:text-[18px] text-[#A1A1AA] max-w-lg leading-relaxed font-medium">
-            I identify business friction, dig into complex data, and build solutions that drive high-signal impact. Final-year at BITS Pilani Hyderabad.
+            Helping companies identify business friction and deliver high-signal results through data and design. Final-year at BITS Pilani Hyderabad.
           </p>
           
           <div className="flex flex-wrap gap-5 pt-4">

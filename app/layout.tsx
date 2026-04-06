@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Sora, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ReferralSystem } from "@/components/referral-system";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -49,7 +48,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
-          <ReferralSystem />
         </ThemeProvider>
       </body>
     </html>

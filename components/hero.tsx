@@ -6,6 +6,8 @@ import { ArrowDownRight, Globe, ArrowRight } from 'lucide-react'
 import { FlipWords } from './ui/flip-words'
 
 export const Hero = () => {
+  const emailHref = "mailto:swapnilpahari05@gmail.com?subject=Let's%20Connect&body=Hi%20Swapnil%2C%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect!"
+
   return (
     <section id="hero" className="min-h-screen flex items-center pt-24 relative overflow-hidden max-w-limit selection-gold">
       {/* Decorative gradient */}
@@ -48,19 +50,12 @@ export const Hero = () => {
               View Case Studies <ArrowRight size={18} />
             </a>
             <a 
-              href="#contact"
+              href={emailHref}
               aria-label="Contact Swapnil"
               className="btn-secondary no-underline"
             >
               Contact Me
             </a>
-            <button 
-              onClick={() => window.dispatchEvent(new CustomEvent('open-referral'))}
-              aria-label="Refer Swapnil to a role"
-              className="px-8 py-4 rounded-[8px] font-heading font-black text-sm tracking-tight border border-secondary text-secondary hover:bg-secondary hover:text-bg-main transition-colors duration-300 flex items-center justify-center gap-2"
-            >
-              Refer Me 🚀
-            </button>
           </div>
         </motion.div>
         

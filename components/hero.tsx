@@ -30,7 +30,7 @@ export const Hero = () => {
           </div>
           
           <h1 className="font-heading text-[52px] leading-[1.2] font-extrabold tracking-[-0.5px] text-white max-w-2xl min-h-[140px] md:min-h-0">
-             I build 
+             I build{" "}
              <br className="md:hidden" />
              <FlipWords 
                words={["impactful", "scalable", "data-driven", "high-growth"]} 
@@ -38,7 +38,7 @@ export const Hero = () => {
                className="text-[#D4AF37] px-0 inline-block" 
              /> 
              <br className="md:hidden" />
-             products.
+             {" "}products.
           </h1>
           
           <p className="text-[17px] md:text-[18px] text-[#A1A1AA] max-w-lg leading-relaxed font-medium">

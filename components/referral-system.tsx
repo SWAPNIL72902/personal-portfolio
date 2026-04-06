@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Share2, Mail, Briefcase, Copy, CheckCircle2, ChevronRight, X, Send, Link2 } from 'lucide-react'
+import { Share2, Mail, Briefcase, Copy, CheckCircle2, ChevronRight, X, Send, Link2, Loader2, AlertCircle } from 'lucide-react'
 
 export const ReferralSystem = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -11,6 +11,11 @@ export const ReferralSystem = () => {
   const [showForm, setShowForm] = useState(false)
   const [linkInput, setLinkInput] = useState('')
   const [linkError, setLinkError] = useState(false)
+  
+  const [formData, setFormData] = useState({ name: '', email: '', referralEmail: '', message: '' })
+  const [isLoading, setIsLoading] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+  const [isSuccess, setIsSuccess] = useState(false)
 
   const isValidURL = (url: string) => {
     try {
@@ -207,7 +212,7 @@ export const ReferralSystem = () => {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   className="space-y-4"
-                  onSubmit={(e) => { 
+                  onSubmit={async (e) => { 
                     e.preventDefault(); 
                     
                     if (linkInput.trim() && !isValidURL(linkInput)) {
@@ -215,26 +220,56 @@ export const ReferralSystem = () => {
                       return;
                     }
 
-                    console.log('[Event Tracking] referral_completed', {
-                      referralLink: linkInput || "Not provided"
-                    });
-                    
-                    setCopied(true); 
-                    setTimeout(() => {
-                      setIsOpen(false); 
-                      setShowForm(false); 
-                      setCopied(false);
-                      setLinkInput('');
-                      setLinkError(false);
-                    }, 2000);
+                    setIsLoading(true);
+                    setSubmitError('');
+
+                    try {
+                      const res = await fetch("/api/referral", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          name: formData.name,
+                          email: formData.email,
+                          referralEmail: formData.referralEmail,
+                          referralLink: linkInput,
+                          message: formData.message
+                        })
+                      });
+
+                      const data = await res.json();
+                      if (!data.success) {
+                        throw new Error(data.error || "Failed to send referral");
+                      }
+
+                      setIsSuccess(true);
+                      console.log('[Event Tracking] referral_completed', { referralLink: linkInput || "Not provided" });
+                      
+                      setTimeout(() => {
+                        setIsOpen(false); 
+                        setShowForm(false); 
+                        setIsSuccess(false);
+                        setLinkInput('');
+                        setLinkError(false);
+                        setFormData({ name: '', email: '', referralEmail: '', message: '' });
+                      }, 2000);
+                      
+                    } catch (err: any) {
+                      console.error(err);
+                      setSubmitError(err.message || 'Something went wrong. Try again.');
+                    } finally {
+                      setIsLoading(false);
+                    }
                   }}
                 >
                   <button type="button" onClick={() => setShowForm(false)} className="text-xs text-[#D4AF37] hover:text-[#F5D76E] mb-2 flex items-center gap-1 font-semibold uppercase tracking-widest pl-1">
                     ← Back
                   </button>
                   <div className="space-y-3">
-                    <input type="text" required placeholder="Hiring Manager Name" className="w-full bg-[#0B0B0F] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37] transition-colors" />
-                    <input type="email" required placeholder="Their Email Address" className="w-full bg-[#0B0B0F] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                    <div className="grid grid-cols-2 gap-3">
+                       <input type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} required placeholder="Your Name" className="w-full bg-[#0B0B0F] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                       <input type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} required placeholder="Your Email Address" className="w-full bg-[#0B0B0F] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                    </div>
+                    <input type="email" value={formData.referralEmail} onChange={e => setFormData({...formData, referralEmail: e.target.value})} placeholder="Hiring Manager Email (Optional)" className="w-full bg-[#0B0B0F] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37] transition-colors" />
                     
                     <div className="relative">
                       <input 
@@ -256,10 +291,17 @@ export const ReferralSystem = () => {
                       )}
                     </div>
 
-                    <textarea placeholder="Optional context..." rows={3} className="w-full bg-[#0B0B0F] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37] resize-none transition-colors"></textarea>
+                    <textarea value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} placeholder="Optional context..." rows={3} className="w-full bg-[#0B0B0F] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37] resize-none transition-colors"></textarea>
                   </div>
-                  <button type="submit" className="w-full bg-[#D4AF37] hover:bg-[#F5D76E] text-black font-black font-heading tracking-tight text-sm py-4 rounded-xl flex items-center justify-center gap-2 transition-all">
-                    {copied ? "Sent Successfully ✓" : <><Send size={16} /> Send Referral Intelligently</>}
+                  
+                  {submitError && (
+                    <div className="flex items-center gap-2 text-red-400 bg-red-400/10 border border-red-400/20 p-3 rounded-lg text-xs font-medium">
+                       <AlertCircle size={14} /> {submitError}
+                    </div>
+                  )}
+
+                  <button type="submit" disabled={isLoading} className="w-full bg-[#D4AF37] hover:bg-[#F5D76E] disabled:bg-white/10 disabled:text-white/50 text-black font-black font-heading tracking-tight text-sm py-4 rounded-xl flex items-center justify-center gap-2 transition-all">
+                    {isLoading ? <><Loader2 size={16} className="animate-spin" /> Sending securely...</> : isSuccess ? "Referral Sent Successfully 🚀" : <><Send size={16} /> Send Referral Intelligently</>}
                   </button>
                 </motion.form>
               )}

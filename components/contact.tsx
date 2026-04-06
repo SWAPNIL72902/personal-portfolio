@@ -5,11 +5,13 @@ import { motion } from 'framer-motion'
 import { Mail, Users, Globe, TrendingUp } from 'lucide-react'
 
 export const Contact = () => {
+  const emailHref = "mailto:swapnilpahari05@gmail.com?subject=Let's%20Connect&body=Hi%20Swapnil%2C%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect!"
+
   const links = [
     { icon: <Users size={22} />, label: 'Professional networking', strong: 'LinkedIn', href: 'https://www.linkedin.com/in/swapnil-pahari', color: 'group-hover:text-blue-400' },
     { icon: <Globe size={22} />, label: 'Code & contributions', strong: 'GitHub', href: 'https://github.com/SWAPNIL72902', color: 'group-hover:text-emerald-400' },
     { icon: <TrendingUp size={22} />, label: 'Live market project', strong: 'Stock Predictor', href: 'https://stock-predictor-beige.vercel.app/', color: 'group-hover:text-amber-400' },
-    { icon: <Mail size={22} />, label: 'Inquiries & collaborations', strong: 'Email me', href: 'mailto:swapnilpahari05@gmail.com', color: 'group-hover:text-red-400' }
+    { icon: <Mail size={22} />, label: 'Inquiries & collaborations', strong: 'Email me', href: emailHref, color: 'group-hover:text-red-400' }
   ]
 
   return (
@@ -44,8 +46,12 @@ export const Contact = () => {
             <p className="text-lg text-[#8888a8] leading-relaxed max-w-xl">
               I bridge technical execution with business strategy. If you need a partner to solve complex systems-level problems — I&apos;m your person.
             </p>
-            <a href="mailto:swapnilpahari05@gmail.com" className="bg-[#e8c97a] text-[#0a0a0f] px-10 py-5 rounded-2xl font-black text-sm tracking-widest hover:scale-105 active:scale-95 transition-all w-fit shadow-lg hover:shadow-[#e8c97a]/20 flex items-center gap-3">
-              📧 SEND AN EMAIL
+            <a 
+              href={emailHref}
+              aria-label="Send email to Swapnil"
+              className="bg-[#e8c97a] text-[#0a0a0f] px-10 py-5 rounded-2xl font-black text-sm tracking-widest hover:scale-105 active:scale-95 transition-all w-fit shadow-lg hover:shadow-[#e8c97a]/30 flex items-center gap-3 no-underline outline-none focus:ring-2 focus:ring-[#e8c97a] focus:ring-offset-2 focus:ring-offset-[#111118]"
+            >
+              📩 SEND AN EMAIL
             </a>
           </motion.div>
 
@@ -58,9 +64,10 @@ export const Contact = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: i * 0.1 + 0.3 }}
                 href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glass-card group flex items-center gap-6 p-6 md:p-8 hover:translate-x-4 transition-all"
+                target={link.strong === 'Email me' ? undefined : "_blank"}
+                rel={link.strong === 'Email me' ? undefined : "noopener noreferrer"}
+                aria-label={link.strong === 'Email me' ? "Send email to Swapnil" : `Follow Swapnil on ${link.strong}`}
+                className="glass-card group flex items-center gap-6 p-6 md:p-8 hover:translate-x-4 transition-all no-underline outline-none focus:ring-2 focus:ring-[#e8c97a]/50"
               >
                 <div className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center bg-white/5 text-[#555570] transition-colors ${link.color}`}>
                   {link.icon}

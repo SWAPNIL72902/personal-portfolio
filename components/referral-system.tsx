@@ -2,13 +2,43 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Share2, Mail, Briefcase, Copy, CheckCircle2, ChevronRight, X, Send } from 'lucide-react'
+import { Share2, Mail, Briefcase, Copy, CheckCircle2, ChevronRight, X, Send, Link2 } from 'lucide-react'
 
 export const ReferralSystem = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [showFloating, setShowFloating] = useState(false)
   const [copied, setCopied] = useState(false)
   const [showForm, setShowForm] = useState(false)
+  const [linkInput, setLinkInput] = useState('')
+  const [linkError, setLinkError] = useState(false)
+
+  const isValidURL = (url: string) => {
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  const handleLinkBlur = () => {
+    if (!linkInput) {
+      setLinkError(false)
+      return
+    }
+    
+    let formattedLink = linkInput.trim()
+    if (!formattedLink.startsWith('http://') && !formattedLink.startsWith('https://') && formattedLink.includes('.')) {
+      formattedLink = `https://${formattedLink}`
+    }
+    
+    if (isValidURL(formattedLink)) {
+      setLinkInput(formattedLink)
+      setLinkError(false)
+    } else {
+      setLinkError(true)
+    }
+  }
 
   // Floating CTA Logic (> 40% scroll)
   useEffect(() => {
@@ -179,9 +209,24 @@ export const ReferralSystem = () => {
                   className="space-y-4"
                   onSubmit={(e) => { 
                     e.preventDefault(); 
-                    console.log('[Event Tracking] referral_completed');
+                    
+                    if (linkInput.trim() && !isValidURL(linkInput)) {
+                      setLinkError(true);
+                      return;
+                    }
+
+                    console.log('[Event Tracking] referral_completed', {
+                      referralLink: linkInput || "Not provided"
+                    });
+                    
                     setCopied(true); 
-                    setTimeout(() => {setIsOpen(false); setShowForm(false); setCopied(false)}, 2000) 
+                    setTimeout(() => {
+                      setIsOpen(false); 
+                      setShowForm(false); 
+                      setCopied(false);
+                      setLinkInput('');
+                      setLinkError(false);
+                    }, 2000);
                   }}
                 >
                   <button type="button" onClick={() => setShowForm(false)} className="text-xs text-[#D4AF37] hover:text-[#F5D76E] mb-2 flex items-center gap-1 font-semibold uppercase tracking-widest pl-1">
@@ -190,6 +235,27 @@ export const ReferralSystem = () => {
                   <div className="space-y-3">
                     <input type="text" required placeholder="Hiring Manager Name" className="w-full bg-[#0B0B0F] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37] transition-colors" />
                     <input type="email" required placeholder="Their Email Address" className="w-full bg-[#0B0B0F] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                    
+                    <div className="relative">
+                      <input 
+                        type="text" 
+                        value={linkInput}
+                        onChange={(e) => {
+                          setLinkInput(e.target.value)
+                          if (linkError) setLinkError(false)
+                        }}
+                        onBlur={handleLinkBlur}
+                        placeholder="https://company.com/job-role (Optional)" 
+                        className={`w-full bg-[#0B0B0F] border rounded-lg px-4 py-3 text-sm text-white focus:outline-none transition-colors ${linkError ? 'border-red-500 focus:border-red-500' : 'border-white/10 focus:border-[#D4AF37]'}`}
+                      />
+                      <div className="absolute right-3 top-[18px] text-white/30 pointer-events-none">
+                        <Link2 size={16} />
+                      </div>
+                      {linkError && (
+                        <p className="text-red-500 text-xs mt-1.5 ml-1">Please enter a valid URL (include https://)</p>
+                      )}
+                    </div>
+
                     <textarea placeholder="Optional context..." rows={3} className="w-full bg-[#0B0B0F] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37] resize-none transition-colors"></textarea>
                   </div>
                   <button type="submit" className="w-full bg-[#D4AF37] hover:bg-[#F5D76E] text-black font-black font-heading tracking-tight text-sm py-4 rounded-xl flex items-center justify-center gap-2 transition-all">

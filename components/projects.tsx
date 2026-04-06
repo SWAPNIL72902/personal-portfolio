@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Layers, Database, Code, DollarSign, Settings, PieChart, Briefcase, CheckCircle2, FileText, Cpu, Github, Play } from 'lucide-react'
+import { ExternalLink, Layers, Database, Code, DollarSign, Settings, PieChart, Briefcase, CheckCircle2, FileText, Cpu, Link as LinkIcon, PlayCircle } from 'lucide-react'
 
 const projectsData = [
   // ⭐ FEATURED
@@ -242,7 +242,7 @@ const projectsData = [
     problem: 'Design requirement for high-reduction torque transmission in a compact system.',
     impact: 'Fabricated full system with CAD+CNC execution · Tested for end-to-end performance.',
     tags: ['CAD', 'CNC', 'Mechatronics'],
-    github: 'https://github.com/SWAPNIL72902/mechanical/blob/main/EpicyclicGearTrain_Group-12%20(1).pdf'
+    caseStudy: 'https://github.com/SWAPNIL72902/mechanical/blob/main/EpicyclicGearTrain_Group-12%20(1).pdf'
   }
 ]
 
@@ -345,7 +345,7 @@ export const Projects = () => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-[0.7rem] bg-slate-800 text-slate-200 px-4 py-2 rounded-lg font-black hover:bg-slate-700 transition no-underline items-center whitespace-nowrap"
                     >
-                      <Github size={14} /> VIEW CODE
+                      <LinkIcon size={14} /> VIEW CODE
                     </a>
                   )}
 
@@ -356,7 +356,7 @@ export const Projects = () => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-[0.7rem] bg-blue-600 text-white px-4 py-2 rounded-lg font-black hover:bg-blue-500 transition no-underline items-center whitespace-nowrap"
                     >
-                      <Play size={14} /> LIVE DEMO
+                      <PlayCircle size={14} /> LIVE DEMO
                     </a>
                   )}
 

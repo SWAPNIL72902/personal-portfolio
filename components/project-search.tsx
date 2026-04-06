@@ -3,6 +3,45 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, Sparkles, Box, LinkIcon, PlayCircle, FileText, Loader2, X } from 'lucide-react'
+import { projects } from '@/lib/projects-data'
+
+const synonymMap: Record<string, string[]> = {
+  finance: ["fintech", "payments", "revenue", "transactions", "quant"],
+  ai: ["machine learning", "ml", "prediction", "models"],
+  backend: ["api", "server", "database", "python"],
+  analytics: ["sql", "data", "dashboard", "metrics", "bi"],
+  product: ["pm", "strategy", "roadmap", "growth"],
+};
+
+function scoreProject(project: any, query: string) {
+  let score = 0;
+  const q = query.toLowerCase();
+
+  const sk = project.skills.map((s: string) => s.toLowerCase());
+  const dm = project.domain.toLowerCase();
+  const kw = project.keywords.map((k: string) => k.toLowerCase());
+
+  if (sk.some((s: string) => s.includes(q))) score += 3;
+  if (dm.includes(q)) score += 2;
+  if (kw.some((k: string) => k.includes(q))) score += 2;
+  if (project.title.toLowerCase().includes(q)) score += 3;
+
+  for (const [key, synonyms] of Object.entries(synonymMap)) {
+    if (key.includes(q) || synonyms.some(syn => syn.includes(q) || q.includes(syn))) {
+      synonyms.forEach(syn => {
+        if (
+          sk.some((s: string) => s.includes(syn)) ||
+          dm.includes(syn) ||
+          kw.some((k: string) => k.includes(syn))
+        ) {
+          score += 2;
+        }
+      });
+    }
+  }
+
+  return score;
+}
 
 export const ProjectSearch = () => {
   const [query, setQuery] = useState('')
@@ -16,19 +55,36 @@ export const ProjectSearch = () => {
 
     setLoading(true)
     setActive(true)
+
+    // 1. Instant Local Scoring (Zero Latency)
+    const scored = projects
+      .map(p => ({ ...p, score: scoreProject(p, query) }))
+      .sort((a, b) => b.score - a.score);
+
+    // If scores are all 0, return top 3 defaults, else return scored matches
+    const bestMatches = scored[0].score === 0 ? projects.slice(0, 3) : scored.slice(0, 3);
+    setResults(bestMatches);
+
+    // 2. Async AI Refinement (Non-blocking)
     try {
-      const response = await fetch('/api/search', {
+      fetch('/api/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query })
+        body: JSON.stringify({ query, topProjects: bestMatches.map(p => ({ id: p.id, title: p.title })) })
       })
-
-      if (!response.ok) throw new Error('Search failed')
-      const data = await response.json()
-      setResults(data.results || [])
+      .then(res => res.json())
+      .then(data => {
+        if (data.results && data.results.length > 0) {
+           // Merge AI reasons back into our instant results
+           setResults(prev => prev.map(p => {
+             const aiMatch = data.results.find((r: any) => r.id === p.id || r.title === p.title);
+             return aiMatch ? { ...p, aiReason: aiMatch.aiReason } : p;
+           }));
+        }
+      })
+      .finally(() => setLoading(false));
     } catch (err) {
       console.error(err)
-    } finally {
       setLoading(false)
     }
   }
@@ -60,7 +116,7 @@ export const ProjectSearch = () => {
             <button 
               type="submit"
               disabled={loading}
-              className="bg-accent-gold text-[#000000] px-6 py-3 rounded-xl font-heading font-black text-sm tracking-tighter hover:bg-accent-gold-hover hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center gap-2"
+              className="bg-accent-gold text-primary px-6 py-3 rounded-xl font-heading font-black text-sm tracking-tighter hover:bg-accent-gold-hover hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center gap-2"
             >
                {loading ? <><Loader2 size={18} className="animate-spin" /> Thinking...</> : <>Match <Sparkles size={16} /></>}
             </button>
@@ -119,11 +175,7 @@ export const ProjectSearch = () => {
                      </div>
                   </motion.div>
                 ))}
-                {!loading && results.length === 0 && (
-                  <div className="col-span-full text-center py-20 text-text-muted">
-                     No direct semantic matches. Try broad terms like &quot;finance&quot;, &quot;analytics&quot; or &quot;systems&quot;.
-                  </div>
-                )}
+                {/* Empty State Completely Removed as per Requirements */}
              </div>
           </motion.div>
         )}

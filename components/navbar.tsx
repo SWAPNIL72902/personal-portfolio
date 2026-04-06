@@ -47,16 +47,9 @@ export const Navbar = () => {
         </ul>
 
         <div className="flex items-center gap-6">
-          <button
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="w-10 h-10 flex items-center justify-center border border-border-color rounded-lg text-text-secondary hover:border-accent-gold/40 hover:text-accent-gold transition-all duration-300"
-            aria-label="Toggle theme"
-          >
-            {mounted && theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-          
           <a
             href={emailHref}
+
             aria-label="Send email to Swapnil"
             className="hidden md:flex bg-accent-gold text-white dark:text-bg-main px-6 py-2.5 rounded-lg text-xs font-heading font-black tracking-tight hover:bg-accent-gold-hover hover:scale-105 active:scale-95 transition-all duration-300 items-center gap-2 no-underline"
           >

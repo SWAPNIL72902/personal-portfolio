@@ -19,6 +19,7 @@ export interface Project {
   links: ProjectLinks;
   domain: string;
   skills: string[];
+  keywords: string[];
 }
 
 export const projects: Project[] = [
@@ -34,8 +35,9 @@ export const projects: Project[] = [
     impact: 'Automated 7+ city pipelines · Enabled real-time KPI tracking · Reduced manual effort · Improved decision speed.',
     tags: ['SQL', 'Python', 'Analytics', 'Automation'],
     links: { caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/LICIOUS_FINAL_REVIEW%20(3)%20(1).pdf' },
-    domain: 'Business Analytics',
-    skills: ['SQL', 'Python', 'Reporting', 'Automation']
+    domain: 'Business Analytics, Data',
+    skills: ['SQL', 'Python', 'Reporting', 'Automation', 'analytics', 'data'],
+    keywords: ['dashboard', 'kpi', 'metrics', 'pipeline', 'business']
   },
   {
     id: 'paytm-upi',
@@ -48,8 +50,9 @@ export const projects: Project[] = [
     impact: 'Designed recovery flow · Optimized transaction retry logic · Stabilized payment success rates.',
     tags: ['Product Design', 'SQL', 'Payment Ops'],
     links: { github: 'https://github.com/SWAPNIL72902/Paytm' },
-    domain: 'Product Management / Fintech',
-    skills: ['SQL', 'Product Ops', 'UX Design']
+    domain: 'Product Management, Fintech',
+    skills: ['SQL', 'product management', 'analytics', 'experimentation', 'finance', 'UX Design', 'product'],
+    keywords: ['upi', 'transactions', 'conversion', 'revenue', 'payments']
   },
   {
     id: 'stock-predictor',
@@ -62,8 +65,9 @@ export const projects: Project[] = [
     impact: '82% prediction accuracy · Real-time sentiment signals · Interactive 30-day price charts.',
     tags: ['Next.js', 'AI/ML', 'Market APIs', 'Tailwind'],
     links: { live: 'https://stock-predictor-beige.vercel.app/' },
-    domain: 'Engineering / Machine Learning',
-    skills: ['AI', 'Python', 'React', 'Financial Markets']
+    domain: 'Engineering, Machine Learning',
+    skills: ['AI', 'Python', 'React', 'machine learning', 'finance', 'backend'],
+    keywords: ['predictive', 'investing', 'market', 'web', 'dashboard', 'api']
   },
 
   // 🚀 PRODUCT MANAGEMENT
@@ -79,7 +83,8 @@ export const projects: Project[] = [
     tags: ['PRD', 'Metrics', 'Inventory Sync'],
     links: { github: 'https://github.com/SWAPNIL72902/FoodSwift' },
     domain: 'Product Management',
-    skills: ['PRD', 'Metrics', 'Strategy']
+    skills: ['PRD', 'Metrics', 'Strategy', 'product management', 'analytics'],
+    keywords: ['delivery', 'reliability', 'nps', 'mau', 'growth']
   },
   {
     id: 'insta-reels',
@@ -93,7 +98,8 @@ export const projects: Project[] = [
     tags: ['GTM', 'Recommender Systems', 'Retention'],
     links: { github: 'https://github.com/SWAPNIL72902/Insta_PM' },
     domain: 'Product Strategy',
-    skills: ['GTM', 'Growth', 'ARPU']
+    skills: ['GTM', 'Growth', 'ARPU', 'product management', 'analytics'],
+    keywords: ['retention', 'engagement', 'revenue', 'monetization', 'social']
   },
   {
     id: 'skillsync',
@@ -107,7 +113,8 @@ export const projects: Project[] = [
     tags: ['0 → 1', 'AI Roadmap', 'User Research'],
     links: { github: 'https://github.com/SWAPNIL72902/Skill_Sync' },
     domain: 'Product Strategy',
-    skills: ['0 to 1', 'Product Roadmap', 'RICE']
+    skills: ['0 to 1', 'Product Roadmap', 'RICE', 'product management', 'AI'],
+    keywords: ['edtech', 'roadmap', 'generator', 'strategy']
   },
 
   // 📊 DATA / ANALYTICS
@@ -123,7 +130,8 @@ export const projects: Project[] = [
     tags: ['Power BI', 'Data Modeling', 'Business Intelligence'],
     links: { github: 'https://github.com/SWAPNIL72902/EdTech' },
     domain: 'Data Analytics',
-    skills: ['Power BI', 'Data Visualization']
+    skills: ['Power BI', 'Data Visualization', 'analytics', 'sql', 'backend'],
+    keywords: ['dashboard', 'bi', 'intelligence', 'metrics']
   },
 
   // 💰 FINANCE (CASE STUDIES)
@@ -138,8 +146,9 @@ export const projects: Project[] = [
     impact: 'Computed VaR metrics across 4.5 years of data · Applied GARCH for volatility clusters.',
     tags: ['Quant Finance', 'VaR', 'Time Series'],
     links: { caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/16_EKC_EMAMILTD_ENGINERSIN_ESABINDIA%20.pdf' },
-    domain: 'Finance / Quant',
-    skills: ['Risk Analytics', 'VaR', 'GARCH']
+    domain: 'Finance',
+    skills: ['Risk Analytics', 'VaR', 'GARCH', 'finance', 'analytics'],
+    keywords: ['quant', 'volatility', 'equities', 'portfolio', 'financial']
   },
   {
     id: 'portfolio-sapm',
@@ -152,8 +161,9 @@ export const projects: Project[] = [
     impact: 'Built Minimum Variance Portfolio for 8+ assets · Maximized returns.',
     tags: ['Modern Portfolio Theory', 'Sharpe Ratio'],
     links: { caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/SAPM%20Project%20.pdf' },
-    domain: 'Finance Strategy',
-    skills: ['Portfolio Optimization', 'Sharpe Ratio']
+    domain: 'Finance',
+    skills: ['Portfolio Optimization', 'Sharpe Ratio', 'finance', 'analytics'],
+    keywords: ['assets', 'allocation', 'variance', 'returns', 'financial']
   },
 
   // ⚙️ ENGINEERING
@@ -168,7 +178,8 @@ export const projects: Project[] = [
     impact: 'Fabricated full system with CAD+CNC execution · Tested for performance.',
     tags: ['CAD', 'CNC', 'Mechatronics'],
     links: { caseStudy: 'https://github.com/SWAPNIL72902/mechanical/blob/main/EpicyclicGearTrain_Group-12%20(1).pdf' },
-    domain: 'Mechanical Engineering',
-    skills: ['CAD', 'CNC', 'Fabrication']
+    domain: 'Engineering',
+    skills: ['CAD', 'CNC', 'Fabrication', 'backend'],
+    keywords: ['torque', 'transmission', 'manufacturing', 'mechanical']
   }
 ];

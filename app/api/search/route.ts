@@ -1,95 +1,50 @@
-import { NextResponse } from 'next/server';
-import { groq } from '@/lib/groq';
-import { projects } from '@/lib/projects-data';
+import { NextResponse } from "next/server";
+import { groq } from "@/lib/groq";
+import { projects } from "@/lib/projects-data";
 
 export async function POST(req: Request) {
   try {
-    const { query } = await req.json();
+    const { query, topProjects } = await req.json();
 
-    if (!query) {
+    if (!query || !topProjects || topProjects.length === 0) {
       return NextResponse.json({ results: [] });
     }
 
-    // Minify project data for AI processing
-    const projectSummaries = projects.map(p => ({
-      title: p.title,
-      domain: p.domain,
-      skills: p.skills,
-      problem: p.problem
-    }));
+    // Grab full objects for the top scored projects to give AI context
+    const contextProjects = topProjects.map((tp: any) => 
+      projects.find(p => p.id === tp.id)
+    ).filter(Boolean);
 
-    const systemPrompt = `You are an intelligent portfolio assistant.
-Given a user query and a list of projects, return ONLY the most relevant projects.
+    const systemPrompt = `You are a portfolio assistant.
+The user searched for: "${query}".
+The system has instantly retrieved the following best-match projects using local scoring algorithms:
+${JSON.stringify(contextProjects.map((p: any) => ({ title: p.title, problem: p.problem, impact: p.impact })))}
 
-Rules:
-- Use semantic understanding (not exact keyword match)
-- Always return at least 2-3 best matches
-- Even if weak match, still return closest ones
-- DO NOT return empty results
+Your task is to write a single-sentence "reason" for each project explaining why it is relevant to the user's search.
+Keep the reason professional, high-impact, and directly related to their search term.
 
 Output format (STRICT JSON):
 {
   "results": [
     {
-      "title": "Project Name",
-      "reason": "Why this matches"
+      "id": "project-id",
+      "aiReason": "Why this matches"
     }
   ]
 }`;
 
     const response = await groq.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content: systemPrompt
-        },
-        {
-          role: "user",
-          content: `Project Dataset: ${JSON.stringify(projectSummaries)}
-          User Query: "${query}"`
-        }
-      ],
+      messages: [{ role: "system", content: systemPrompt }],
       model: "llama3-70b-8192",
       response_format: { type: "json_object" }
     });
 
     const body = JSON.parse(response.choices[0].message.content || '{"results": []}');
-    
-    // Map AI titles back to full project objects
-    let finalResults = body.results.map((aiResult: any) => {
-      const fullProject = projects.find(p => p.title === aiResult.title);
-      return fullProject ? { ...fullProject, aiReason: aiResult.reason } : null;
-    }).filter(Boolean);
-
-    // Hard fallback if AI returns 0 valid results
-    if (finalResults.length === 0) {
-      console.warn("AI returned 0 results, using hard fallback");
-      finalResults = getHardFallback(query);
-    }
-
-    return NextResponse.json({ results: finalResults });
+    return NextResponse.json({ results: body.results });
 
   } catch (error) {
-    console.error("Groq Search Error:", error);
-    
-    // Fallback: Local keyword matching
-    const { query } = await req.json();
-    return NextResponse.json({ results: getHardFallback(query), fallback: true });
+    console.error("Groq Refinement Error:", error);
+    // Silent fail allowing frontend local results to stand without AI reasons
+    return NextResponse.json({ results: [] });
   }
 }
-
-// Fallback logic
-function getHardFallback(query: string) {
-  const lq = query.toLowerCase();
-  const matched = projects.filter(project =>
-    project.skills.some(skill => skill.toLowerCase().includes(lq)) ||
-    project.domain.toLowerCase().includes(lq) ||
-    project.title.toLowerCase().includes(lq)
-  );
-  
-  if (matched.length > 0) return matched.slice(0, 3);
-  
-  // Ultimate fallback: Top 3 projects
-  return projects.slice(0, 3);
-}
-

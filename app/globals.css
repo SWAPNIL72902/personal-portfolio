@@ -67,7 +67,7 @@
   }
 
   .btn-primary {
-    @apply bg-secondary text-primary px-8 py-4 rounded-[--rounded-btn] font-heading font-black text-sm tracking-tight transition hover:bg-accent hover:scale-105 active:scale-95 flex items-center justify-center gap-2 duration-300;
+    @apply bg-secondary text-bg-main px-8 py-4 rounded-[--rounded-btn] font-heading font-black text-sm tracking-tight transition hover:bg-accent hover:scale-105 active:scale-95 flex items-center justify-center gap-2 duration-300;
   }
 
   .btn-secondary {

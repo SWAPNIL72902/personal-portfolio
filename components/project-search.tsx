@@ -116,7 +116,7 @@ export const ProjectSearch = () => {
             <button 
               type="submit"
               disabled={loading}
-              className="bg-accent-gold text-primary px-6 py-3 rounded-xl font-heading font-black text-sm tracking-tighter hover:bg-accent-gold-hover hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center gap-2"
+              className="bg-accent-gold text-bg-main px-6 py-3 rounded-xl font-heading font-black text-sm tracking-tighter hover:bg-accent-gold-hover hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center gap-2"
             >
                {loading ? <><Loader2 size={18} className="animate-spin" /> Thinking...</> : <>Match <Sparkles size={16} /></>}
             </button>

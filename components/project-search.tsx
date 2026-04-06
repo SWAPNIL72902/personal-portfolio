@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, Sparkles, Box, LinkIcon, PlayCircle, FileText, Loader2, X } from 'lucide-react'
-import { projects } from '@/lib/projects-data'
+import { projectsData } from '@/data/projects'
 
 const synonymMap: Record<string, string[]> = {
   finance: ["fintech", "payments", "revenue", "transactions", "quant"],
@@ -17,23 +17,18 @@ function scoreProject(project: any, query: string) {
   let score = 0;
   const q = query.toLowerCase();
 
-  const sk = project.skills.map((s: string) => s.toLowerCase());
-  const dm = project.domain.toLowerCase();
-  const kw = project.keywords.map((k: string) => k.toLowerCase());
+  const title = project.title.toLowerCase();
+  const desc = project.description.toLowerCase();
+  const tags = project.tags.map((t: string) => t.toLowerCase());
 
-  if (sk.some((s: string) => s.includes(q))) score += 3;
-  if (dm.includes(q)) score += 2;
-  if (kw.some((k: string) => k.includes(q))) score += 2;
-  if (project.title.toLowerCase().includes(q)) score += 3;
+  if (title.includes(q)) score += 5;
+  if (desc.includes(q)) score += 2;
+  if (tags.some((t: string) => t.includes(q))) score += 3;
 
   for (const [key, synonyms] of Object.entries(synonymMap)) {
     if (key.includes(q) || synonyms.some(syn => syn.includes(q) || q.includes(syn))) {
       synonyms.forEach(syn => {
-        if (
-          sk.some((s: string) => s.includes(syn)) ||
-          dm.includes(syn) ||
-          kw.some((k: string) => k.includes(syn))
-        ) {
+        if (title.includes(syn) || desc.includes(syn) || tags.some((t: string) => t.includes(syn))) {
           score += 2;
         }
       });
@@ -57,12 +52,12 @@ export const ProjectSearch = () => {
     setActive(true)
 
     // 1. Instant Local Scoring (Zero Latency)
-    const scored = projects
+    const scored = projectsData
       .map(p => ({ ...p, score: scoreProject(p, query) }))
       .sort((a, b) => b.score - a.score);
 
     // If scores are all 0, return top 3 defaults, else return scored matches
-    const bestMatches = scored[0].score === 0 ? projects.slice(0, 3) : scored.slice(0, 3);
+    const bestMatches = scored[0].score === 0 ? projectsData.slice(0, 3) : scored.slice(0, 3);
     setResults(bestMatches);
 
     // 2. Async AI Refinement (Non-blocking)
@@ -148,28 +143,18 @@ export const ProjectSearch = () => {
                     className="premium-card p-10 flex flex-col group h-full border-[#D4AF37]/10"
                   >
                      <div className="text-[10px] uppercase font-mono font-black text-accent-gold mb-3 flex items-center gap-2 opacity-70">
-                        {proj.cat} · Match Logic
+                        {proj.category} · Match Logic
                      </div>
                      <h3 className="font-heading text-xl text-text-primary font-bold mb-4 group-hover:text-accent-gold transition-colors">{proj.title}</h3>
                      
                      <p className="text-sm text-text-secondary leading-relaxed mb-6 italic line-clamp-3">
-                        &ldquo;{proj.aiReason || proj.impact}&rdquo;
+                        &ldquo;{proj.aiReason || proj.description}&rdquo;
                      </p>
 
                      <div className="mt-auto pt-6 border-t border-border-color flex flex-wrap gap-3">
-                        {proj.links.github && (
-                          <a href={proj.links.github} target="_blank" rel="noopener noreferrer" className="p-2 border border-border-color rounded-lg text-text-muted hover:text-accent-gold hover:border-accent-gold transition-all" aria-label="GitHub">
+                        {proj.link && (
+                          <a href={proj.link} target="_blank" rel="noopener noreferrer" className="p-2 border border-border-color rounded-lg text-text-muted hover:text-accent-gold hover:border-accent-gold transition-all" aria-label="View Details">
                              <LinkIcon size={16} />
-                          </a>
-                        )}
-                        {proj.links.live && (
-                          <a href={proj.links.live} target="_blank" rel="noopener noreferrer" className="p-2 border border-border-color rounded-lg text-text-muted hover:text-accent-gold hover:border-accent-gold transition-all" aria-label="Live Demo">
-                             <PlayCircle size={16} />
-                          </a>
-                        )}
-                        {proj.links.caseStudy && (
-                          <a href={proj.links.caseStudy} target="_blank" rel="noopener noreferrer" className="p-2 border border-border-color rounded-lg text-text-muted hover:text-accent-gold hover:border-accent-gold transition-all" aria-label="Case Study">
-                             <FileText size={16} />
                           </a>
                         )}
                      </div>

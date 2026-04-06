@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { groq } from "@/lib/groq";
-import { projects } from "@/lib/projects-data";
+import { projectsData } from "@/data/projects";
 
 export async function POST(req: Request) {
   try {
@@ -12,13 +12,13 @@ export async function POST(req: Request) {
 
     // Grab full objects for the top scored projects to give AI context
     const contextProjects = topProjects.map((tp: any) => 
-      projects.find(p => p.id === tp.id)
+      projectsData.find(p => p.id === tp.id)
     ).filter(Boolean);
 
     const systemPrompt = `You are a portfolio assistant.
 The user searched for: "${query}".
 The system has instantly retrieved the following best-match projects using local scoring algorithms:
-${JSON.stringify(contextProjects.map((p: any) => ({ title: p.title, problem: p.problem, impact: p.impact })))}
+${JSON.stringify(contextProjects.map((p: any) => ({ title: p.title, description: p.description, metrics: p.metrics })))}
 
 Your task is to write a single-sentence "reason" for each project explaining why it is relevant to the user's search.
 Keep the reason professional, high-impact, and directly related to their search term.

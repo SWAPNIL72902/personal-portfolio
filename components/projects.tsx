@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { LinkIcon, PlayCircle, FileText, CheckCircle2, Briefcase, Layers, Settings, Database, DollarSign, PieChart, Cpu } from 'lucide-react'
-import { projects } from '@/lib/projects-data'
+import { projectsData } from '@/data/projects'
 
 const IconMap = {
   check: <CheckCircle2 size={16} />,
@@ -19,16 +19,19 @@ const IconMap = {
 export const Projects = () => {
   const [filter, setFilter] = useState('featured')
 
-  const filteredProjects = projects.filter(p => filter === 'all' || p.cat === filter)
+  const filteredProjects = projectsData.filter(p => {
+    if (filter === 'all') return true;
+    if (filter === 'featured') return p.featured;
+    return p.category.toLowerCase() === filter.toLowerCase();
+  })
 
   const tabs = [
-    { id: 'featured', label: 'Featured' },
+    { id: 'featured', label: 'Featured ⭐' },
     { id: 'all', label: 'All Projects' },
-    { id: 'pm', label: 'Product' },
-    { id: 'finance', label: 'Finance' },
-    { id: 'data', label: 'Analytics' },
-    { id: 'strategy', label: 'Strategy' },
-    { id: 'eng', label: 'Mechanical' }
+    { id: 'product', label: 'Product & Strategy 🚀' },
+    { id: 'finance', label: 'Finance & Quant 💰' },
+    { id: 'data', label: 'Data & Analytics 📊' },
+    { id: 'mechanical', label: 'Systems & Mechanical ⚙️' }
   ]
 
   return (
@@ -82,65 +85,46 @@ export const Projects = () => {
                 className="premium-card flex flex-col group relative overflow-hidden h-full"
               >
                 {/* Header Category */}
-                <div className={`flex items-center gap-2 mb-8 font-heading text-[0.65rem] tracking-[2px] uppercase border px-3 py-1.5 w-fit rounded-lg font-black ${proj.catClass}`}>
-                   {IconMap[proj.iconType as keyof typeof IconMap]} {proj.displayCat}
+                <div className="flex items-center gap-2 mb-6 font-heading text-[0.65rem] tracking-[2px] uppercase border px-3 py-1.5 w-fit rounded-lg font-black bg-white/5 border-white/10 text-[#A1A1AA]">
+                   {proj.category}
                 </div>
                 
-                <h3 className="font-heading text-[21px] leading-tight text-text-primary mb-8 group-hover:text-accent-gold transition-colors duration-500 min-h-[3rem] line-clamp-2">
+                <h3 className="font-heading text-[21px] leading-tight text-text-primary mb-6 group-hover:text-accent-gold transition-colors duration-500 min-h-[3rem] line-clamp-2">
                    {proj.title}
                 </h3>
                 
-                <div className="flex flex-col gap-8 flex-grow">
-                  <div className="space-y-3">
-                    <label className="font-mono text-[0.6rem] tracking-[2px] uppercase text-text-muted font-black block">Goal</label>
-                    <p className="text-[15px] text-text-secondary leading-relaxed line-clamp-3">{proj.problem}</p>
-                  </div>
+                <div className="flex flex-col gap-6 flex-grow">
+                  <p className="text-[15px] text-text-secondary leading-relaxed line-clamp-3">{proj.description}</p>
                   
                   <div className="space-y-3">
-                    <label className="font-mono text-[0.6rem] tracking-[2px] uppercase text-accent-gold font-black block opacity-80">Impact</label>
-                    <p className="text-[16px] text-text-primary font-bold leading-relaxed break-words">{proj.impact}</p>
+                    <label className="font-mono text-[0.65rem] tracking-[2px] uppercase text-accent-gold font-black block opacity-90">Metrics</label>
+                    <div className="flex flex-wrap gap-2">
+                        {proj.metrics.map(metric => (
+                            <div key={metric} className="text-[13px] text-text-primary font-bold bg-[#D4AF37]/10 border border-[#D4AF37]/20 px-3 py-1 rounded-[6px]">
+                                {metric}
+                            </div>
+                        ))}
+                    </div>
                   </div>
                 </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2 pt-10 mt-auto border-t border-border-color">
+                <div className="flex flex-wrap gap-2 pt-8 mt-auto border-t border-border-color">
                   {proj.tags.map((tag) => (
-                    <span key={tag} className="text-[0.6rem] text-text-muted font-mono font-medium uppercase tracking-wider bg-text-secondary/5 px-2.5 py-1 rounded-md">{tag}</span>
+                    <span key={tag} className="text-[0.65rem] text-text-muted font-mono font-medium uppercase tracking-wider bg-text-secondary/5 px-2.5 py-1 rounded-md">{tag}</span>
                   ))}
                 </div>
                 
                 {/* Dynamic Buttons Container */}
-                <div className="flex flex-wrap gap-3 mt-10">
-                  {proj.links.github && (
+                <div className="flex flex-wrap gap-3 mt-8">
+                  {proj.link && (
                     <a
-                      href={proj.links.github}
+                      href={proj.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-[0.7rem] bg-text-secondary/10 text-text-secondary px-5 py-2.5 rounded-[8px] font-heading font-black hover:bg-text-secondary/20 hover:text-text-primary transition duration-300 no-underline whitespace-nowrap"
                     >
-                      <LinkIcon size={14} /> VIEW
-                    </a>
-                  )}
-
-                  {proj.links.live && (
-                    <a
-                      href={proj.links.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-[0.7rem] bg-blue-600 text-white px-5 py-2.5 rounded-[8px] font-heading font-black hover:bg-blue-500 transition duration-300 no-underline whitespace-nowrap"
-                    >
-                      <PlayCircle size={14} /> LIVE DEMO
-                    </a>
-                  )}
-
-                  {proj.links.caseStudy && (
-                    <a
-                      href={proj.links.caseStudy}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-[14px] rounded-[8px] border border-accent-gold/30 text-accent-gold hover:bg-accent-gold hover:text-white dark:hover:text-primary transition-all duration-300 px-5 py-2.5 font-heading font-black tracking-tight whitespace-nowrap"
-                    >
-                      📊 View Case Study
+                      <LinkIcon size={14} /> VIEW DETAILS
                     </a>
                   )}
                 </div>

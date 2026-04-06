@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink } from 'lucide-react'
+import { ExternalLink, Layers, Database, Code, DollarSign, Settings } from 'lucide-react'
 
 const projectsData = [
   {
@@ -10,58 +10,37 @@ const projectsData = [
     title: 'AI Stock Intelligence Dashboard',
     cat: 'tech',
     catLabel: 'Tech / Data Science',
-    catClass: 'bg-[rgba(232,201,122,0.1)] text-[var(--accent)] border-[rgba(232,201,122,0.2)]',
-    problem: 'Retail investors lack a unified, AI-powered view of stock movement — data, predictions, and sentiment are scattered across platforms.',
-    solution: 'Built a real-time analytics platform combining market data, AI-based predictions, news sentiment signals, and interactive visualizations.',
-    impact: 'Live UP/DOWN predictions with confidence scores · 30-day price trends · Auto-refresh every 60s · Full glassmorphism UI',
+    icon: <Layers size={18} />,
+    catClass: 'bg-amber-400/5 text-amber-400 border-amber-400/20',
+    problem: 'Retail investors lack a unified, AI-powered view of stock movement — data and sentiment are scattered.',
+    solution: 'Built a real-time analytics platform combining market data, AI predictions, and news sentiment signals.',
+    impact: 'Live predictions with confidence scores · 30-day price trends · Auto-refresh · Glassmorphism UI',
     tools: ['Next.js', 'AI/ML', 'Data Viz', 'Real-time APIs'],
     link: 'https://stock-predictor-beige.vercel.app/'
   },
   {
     id: 2,
-    title: 'FoodSwift – Restaurant Reliability PM Case Study',
+    title: 'FoodSwift – Restaurant Reliability Case',
     cat: 'pm',
     catLabel: 'Product Management',
-    catClass: 'bg-[rgba(167,139,250,0.1)] text-[var(--accent3)] border-[rgba(167,139,250,0.2)]',
-    problem: 'Orders/user dropped from 3.2 → 2.8 and NPS fell from 42 → 35 across a 50K-restaurant, 2M MAU platform.',
-    solution: 'Designed 3 core systems: real-time inventory sync, capacity throttling, and a demand forecasting dashboard. Built phased rollout strategy.',
-    impact: 'Root cause: 39.6% failures from inventory issues, peak-hour capacity drops (~81.6% success at lunch), and underperforming partners.',
+    icon: <Settings size={18} />,
+    catClass: 'bg-violet-400/5 text-violet-400 border-violet-400/20',
+    problem: 'Orders/user dropped from 3.2 → 2.8 and NPS fell from 42 → 35 across 50K restaurants.',
+    solution: 'Designed inventory sync, capacity throttling, and demand forecasting systems. Built rollout strategy.',
+    impact: 'Identified core friction: 39.6% failures from inventory, capacity drops during peaks.',
     tools: ['PRD', 'User Research', 'Metrics Design'],
     link: '#'
   },
   {
-    id: 3,
-    title: 'Instagram Reels – Content Personalization Strategy',
-    cat: 'pm',
-    catLabel: 'Product Management',
-    catClass: 'bg-[rgba(167,139,250,0.1)] text-[var(--accent3)] border-[rgba(167,139,250,0.2)]',
-    problem: '12% drop in watch time for 50M users in India due to algorithm stagnation and lack of intent signals.',
-    solution: 'Proposed "Content Mood Selector" feature (Laugh / Learn / Relax) capturing user intent before feed loads.',
-    impact: '+4.5 min/session projected increase · ₹350 Cr/year estimated ad revenue uplift · RICE score of ~23M',
-    tools: ['RICE Framework', 'KPI Design', 'A/B Testing'],
-    link: '#'
-  },
-  {
-    id: 4,
-    title: 'SkillSync – AI-Powered Learning Path Product',
-    cat: 'pm',
-    catLabel: 'Product Management · 0→1',
-    catClass: 'bg-[rgba(167,139,250,0.1)] text-[var(--accent3)] border-[rgba(167,139,250,0.2)]',
-    problem: '68% young professionals feel stuck on "what to learn next." 55% waste money on wrong courses. 72% lack structured guidance.',
-    solution: 'End-to-end 0→1 product: Onboarding → AI Skill Gap Analysis → Personalized Roadmap → Progress Tracking.',
-    impact: 'Targeting $28.4B India edtech market · 38 survey responses + interviews · RICE prioritization (MVP score: 135) · Full GTM strategy defined',
-    tools: ['Primary Research', 'RICE', 'GTM Strategy', 'AI Product'],
-    link: '#'
-  },
-  {
     id: 5,
-    title: 'Financial Risk Analytics – CAPM + ARIMA + GARCH + VaR',
+    title: 'Financial Risk Analytics – CAPM + GARCH',
     cat: 'finance',
     catLabel: 'Finance · Quantitative',
-    catClass: 'bg-[rgba(251,146,60,0.1)] text-[#fb923c] border-[rgba(251,146,60,0.2)]',
-    problem: '4 companies (EKC, EMAMILTD, ENGINERSIN, ESABINDIA) · 4.5-year dataset (Apr 2020 – Sep 2024) · 1,000+ daily data points',
-    solution: 'Built 4 predictive models (CAPM for beta estimation, ARIMA time-series, GARCH volatility) + Python-based VaR computation.',
-    impact: 'Quantified downside risk via VaR · Delivered market risk exposure (beta) insights · Identified volatility clustering patterns',
+    icon: <DollarSign size={18} />,
+    catClass: 'bg-orange-400/5 text-orange-400 border-orange-400/20',
+    problem: 'Traditional models often fail to capture volatility clustering in high-frequency trading data.',
+    solution: 'Built predictive models (CAPM, ARIMA, GARCH) + Python-based VaR computation across 4.5 years of data.',
+    impact: 'Quantified downside risk via VaR · Delivered beta insights · Identified volatility clusters.',
     tools: ['Python', 'CAPM', 'ARIMA', 'GARCH', 'VaR'],
     link: '#'
   }
@@ -73,85 +52,90 @@ export const Projects = () => {
   const filteredProjects = projectsData.filter(p => filter === 'all' || p.cat === filter)
 
   return (
-    <section id="projects" className="bg-[var(--surface)] px-[clamp(1.5rem,8vw,8rem)] py-[5rem]">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
-      >
-        <div className="font-mono text-[0.75rem] tracking-[2px] uppercase text-[var(--accent)] mb-[0.75rem] font-medium">
-          // projects
-        </div>
-        <h2 className="font-serif text-[clamp(1.8rem,3vw,2.5rem)] text-[var(--text)] leading-[1.2] mb-[0.75rem]">
-          Case Studies & Builds
-        </h2>
-        <p className="text-[var(--text-muted)] text-[0.95rem] max-w-[520px]">
-          15+ projects across product, analytics, finance, and engineering. Each one taught me something new about how to solve real problems.
-        </p>
-      </motion.div>
+    <section id="projects" className="bg-[#111118]">
+      <div className="section-wrapper section-padding">
+        <motion.div
+           initial={{ opacity: 0, y: 24 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ duration: 0.7 }}
+           className="mb-12 md:mb-16"
+        >
+          <div className="font-mono text-xs tracking-[2px] uppercase text-[#e8c97a] mb-4 font-black">
+            // projects
+          </div>
+          <h2 className="font-serif text-4xl md:text-5xl text-white leading-tight mb-4">
+            Case Studies & Builds
+          </h2>
+          <p className="text-lg text-[#8888a8] max-w-2xl leading-relaxed">
+            A selection of 15+ projects across technical domains, each solving a unique business challenge.
+          </p>
+        </motion.div>
 
-      <div className="flex flex-wrap gap-2 mt-4 mb-10">
-        {[
-          { id: 'all', label: 'All' },
-          { id: 'pm', label: 'Product Management' },
-          { id: 'data', label: 'Data & Analytics' },
-          { id: 'tech', label: 'Tech' },
-          { id: 'finance', label: 'Finance' },
-          { id: 'mech', label: 'Engineering' }
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setFilter(tab.id)}
-            className={`bg-[var(--card-bg)] border ${filter === tab.id ? 'bg-[rgba(232,201,122,0.1)] border-[rgba(232,201,122,0.3)] text-[var(--accent)]' : 'border-[var(--border)] text-[var(--text-muted)]'} px-4 py-1.5 rounded-lg text-[0.8rem] transition-all duration-200 cursor-pointer font-medium`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
-        <AnimatePresence>
-          {filteredProjects.map((proj) => (
-            <motion.div
-              key={proj.id}
-              layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4 }}
-              className="bg-[var(--card-bg)] border border-[var(--border)] hover:border-[rgba(232,201,122,0.3)] hover:-translate-y-1 transition-all duration-300 rounded-[var(--radius-lg)] p-8 flex flex-col"
+        <div className="flex flex-wrap gap-3 mb-12">
+          {[
+            { id: 'all', label: 'All' },
+            { id: 'pm', label: 'Product' },
+            { id: 'data', label: 'Analytics' },
+            { id: 'tech', label: 'Engineering' },
+            { id: 'finance', label: 'Finance' }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setFilter(tab.id)}
+              className={`pill-base transition-all duration-500 font-bold px-6 py-2 border-2 ${filter === tab.id ? 'bg-[#e8c97a]/15 border-[#e8c97a]/30 text-[#e8c97a] scale-105' : 'bg-white/5 border-white/10 text-[#8888a8] hover:text-white'} cursor-pointer`}
             >
-              <span className={`font-mono text-[0.68rem] tracking-[1.5px] uppercase px-2.5 py-1 rounded-md mb-4 border w-fit ${proj.catClass}`}>
-                {proj.catLabel}
-              </span>
-              <h3 className="font-serif text-[1.1rem] text-[var(--text)] mb-4">{proj.title}</h3>
-              <div className="mb-4">
-                <label className="font-mono text-[0.65rem] tracking-[1.5px] uppercase text-[var(--text-dim)] block mb-1">Problem</label>
-                <p className="text-[0.82rem] text-[var(--text-muted)] leading-[1.6]">{proj.problem}</p>
-              </div>
-              <div className="mb-4 mt-auto">
-                <label className="font-mono text-[0.65rem] tracking-[1.5px] uppercase text-[var(--text-dim)] block mb-1">Impact</label>
-                <p className="text-[0.82rem] text-[var(--text-muted)] leading-[1.6]">
-                  <span className="text-[var(--accent)] font-semibold">{proj.impact}</span>
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2 pt-4 border-t border-[var(--border)] mt-4">
-                {proj.tools.map((tool) => (
-                  <span key={tool} className="bg-[var(--surface2)] px-2 py-1 rounded-[4px] text-[0.7rem] text-[var(--text-dim)] font-mono">
-                    {tool}
-                  </span>
-                ))}
-              </div>
-              {proj.link !== '#' && (
-                <a href={proj.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[0.8rem] text-[var(--accent)] mt-4 font-semibold hover:underline">
-                  Live Demo <ExternalLink size={14} />
-                </a>
-              )}
-            </motion.div>
+              {tab.label}
+            </button>
           ))}
-        </AnimatePresence>
-      </motion.div>
+        </div>
+
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((proj) => (
+              <motion.div
+                key={proj.id}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4 }}
+                className="glass-card flex flex-col p-8 md:p-10 group"
+              >
+                <div className={`flex items-center gap-2 mb-6 font-mono text-[0.65rem] tracking-[1.5px] uppercase border px-3 py-1 w-fit rounded-lg font-black ${proj.catClass}`}>
+                   {proj.icon} {proj.catLabel}
+                </div>
+                
+                <h3 className="font-serif text-2xl text-white mb-6 group-hover:text-[#e8c97a] transition-colors leading-tight">{proj.title}</h3>
+                
+                <div className="flex flex-col gap-6 flex-grow">
+                  <div className="space-y-2">
+                    <label className="font-mono text-[0.6rem] tracking-[2px] uppercase text-[#555570] font-black block">Problem</label>
+                    <p className="text-sm text-[#8888a8] leading-relaxed line-clamp-3">{proj.problem}</p>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label className="font-mono text-[0.6rem] tracking-[2px] uppercase text-[#555570] font-black block">Impact</label>
+                    <p className="text-base text-white/90 leading-relaxed font-bold break-words">{proj.impact}</p>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2 pt-10 mt-10 border-t border-white/5">
+                  {proj.tools.map((tool) => (
+                    <span key={tool} className="text-[0.65rem] text-[#555570] font-mono font-black uppercase tracking-widest">{tool}</span>
+                  ))}
+                </div>
+                
+                {proj.link !== '#' && (
+                  <a href={proj.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-[#e8c97a] mt-8 font-black hover:translate-x-2 transition-all">
+                    LIVE DEMO <ExternalLink size={14} />
+                  </a>
+                )}
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      </div>
     </section>
   )
 }

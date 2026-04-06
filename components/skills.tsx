@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 const skillGroups = [
   {
     title: '🎯 Product Management',
-    fillClass: 'fill-product',
+    fillClass: 'bg-gradient-to-r from-violet-500 to-[#e8c97a]',
     skills: [
       { name: 'PRD Writing', level: 'Advanced', width: '85%' },
       { name: 'Roadmapping', level: 'Advanced', width: '80%' },
@@ -18,7 +18,7 @@ const skillGroups = [
   },
   {
     title: '📊 Analytics',
-    fillClass: 'fill-analytics',
+    fillClass: 'bg-gradient-to-r from-emerald-500 to-cyan-400',
     skills: [
       { name: 'SQL', level: 'Advanced', width: '85%' },
       { name: 'Python (Pandas, NumPy)', level: 'Advanced', width: '82%' },
@@ -30,7 +30,7 @@ const skillGroups = [
   },
   {
     title: '⚙️ Technical',
-    fillClass: 'fill-tech',
+    fillClass: 'bg-gradient-to-r from-[#e8c97a] to-orange-400',
     skills: [
       { name: 'Django / REST APIs', level: 'Intermediate', width: '70%' },
       { name: 'MySQL', level: 'Intermediate', width: '72%' },
@@ -44,54 +44,61 @@ const skillGroups = [
 
 export const Skills = () => {
   return (
-    <section id="skills" className="px-[clamp(1.5rem,8vw,8rem)] py-[5rem]">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
-      >
-        <div className="font-mono text-[0.75rem] tracking-[2px] uppercase text-[var(--accent)] mb-[0.75rem] font-medium">
-          // skills
-        </div>
-        <h2 className="font-serif text-[clamp(1.8rem,3vw,2.5rem)] text-[var(--text)] leading-[1.2] mb-[0.75rem]">
-          What I bring to the table
-        </h2>
-      </motion.div>
+    <section id="skills" className="bg-[#0a0a0f]">
+      <div className="section-wrapper section-padding">
+        <motion.div
+           initial={{ opacity: 0, y: 24 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ duration: 0.7 }}
+           className="mb-12 md:mb-16"
+        >
+          <div className="font-mono text-xs tracking-[2px] uppercase text-[#e8c97a] mb-4 font-black">
+            // skills
+          </div>
+          <h2 className="font-serif text-4xl md:text-5xl text-white leading-tight mb-4">
+            Technical Arsenal
+          </h2>
+          <p className="text-lg text-[#8888a8] max-w-2xl leading-relaxed">
+            Data-driven. Product-focused. Technically rigorous.
+          </p>
+        </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2.5rem] mt-[2.5rem]">
-        {skillGroups.map((group, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: i * 0.1 }}
-          >
-            <h3 className="font-serif text-[1.1rem] text-[var(--text)] mb-6 pb-3 border-b border-[var(--border)]">
-              {group.title}
-            </h3>
-            <div className="flex flex-col gap-5">
-              {group.skills.map((skill, idx) => (
-                <div key={idx}>
-                  <div className="flex justify-between items-center mb-1.5">
-                    <span className="text-[0.85rem] text-[var(--text)] font-medium">{skill.name}</span>
-                    <span className="text-[0.72rem] text-[var(--text-dim)] font-mono">{skill.level}</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-16 items-stretch">
+          {skillGroups.map((group, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: i * 0.1 }}
+              className="glass-card flex flex-col p-8 md:p-12 hover:-translate-y-2"
+            >
+              <h3 className="font-serif text-xl md:text-2xl text-white mb-10 pb-4 border-b border-white/5 border-spacing-8">
+                {group.title}
+              </h3>
+              <div className="flex flex-col gap-8">
+                {group.skills.map((skill, idx) => (
+                  <div key={idx} className="space-y-3">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-white font-bold">{skill.name}</span>
+                      <span className="text-[#555570] font-mono text-[0.6rem] font-black uppercase tracking-widest">{skill.level}</span>
+                    </div>
+                    <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: skill.width }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1.5, ease: 'circOut', delay: idx * 0.05 }}
+                        className={`h-full rounded-full ${group.fillClass} shadow-[0_0_8px_rgba(0,0,0,0.5)]`}
+                      />
+                    </div>
                   </div>
-                  <div className="h-1 bg-[var(--border)] rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: skill.width }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1.2, ease: 'easeOut' }}
-                      className={`h-full rounded-full ${group.fillClass}`}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        ))}
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   )

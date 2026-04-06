@@ -13,7 +13,7 @@ import { Footer } from '@/components/footer'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
+    <div className="bg-[#0a0a0f] min-h-screen text-[#e8e8f0] font-sans selection:bg-[#e8c97a]/20 selection:text-[#e8c97a] overflow-x-hidden antialiased">
       <Navbar />
       <Hero />
       <About />
@@ -23,6 +23,6 @@ export default function Home() {
       <Contact />
       <Chatbot />
       <Footer />
-    </main>
+    </div>
   )
 }

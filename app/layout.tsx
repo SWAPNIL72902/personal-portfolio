@@ -10,16 +10,15 @@ const jetBrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jet
 
 export const metadata: Metadata = {
   title: "Swapnil Pahari – Product & Analytics Portfolio",
-  description: "Final-year BITS Pilani student at the intersection of product thinking and data-driven decision-making. Open to PM, analytics, and program management roles.",
-  keywords: ["Product Management", "Data Analytics", "Program Management", "Systems Thinking", "BITS Pilani", "Finance Minor", "Licious Intern"],
+  description: "Senior Product & Analytics professional. Open to PM, analytics, and program management roles.",
+  keywords: ["Product Management", "Data Analytics", "Program Management", "BITS Pilani", "Licious Intern"],
   authors: [{ name: "Swapnil Pahari" }],
-  openGraph: {
-    title: "Swapnil Pahari – Product & Analytics",
-    description: "I identify problems, dig into data, and build solutions that drive real impact.",
-    type: "website",
-    url: "https://swapnil-pahari.vercel.app",
-    siteName: "Swapnil Pahari Portfolio",
-  }
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
@@ -28,8 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${dmSans.variable} ${dmSerif.variable} ${jetBrainsMono.variable} antialiased`}>
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+      <body className={`${inter.variable} ${dmSans.variable} ${dmSerif.variable} ${jetBrainsMono.variable} antialiased bg-[#0a0a0f] text-[#e8e8f0] overflow-x-hidden min-h-screen selection:bg-[#e8c97a]/20 selection:text-[#e8c97a]`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

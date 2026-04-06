@@ -11,8 +11,6 @@ export const Navbar = () => {
   const [mounted, setMounted] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  const emailHref = "mailto:swapnilpahari05@gmail.com?subject=Let's%20Connect&body=Hi%20Swapnil%2C%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect!"
-
   useEffect(() => setMounted(true), [])
 
   if (!mounted) return null
@@ -48,9 +46,8 @@ export const Navbar = () => {
 
         <div className="flex items-center gap-6">
           <a
-            href={emailHref}
-
-            aria-label="Send email to Swapnil"
+            href="#contact"
+            aria-label="Contact Swapnil"
             className="hidden md:flex bg-accent-gold text-white dark:text-bg-main px-6 py-2.5 rounded-lg text-xs font-heading font-black tracking-tight hover:bg-accent-gold-hover hover:scale-105 active:scale-95 transition-all duration-300 items-center gap-2 no-underline"
           >
             Connect <ArrowUpRight size={14} />
@@ -89,7 +86,7 @@ export const Navbar = () => {
               ))}
               <li>
                 <a
-                  href={emailHref}
+                  href="#contact"
                   onClick={() => setIsMenuOpen(false)}
                   className="block py-4 text-[#D4AF37] font-black border-t border-white/5 mt-4"
                 >

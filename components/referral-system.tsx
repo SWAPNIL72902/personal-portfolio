@@ -90,10 +90,8 @@ export const ReferralSystem = () => {
   }
 
   const handleEmail = () => {
-    console.log('[Event Tracking] referral_option_selected: email')
-    const subject = encodeURIComponent(`Candidate Recommendation: Swapnil Pahari`)
-    const body = encodeURIComponent(messageTemplate)
-    window.location.href = `mailto:?subject=${subject}&body=${body}`
+    console.log('[Event Tracking] referral_option_selected: email_api')
+    setShowForm(true)
   }
 
   const handleLinkedIn = () => {
@@ -169,7 +167,7 @@ export const ReferralSystem = () => {
                        <div className="w-10 h-10 rounded-lg bg-[#D4AF37] text-black flex items-center justify-center"><Mail size={18} /></div>
                        <div className="text-left">
                           <div className="text-white font-medium text-sm">Send Email</div>
-                          <div className="text-[#A1A1AA] text-xs">Prefilled template opens in app</div>
+                          <div className="text-[#A1A1AA] text-xs">Sends securely via strict internal backend</div>
                        </div>
                     </div>
                     <ChevronRight size={18} className="text-[#71717A] group-hover:text-[#D4AF37] transition-colors" />

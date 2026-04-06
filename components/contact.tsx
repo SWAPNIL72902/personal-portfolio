@@ -1,11 +1,12 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Globe, Users, Send } from 'lucide-react'
+import { Mail, Globe, Users, Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-react'
 
 export const Contact = () => {
-  const emailHref = "mailto:swapnilpahari05@gmail.com?subject=Let's%20Connect&body=Hi%20Swapnil%2C%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect!"
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
   const socials = [
     { icon: <Users size={20} />, label: 'LinkedIn', href: 'https://linkedin.com/in/swapnil-pahari', color: 'bg-[#a78bfa]' },
@@ -36,12 +37,12 @@ export const Contact = () => {
               </div>
 
               <div className="flex flex-col gap-6">
-                 <a 
-                   href={emailHref}
+                 <button 
+                   onClick={() => document.getElementById('contact-form')?.focus()}
                    className="btn-primary w-fit no-underline"
                  >
-                    <Mail size={18} /> Send an Email
-                 </a>
+                    <Mail size={18} /> Send a Message
+                 </button>
                  <div className="flex gap-4">
                     {socials.map((social) => (
                       <a
@@ -66,19 +67,54 @@ export const Contact = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="premium-card p-12 text-center flex flex-col items-center border-[#D4AF37]/10"
            >
-              <div className="w-16 h-16 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mb-10 border border-[#D4AF37]/20 shadow-lg shadow-[#D4AF37]/5">
-                 <Mail size={24} className="text-[#D4AF37]" />
-              </div>
-              <h3 className="font-heading text-[24px] font-bold text-white mb-6">Drop a Note</h3>
-              <p className="text-[#A1A1AA] mb-10 max-w-xs mx-auto leading-relaxed font-medium">
-                 Direct inquiry? I usually respond within a few hours for high-signal opportunities.
-              </p>
-              <a 
-                href={emailHref}
-                className="btn-secondary w-full no-underline"
-              >
-                 Open Mail Client <Send size={16} />
-              </a>
+              {status === 'success' ? (
+                <div className="flex flex-col items-center justify-center h-full space-y-4 py-8">
+                  <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center border border-emerald-500/20 text-emerald-400">
+                    <CheckCircle2 size={32} />
+                  </div>
+                  <h3 className="font-heading text-[24px] font-bold text-white">Message Sent! 🚀</h3>
+                  <p className="text-[#A1A1AA]">I've received your message and will get back to you shortly.</p>
+                  <button onClick={() => {setStatus('idle'); setFormData({name: '', email: '', message: ''})}} className="mt-4 text-sm text-[#D4AF37] hover:text-[#F5D76E] transition-colors underline underline-offset-4">Send another message</button>
+                </div>
+              ) : (
+                <>
+                  <h3 className="font-heading text-[24px] font-bold text-white w-full text-left mb-6">Drop a Note</h3>
+                  <form 
+                    className="w-full space-y-4 flex flex-col"
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      setStatus('loading');
+                      console.log("Submitting:", formData);
+                      try {
+                        const res = await fetch("/api/contact", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify(formData),
+                        });
+                        const data = await res.json();
+                        if (!data.success) throw new Error(data.error);
+                        setStatus('success');
+                      } catch (err) {
+                        setStatus('error');
+                      }
+                    }}
+                  >
+                    <input id="contact-form" type="text" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="Your Name" className="w-full bg-[#0B0B0F] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                    <input type="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} placeholder="Your Email Address" className="w-full bg-[#0B0B0F] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37] transition-colors" />
+                    <textarea required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} placeholder="How can we collaborate?" rows={4} className="w-full bg-[#0B0B0F] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37] resize-none transition-colors"></textarea>
+                    
+                    {status === 'error' && (
+                      <div className="flex items-center gap-2 text-red-400 bg-red-400/10 border border-red-400/20 p-3 rounded-lg text-xs font-medium w-full text-left">
+                         <AlertCircle size={14} /> Something went wrong. Try again.
+                      </div>
+                    )}
+
+                    <button disabled={status === 'loading'} type="submit" className="w-full bg-[#D4AF37] hover:bg-[#F5D76E] disabled:bg-white/10 disabled:text-white/50 text-black font-black font-heading tracking-tight text-sm py-4 rounded-xl flex items-center justify-center gap-2 transition-all mt-2">
+                       {status === 'loading' ? <><Loader2 size={16} className="animate-spin" /> Sending...</> : <><Send size={16} /> Send Securely</>}
+                    </button>
+                  </form>
+                </>
+              )}
            </motion.div>
         </div>
       </div>

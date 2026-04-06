@@ -45,7 +45,7 @@ export const ReferralSystem = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY
       const docHeight = document.body.scrollHeight - window.innerHeight
-      const trigger = docHeight * 0.4
+      const trigger = docHeight * 0.1 // Fires after ~1 regular scroll
       if (scrollY > trigger) {
         setShowFloating(true)
       } else {
@@ -112,7 +112,7 @@ export const ReferralSystem = () => {
                console.log('[Event Tracking] referral_button_click')
                setIsOpen(true)
             }}
-            className="fixed bottom-[90px] right-6 md:bottom-8 md:right-8 z-[90] bg-[#111117] border border-[#D4AF37] px-5 py-3 rounded-full flex items-center gap-3 shadow-[0_8px_30px_rgb(0,0,0,0.4)] hover:scale-105 hover:bg-[#D4AF37]/10 transition-all duration-300 group"
+            className="fixed bottom-[130px] right-5 md:bottom-[120px] md:right-8 z-[90] bg-[#111117] border border-[#D4AF37] px-5 py-3 rounded-full flex items-center gap-3 shadow-[0_8px_30px_rgb(0,0,0,0.4)] hover:scale-105 hover:bg-[#D4AF37]/10 transition-all duration-300 group"
           >
             <div className="w-8 h-8 rounded-full bg-[#D4AF37] text-black flex items-center justify-center">
                <Share2 size={16} className="ml-[-1px]" />

@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Layers, Database, Code, DollarSign, Settings, PieChart, Briefcase, CheckCircle2, FileText, Cpu } from 'lucide-react'
+import { ExternalLink, Layers, Database, Code, DollarSign, Settings, PieChart, Briefcase, CheckCircle2, FileText, Cpu, Github, Play } from 'lucide-react'
 
 const projectsData = [
-  // FEATURED
+  // ⭐ FEATURED
   {
     id: 'licious-analytics',
     title: 'Licious – Program Management & Analytics',
@@ -16,20 +16,7 @@ const projectsData = [
     problem: 'Manual reporting and fragmented data across city business teams slowed down daily decision-making.',
     impact: 'Automated 7+ city pipelines · Enabled real-time KPI tracking · Reduced manual effort · Improved decision speed.',
     tags: ['SQL', 'Python', 'Analytics', 'Automation'],
-    link: '#',
-    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/LICIOUS_FINAL_REVIEW%20(3)%20(1).pdf'
-  },
-  {
-    id: 'stock-predictor',
-    title: 'AI Stock Intelligence Dashboard',
-    cat: 'featured',
-    displayCat: 'Featured · Engineering',
-    icon: <Layers size={16} />,
-    catClass: 'bg-amber-400/10 text-amber-400 border-amber-400/20',
-    problem: 'Retail investors find it hard to track real-time market sentiment and price predictions in one place.',
-    impact: '82% prediction accuracy · Real-time sentiment signals · Interactive 30-day price charts.',
-    tags: ['Next.js', 'AI/ML', 'Market APIs', 'Tailwind'],
-    link: 'https://stock-predictor-beige.vercel.app/'
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/raw/main/LICIOUS_FINAL_REVIEW%20(3)%20(1).pdf'
   },
   {
     id: 'paytm-upi',
@@ -41,10 +28,22 @@ const projectsData = [
     problem: 'High churn rates during intermittent UPI downtime causing transaction drop-offs.',
     impact: 'Designed recovery flow · Optimized transaction retry logic · Stabilized payment success rates.',
     tags: ['Product Design', 'SQL', 'Payment Ops'],
-    link: '#'
+    github: 'https://github.com/SWAPNIL72902/Paytm'
+  },
+  {
+    id: 'stock-predictor',
+    title: 'AI Stock Intelligence Dashboard',
+    cat: 'featured',
+    displayCat: 'Featured · Engineering',
+    icon: <Layers size={16} />,
+    catClass: 'bg-amber-400/10 text-amber-400 border-amber-400/20',
+    problem: 'Retail investors find it hard to track real-time market sentiment and price predictions in one place.',
+    impact: '82% prediction accuracy · Real-time sentiment signals · Interactive 30-day price charts.',
+    tags: ['Next.js', 'AI/ML', 'Market APIs', 'Tailwind'],
+    live: 'https://stock-predictor-beige.vercel.app/'
   },
 
-  // PRODUCT MANAGEMENT
+  // 🚀 PRODUCT MANAGEMENT
   {
     id: 'foodswift',
     title: 'FoodSwift – Delivery Reliability Case',
@@ -55,7 +54,7 @@ const projectsData = [
     problem: 'Orders/user dropped from 3.2 to 2.8 while NPS fell from 42 to 35 across 50K restaurants.',
     impact: 'Built inventory sync & capacity throttling · 2M MAU focus · Designed forecasting dashboard.',
     tags: ['PRD', 'Metrics', 'Inventory Sync'],
-    link: '#'
+    github: 'https://github.com/SWAPNIL72902/FoodSwift'
   },
   {
     id: 'insta-reels',
@@ -67,7 +66,7 @@ const projectsData = [
     problem: '12% drop in watch time across 50M users due to feed monotony.',
     impact: 'Designed "Mood Selector" feature · +4.5 min/session watch time · ₹350Cr projected revenue impact.',
     tags: ['GTM', 'Recommender Systems', 'Retention'],
-    link: '#'
+    github: 'https://github.com/SWAPNIL72902/Insta_PM'
   },
   {
     id: 'skillsync',
@@ -79,7 +78,7 @@ const projectsData = [
     problem: '68% of users interviewed felt confused about what to learn next in a crowded edtech market.',
     impact: 'Built AI roadmap generator · RICE prioritization mapping · Full GTM strategy development.',
     tags: ['0 → 1', 'AI Roadmap', 'User Research'],
-    link: '#'
+    github: 'https://github.com/SWAPNIL72902/Skill_Sync'
   },
   {
     id: 'gnani-ai',
@@ -91,7 +90,7 @@ const projectsData = [
     problem: 'High costs in reverse logistics due to manual verification of returned goods.',
     impact: 'Reduced costs by 30-40% · Cut retries by 50-60% · Designed AI automated call verification system.',
     tags: ['Reverse Logistics', 'AI Voice', 'Ops Efficiency'],
-    link: '#'
+    github: 'https://github.com/SWAPNIL72902/GNANI-AI'
   },
   {
     id: 'meesho-cart',
@@ -103,153 +102,147 @@ const projectsData = [
     problem: 'Conversion gap of 45% vs industry 60% standard due to lack of social trust.',
     impact: 'Designed "Confidence Bar" feedback loop · Projected +10% conversion · 500K additional orders.',
     tags: ['Conversion', 'E-commerce', 'Social Trust'],
-    link: '#'
+    github: 'https://github.com/SWAPNIL72902/Messho_PM'
+  },
+  {
+    id: 'campusync-pm',
+    title: 'Campusync – AI Learning Product',
+    cat: 'pm',
+    displayCat: 'Product Management',
+    icon: <Settings size={16} />,
+    catClass: 'bg-violet-400/10 text-violet-400 border-violet-400/20',
+    problem: 'Disconnected campus ecosystem making student-company interaction inefficient.',
+    impact: 'Designed student-first sync platform · Optimized recruiter discovery flow.',
+    tags: ['Product Strategy', 'UI/UX', 'GTM'],
+    github: 'https://github.com/SWAPNIL72902/Campusync_PM_Project'
   },
 
-  // DATA / ANALYTICS
+  // 📊 DATA / ANALYTICS
   {
-    id: 'healthcare-ml',
-    title: 'Healthcare – Patient Data ML Prediction',
+    id: 'edtech-analysis',
+    title: 'EdTech Dashboard Analysis',
     cat: 'data',
     displayCat: 'Data · Analytics',
     icon: <Database size={16} />,
     catClass: 'bg-rose-400/10 text-rose-400 border-rose-400/20',
-    problem: 'Low diagnostic accuracy in large scale patient data sets (10,000+ records).',
-    impact: 'Feature engineering improved data quality by 20% · Achieved 82% ML model accuracy.',
-    tags: ['Python', 'Scikit-Learn', 'Feature Engineering'],
-    link: '#'
+    problem: 'Fragmented student engagement data across thousands of courses.',
+    impact: 'Built Power BI visualization engine · 25% faster identification of at-risk programs.',
+    tags: ['Power BI', 'Data Modeling', 'Business Intelligence'],
+    github: 'https://github.com/SWAPNIL72902/EdTech'
   },
   {
-    id: 'edtech-viz',
-    title: 'EdTech – Enterprise Course Dashboard',
+    id: 'ecommerce-analysis',
+    title: 'E-commerce Sales Analysis',
     cat: 'data',
     displayCat: 'Data · Analytics',
     icon: <Database size={16} />,
     catClass: 'bg-rose-400/10 text-rose-400 border-rose-400/20',
-    problem: 'Course performance across 1,000+ courses was invisible to the leadership team.',
-    impact: 'Built interactive Power BI dashboard · 25% improvement in insight extraction time.',
-    tags: ['Power BI', 'ETL', 'Dashboarding'],
-    link: '#'
-  },
-  {
-    id: 'ecommerce-sales',
-    title: 'E-commerce – Global Sales Performance',
-    cat: 'data',
-    displayCat: 'Data · Analytics',
-    icon: <Database size={16} />,
-    catClass: 'bg-rose-400/10 text-rose-400 border-rose-400/20',
-    problem: 'Fragmented sales data from 5,000+ transactions made revenue forecasting difficult.',
-    impact: 'Identified top 40% high-revenue regions · Built automated KPI monitoring dashboard.',
-    tags: ['Excel', 'SQL', 'Revenue Analytics'],
-    link: '#'
+    problem: 'Unoptimized revenue generation across multi-region transactions.',
+    impact: 'Identified top 40% revenue drivers · Mapped transaction flows for global datasets.',
+    tags: ['Python', 'SQL', 'Exploratory Data Analysis'],
+    github: 'https://github.com/SWAPNIL72902/Analysis-of-E-Commerce-Sales-Data'
   },
 
-  // FINANCE
+  // 💰 FINANCE (CASE STUDIES)
   {
-    id: 'risk-modelling',
-    title: 'Financial Risk Modelling (CAPM + GARCH)',
+    id: 'risk-analytics',
+    title: 'Financial Risk Analytics (CAPM+GARCH)',
     cat: 'finance',
     displayCat: 'Finance',
     icon: <DollarSign size={16} />,
     catClass: 'bg-orange-400/10 text-orange-400 border-orange-400/20',
-    problem: 'Traditional models fail to capture price volatility during market stress events.',
-    impact: 'Processed 4.5 years of dataset · Built VaR (Value at Risk) models · CAPM, ARIMA, GARCH.',
-    tags: ['Quant Finance', 'Python', 'VaR'],
-    link: '#',
-    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/16_EKC_EMAMILTD_ENGINERSIN_ESABINDIA.pdf'
+    problem: 'High portfolio volatility exposure in standard equity selections.',
+    impact: 'Computed VaR metrics across 4.5 years of data · Applied GARCH for volatility clusters.',
+    tags: ['Quant Finance', 'VaR', 'Time Series'],
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/raw/main/16_EKC_EMAMILTD_ENGINERSIN_ESABINDIA%20.pdf'
   },
   {
     id: 'fofa-analysis',
-    title: 'FOFA Financial Statement Analysis',
+    title: 'FOFA Financial Analysis',
     cat: 'finance',
     displayCat: 'Finance',
     icon: <DollarSign size={16} />,
     catClass: 'bg-orange-400/10 text-orange-400 border-orange-400/20',
-    problem: 'Manual comparison of 10+ financial ratios across multi-company benchmarks is slow.',
-    impact: 'Built comparison engine · Automated 10+ core ratio computations.',
-    tags: ['Ratios', 'Comparison', 'Efficiency'],
-    link: '#',
-    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/39_FOFA_Assignment.pdf'
+    problem: 'Inefficient manual benchmarking across multi-sector competitors.',
+    impact: 'Automated 10+ core ratio analysis engine · Reduced analysis time by 40%.',
+    tags: ['Ratio Analysis', 'Corporate Finance', 'Automation'],
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/raw/main/39_FOFA_Assignment.pdf'
   },
   {
-    id: 'industry-ambuja',
-    title: 'Industry Analysis – Ambuja Cement',
+    id: 'ambuja-cement',
+    title: 'Ambuja Cement Analysis',
     cat: 'finance',
     displayCat: 'Finance',
     icon: <DollarSign size={16} />,
     catClass: 'bg-orange-400/10 text-orange-400 border-orange-400/20',
-    problem: 'Understanding competitive moats in a commoditized cement market segment.',
-    impact: 'Revenue split breakdown (80-85% core) · Detailed multi-competitor mapping.',
-    tags: ['Strategy', 'Competitor Mapping', 'Cement'],
-    link: '#',
-    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/Ambuja.pdf'
+    problem: 'Understanding market positioning within the commoditized cement segment.',
+    impact: 'Mapped core moats and revenue splits · Benchmarked against industry standards.',
+    tags: ['Equity Research', 'Industry Mapping'],
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/raw/main/Ambuja.pdf'
   },
   {
-    id: 'manappuram-derivatives',
-    title: 'Manappuram Finance – Derivatives Analysis',
+    id: 'manappuram-strategy',
+    title: 'Manappuram Finance Strategy',
     cat: 'finance',
     displayCat: 'Finance',
     icon: <DollarSign size={16} />,
     catClass: 'bg-orange-400/10 text-orange-400 border-orange-400/20',
-    problem: 'Complexity in visualizing pay-off structures of multi-leg option strategies.',
-    impact: 'Built 5+ strategies (Bull Call, Iron Condor, etc.) · Real-time pay-off calculation.',
-    tags: ['Options', 'Risk Mgmt', 'Strategy'],
-    link: '#',
-    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/Group_44-Manappuram_Finance.pdf'
+    problem: 'Visualizing risk payoff structures for multi-asset derivatives.',
+    impact: 'Derived optimum options strategy through pay-off calculation for various scenarios.',
+    tags: ['Derivatives', 'Options Trading', 'Finance Strategy'],
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/raw/main/Group_44-Manappuram_Finance.pdf'
   },
   {
-    id: 'portfolio-opt',
-    title: 'Multi-Asset Portfolio Optimization',
+    id: 'portfolio-sapm',
+    title: 'Portfolio Optimization (SAPM)',
     cat: 'finance',
     displayCat: 'Finance',
     icon: <DollarSign size={16} />,
     catClass: 'bg-orange-400/10 text-orange-400 border-orange-400/20',
-    problem: 'Inefficient asset allocation across 8+ assets lowering risk-adjusted returns.',
-    impact: 'Built "Minimum Variance Portfolio" model · Significantly improved Sharpe ratio.',
-    tags: ['Markowitz', 'Optimization', 'Excel'],
-    link: '#',
-    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/SAPM%20Project%20.pdf'
+    problem: 'Unoptimized Sharpe ratios in multi-asset class allocation.',
+    impact: 'Built Minimum Variance Portfolio across 8+ assets · Maximized risk-adjusted returns.',
+    tags: ['Modern Portfolio Theory', 'Sharpe Ratio'],
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/raw/main/SAPM%20Project%20.pdf'
   },
   {
     id: 'wacc-lt',
-    title: 'L&T Capital Cost Model (WACC Analysis)',
+    title: 'WACC Analysis (L&T)',
     cat: 'finance',
     displayCat: 'Finance',
     icon: <DollarSign size={16} />,
     catClass: 'bg-orange-400/10 text-orange-400 border-orange-400/20',
-    problem: 'Estimating cost of capital for a ₹1.83 lakh crore diversified conglomerate.',
-    impact: 'Detailed capital cost modeling · Provided valuation baseline for infrastructure segments.',
-    tags: ['Valuation', 'WACC', 'Infrastructure'],
-    link: '#',
-    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/Wacc%20LnT.pdf'
+    problem: 'Estimating capital costs for diversified heavy engineering segments.',
+    impact: 'Detailed cost of debt and equity modeling for ₹1.83 lakh crore conglomerate.',
+    tags: ['WACC', 'Valuation', 'Corporate Strategy'],
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/raw/main/Wacc%20LnT.pdf'
   },
 
-  // BUSINESS / STRATEGY
+  // 🧠 BUSINESS / STRATEGY
   {
-    id: 'apple-sc',
-    title: 'Apple Inc. – Global Supply Chain Analysis',
+    id: 'apple-supply-chain',
+    title: 'Apple Supply Chain Case Study',
     cat: 'strategy',
-    displayCat: 'Business · Strategy',
+    displayCat: 'Strategy',
     icon: <PieChart size={16} />,
     catClass: 'bg-indigo-400/10 text-indigo-400 border-indigo-400/20',
-    problem: 'Managing 200+ suppliers across 50 countries without inventory bloat.',
-    impact: 'Identified key efficiency driver: 5-day inventory vs 18-day average · 90% forecast accuracy.',
-    tags: ['Supply Chain', 'Logistics', 'Inventory'],
-    link: '#'
+    problem: 'High capital lock-up due to decentralized global inventory models.',
+    impact: 'Identified 5-day inventory vs 18-day average efficiency · Mapped 200+ supplier strategies.',
+    tags: ['Supply Chain', 'Logistics', 'Inventory Mgmt'],
+    github: 'https://github.com/SWAPNIL72902/Apple-s-Supply-Chain-Management'
   },
 
-  // ENGINEERING
+  // ⚙️ ENGINEERING
   {
-    id: 'epicyclic-gear',
-    title: 'Fabricated Epicyclic Gearbox System',
+    id: 'mechanical-gearbox',
+    title: 'Epicyclic Gearbox Design & Fabrication',
     cat: 'eng',
-    displayCat: 'Engineering',
+    displayCat: 'Mechanical Engineering',
     icon: <Cpu size={16} />,
     catClass: 'bg-cyan-400/10 text-cyan-400 border-cyan-400/20',
-    problem: 'Requirement for high-torque gear reduction within a compact system footprint.',
-    impact: 'End-to-end design (CAD) + Fabrication (CNC) + Assembly · Full lifecycle execution.',
+    problem: 'Design requirement for high-reduction torque transmission in a compact system.',
+    impact: 'Fabricated full system with CAD+CNC execution · Tested for end-to-end performance.',
     tags: ['CAD', 'CNC', 'Mechatronics'],
-    link: '#'
+    github: 'https://github.com/SWAPNIL72902/mechanical/blob/main/EpicyclicGearTrain_Group-12%20(1).pdf'
   }
 ]
 
@@ -264,8 +257,8 @@ export const Projects = () => {
     { id: 'pm', label: 'Product' },
     { id: 'finance', label: 'Finance' },
     { id: 'data', label: 'Analytics' },
-    { id: 'strategy', label: 'Business' },
-    { id: 'eng', label: 'Engineering' }
+    { id: 'strategy', label: 'Strategy' },
+    { id: 'eng', label: 'Mechanical' }
   ]
 
   return (
@@ -279,18 +272,18 @@ export const Projects = () => {
            className="mb-12 md:mb-16"
         >
           <div className="font-mono text-xs tracking-[4px] uppercase text-[#e8c97a] mb-4 font-black">
-            // portfolio of projects
+            // portfolio results
           </div>
           <h2 className="font-serif text-4xl md:text-5xl text-white leading-tight mb-4">
-            Case Studies, Products & Analytics
+            Products, Systems & Research
           </h2>
           <p className="text-lg text-[#8888a8] max-w-2xl leading-relaxed">
-            A comprehensive look at 15+ projects solving complex problems across product strategy, quant-finance, and data engineering.
+            From 0→1 products and financial models to mechatronic systems.
           </p>
         </motion.div>
 
         {/* Filters */}
-        <div className="flex flex-wrap gap-2 md:gap-3 mb-10 overflow-x-auto pb-4 no-scrollbar">
+        <div className="flex flex-wrap gap-2 md:gap-3 mb-12 overflow-x-auto pb-4 no-scrollbar">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -315,10 +308,10 @@ export const Projects = () => {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -20 }}
                 transition={{ duration: 0.4 }}
-                className="glass-card flex flex-col p-8 group border-opacity-30 relative"
+                className="glass-card flex flex-col p-8 group border-opacity-30 relative overflow-hidden"
               >
                 {/* Header Category */}
-                <div className={`flex items-center gap-2 mb-6 font-mono text-[0.65rem] tracking-[2px] uppercase border px-3 py-1.5 w-fit rounded-lg font-black ${proj.catClass} shadow-sm`}>
+                <div className={`flex items-center gap-2 mb-6 font-mono text-[0.65rem] tracking-[2px] uppercase border px-3 py-1.5 w-fit rounded-lg font-black ${proj.catClass}`}>
                    {proj.icon} {proj.displayCat}
                 </div>
                 
@@ -326,12 +319,12 @@ export const Projects = () => {
                 
                 <div className="flex flex-col gap-6 flex-grow">
                   <div className="space-y-2">
-                    <label className="font-mono text-[0.6rem] tracking-[2px] uppercase text-[#555570] font-black block">The Problem</label>
+                    <label className="font-mono text-[0.6rem] tracking-[2px] uppercase text-[#555570] font-black block">The Challenge</label>
                     <p className="text-sm text-[#8888a8] leading-relaxed line-clamp-3">{proj.problem}</p>
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="font-mono text-[0.6rem] tracking-[2px] uppercase text-[#e8c97a] font-black block opacity-80">Solution & Impact</label>
+                    <label className="font-mono text-[0.6rem] tracking-[2px] uppercase text-[#e8c97a] font-black block opacity-80">Impact achieved</label>
                     <p className="text-base text-white font-bold leading-relaxed break-words">{proj.impact}</p>
                   </div>
                 </div>
@@ -343,16 +336,27 @@ export const Projects = () => {
                   ))}
                 </div>
                 
-                {/* Buttons Container */}
+                {/* Dynamic Buttons Container */}
                 <div className="flex flex-wrap gap-3 mt-8">
-                  {proj.link !== '#' && (
-                    <a 
-                      href={proj.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="inline-flex items-center gap-2 text-xs text-[#e8c97a] font-black hover:translate-x-2 transition-all no-underline tracking-widest bg-[#e8c97a]/5 px-4 py-2 rounded-lg border border-[#e8c97a]/10 hover:border-[#e8c97a]/30"
+                  {proj.github && (
+                    <a
+                      href={proj.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-[0.7rem] bg-slate-800 text-slate-200 px-4 py-2 rounded-lg font-black hover:bg-slate-700 transition no-underline items-center whitespace-nowrap"
                     >
-                      LIVE DEMO <ExternalLink size={12} />
+                      <Github size={14} /> VIEW CODE
+                    </a>
+                  )}
+
+                  {proj.live && (
+                    <a
+                      href={proj.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-[0.7rem] bg-blue-600 text-white px-4 py-2 rounded-lg font-black hover:bg-blue-500 transition no-underline items-center whitespace-nowrap"
+                    >
+                      <Play size={14} /> LIVE DEMO
                     </a>
                   )}
 
@@ -361,10 +365,9 @@ export const Projects = () => {
                       href={proj.caseStudy}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-xs text-[#e8c97a] font-black hover:bg-[#e8c97a] hover:text-[#0a0a0f] transition-all no-underline tracking-widest border border-[#e8c97a]/30 px-4 py-2 rounded-lg"
-                      title="Opens detailed case study in a new tab"
+                      className="inline-flex items-center gap-2 text-[0.7rem] border border-[#e8c97a]/30 text-[#e8c97a] px-4 py-2 rounded-lg font-black hover:bg-[#e8c97a] hover:text-[#0a0a0f] transition no-underline items-center whitespace-nowrap"
                     >
-                      📊 VIEW CASE STUDY
+                      <FileText size={14} /> VIEW CASE STUDY
                     </a>
                   )}
                 </div>

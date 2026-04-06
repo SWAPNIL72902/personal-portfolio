@@ -16,7 +16,7 @@ const projectsData = [
     problem: 'Manual reporting and fragmented data across city business teams slowed down daily decision-making.',
     impact: 'Automated 7+ city pipelines · Enabled real-time KPI tracking · Reduced manual effort · Improved decision speed.',
     tags: ['SQL', 'Python', 'Analytics', 'Automation'],
-    caseStudy: 'https://github.com/SWAPNIL72902/Finance/raw/main/LICIOUS_FINAL_REVIEW%20(3)%20(1).pdf'
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/LICIOUS_FINAL_REVIEW%20(3)%20(1).pdf'
   },
   {
     id: 'paytm-upi',
@@ -146,7 +146,7 @@ const projectsData = [
   // 💰 FINANCE (CASE STUDIES)
   {
     id: 'risk-analytics',
-    title: 'Financial Risk Analytics (CAPM+GARCH)',
+    title: 'Financial Risk Analytics',
     cat: 'finance',
     displayCat: 'Finance',
     icon: <DollarSign size={16} />,
@@ -154,7 +154,7 @@ const projectsData = [
     problem: 'High portfolio volatility exposure in standard equity selections.',
     impact: 'Computed VaR metrics across 4.5 years of data · Applied GARCH for volatility clusters.',
     tags: ['Quant Finance', 'VaR', 'Time Series'],
-    caseStudy: 'https://github.com/SWAPNIL72902/Finance/raw/main/16_EKC_EMAMILTD_ENGINERSIN_ESABINDIA%20.pdf'
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/16_EKC_EMAMILTD_ENGINERSIN_ESABINDIA%20.pdf'
   },
   {
     id: 'fofa-analysis',
@@ -166,7 +166,7 @@ const projectsData = [
     problem: 'Inefficient manual benchmarking across multi-sector competitors.',
     impact: 'Automated 10+ core ratio analysis engine · Reduced analysis time by 40%.',
     tags: ['Ratio Analysis', 'Corporate Finance', 'Automation'],
-    caseStudy: 'https://github.com/SWAPNIL72902/Finance/raw/main/39_FOFA_Assignment.pdf'
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/39_FOFA_Assignment.pdf'
   },
   {
     id: 'ambuja-cement',
@@ -175,10 +175,10 @@ const projectsData = [
     displayCat: 'Finance',
     icon: <DollarSign size={16} />,
     catClass: 'bg-orange-400/10 text-orange-400 border-orange-400/20',
-    problem: 'Understanding market positioning within the commoditized cement segment.',
+    problem: 'Understanding market positioning within the commoditized cement market segment.',
     impact: 'Mapped core moats and revenue splits · Benchmarked against industry standards.',
     tags: ['Equity Research', 'Industry Mapping'],
-    caseStudy: 'https://github.com/SWAPNIL72902/Finance/raw/main/Ambuja.pdf'
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/Ambuja.pdf'
   },
   {
     id: 'manappuram-strategy',
@@ -190,7 +190,7 @@ const projectsData = [
     problem: 'Visualizing risk payoff structures for multi-asset derivatives.',
     impact: 'Derived optimum options strategy through pay-off calculation for various scenarios.',
     tags: ['Derivatives', 'Options Trading', 'Finance Strategy'],
-    caseStudy: 'https://github.com/SWAPNIL72902/Finance/raw/main/Group_44-Manappuram_Finance.pdf'
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/Group_44-Manappuram_Finance.pdf'
   },
   {
     id: 'portfolio-sapm',
@@ -202,7 +202,7 @@ const projectsData = [
     problem: 'Unoptimized Sharpe ratios in multi-asset class allocation.',
     impact: 'Built Minimum Variance Portfolio across 8+ assets · Maximized risk-adjusted returns.',
     tags: ['Modern Portfolio Theory', 'Sharpe Ratio'],
-    caseStudy: 'https://github.com/SWAPNIL72902/Finance/raw/main/SAPM%20Project%20.pdf'
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/SAPM%20Project%20.pdf'
   },
   {
     id: 'wacc-lt',
@@ -214,7 +214,7 @@ const projectsData = [
     problem: 'Estimating capital costs for diversified heavy engineering segments.',
     impact: 'Detailed cost of debt and equity modeling for ₹1.83 lakh crore conglomerate.',
     tags: ['WACC', 'Valuation', 'Corporate Strategy'],
-    caseStudy: 'https://github.com/SWAPNIL72902/Finance/raw/main/Wacc%20LnT.pdf'
+    caseStudy: 'https://github.com/SWAPNIL72902/Finance/blob/main/Wacc%20LnT.pdf'
   },
 
   // 🧠 BUSINESS / STRATEGY
@@ -365,9 +365,9 @@ export const Projects = () => {
                       href={proj.caseStudy}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-[0.7rem] border border-[#e8c97a]/30 text-[#e8c97a] px-4 py-2 rounded-lg font-black hover:bg-[#e8c97a] hover:text-[#0a0a0f] transition no-underline items-center whitespace-nowrap"
+                      className="inline-flex items-center gap-2 text-sm rounded-lg border border-yellow-400/30 text-yellow-300 hover:bg-yellow-400 hover:text-black transition-all duration-300 px-4 py-2 font-bold tracking-tight whitespace-nowrap"
                     >
-                      <FileText size={14} /> VIEW CASE STUDY
+                      📊 View Case Study
                     </a>
                   )}
                 </div>

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-const GROK_API_KEY = process.env.GROK_API_KEY
+const GROQ_API_KEY = process.env.GROQ_API_KEY
 const SYSTEM_PROMPT = `You are an AI assistant for Swapnil Pahari's portfolio website. You answer questions about Swapnil in a human, concise, and structured way. You are analytical but approachable. Never hallucinate or make up facts.
 
 KEY FACTS ABOUT SWAPNIL:
@@ -45,19 +45,19 @@ export async function POST(req: Request) {
   try {
     const { message, history } = await req.json()
 
-    if (!GROK_API_KEY) {
-      return NextResponse.json({ reply: "API Key not configured. Please set GROK_API_KEY in environment variables." }, { status: 500 })
+    if (!GROQ_API_KEY) {
+      return NextResponse.json({ reply: "Groq API Key not configured. Please set GROQ_API_KEY in environment variables." }, { status: 500 })
     }
 
-    // Using xAI (Grok) API endpoint - assuming OpenAI compatible structure
-    const response = await fetch('https://api.x.ai/v1/chat/completions', {
+    // Using Groq API endpoint
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${GROK_API_KEY}`
+        'Authorization': `Bearer ${GROQ_API_KEY}`
       },
       body: JSON.stringify({
-        model: 'grok-beta', // or 'grok-1'
+        model: 'llama-3.3-70b-versatile',
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
           ...history.map((m: any) => ({ role: m.role, content: m.content })),
@@ -67,6 +67,12 @@ export async function POST(req: Request) {
         max_tokens: 500
       })
     })
+
+    if (!response.ok) {
+      const errorData = await response.json()
+      console.error('Groq API Error status:', response.status, errorData)
+      return NextResponse.json({ reply: "I'm having a bit of trouble with my Groq brain right now. Try again in a second!" }, { status: 500 })
+    }
 
     const data = await response.json()
     const reply = data.choices[0].message.content

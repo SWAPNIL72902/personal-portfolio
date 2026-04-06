@@ -8,7 +8,7 @@ const experiences = [
   {
     role: 'Program Management Intern',
     company: 'Licious',
-    period: 'Jan 2026 – Present',
+    period: 'July 2025 – Dec 2025',
     location: 'Bangalore, India',
     desc: 'Driving city-level impact through automated reporting and data-led operational strategy.',
     details: [

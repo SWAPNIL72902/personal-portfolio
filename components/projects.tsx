@@ -345,7 +345,7 @@ export const Projects = () => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-[0.7rem] bg-slate-800 text-slate-200 px-4 py-2 rounded-lg font-black hover:bg-slate-700 transition no-underline items-center whitespace-nowrap"
                     >
-                      <LinkIcon size={14} /> VIEW CODE
+                      <LinkIcon size={14} /> VIEW
                     </a>
                   )}
 

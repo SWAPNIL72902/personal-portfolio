@@ -11,6 +11,8 @@ export const Navbar = () => {
   const [mounted, setMounted] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+  const emailHref = "mailto:swapnilpahari05@gmail.com?subject=Let's%20Connect&body=Hi%20Swapnil%2C%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect!"
+
   useEffect(() => setMounted(true), [])
 
   if (!mounted) return null
@@ -43,13 +45,13 @@ export const Navbar = () => {
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           
-          <Link
-            href="https://www.linkedin.com/in/swapnil-pahari"
-            target="_blank"
-            className="hidden md:block bg-[#e8c97a] text-[#0a0a0f] px-5 py-2 rounded-lg text-xs font-bold hover:opacity-90 transition-opacity"
+          <a
+            href={emailHref}
+            aria-label="Send email to Swapnil"
+            className="hidden md:block bg-[#e8c97a] text-[#0a0a0f] px-5 py-2 rounded-lg text-xs font-bold hover:scale-105 transition-transform no-underline"
           >
             Connect
-          </Link>
+          </a>
 
           {/* Mobile Menu Toggle */}
           <button 
@@ -82,6 +84,15 @@ export const Navbar = () => {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a
+                  href={emailHref}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block py-2 text-[#e8c97a] hover:text-white font-bold"
+                >
+                  Connect
+                </a>
+              </li>
             </ul>
           </motion.div>
         )}

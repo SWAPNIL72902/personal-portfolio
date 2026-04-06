@@ -5,6 +5,8 @@ import { motion } from 'framer-motion'
 import { ArrowDown, Globe } from 'lucide-react'
 
 export const Hero = () => {
+  const emailHref = "mailto:swapnilpahari05@gmail.com?subject=Let's%20Connect&body=Hi%20Swapnil%2C%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect!"
+
   return (
     <section id="hero" className="min-h-screen flex items-center pt-24 relative overflow-hidden section-wrapper">
       <div className="absolute top-[15%] right-[-5%] w-[450px] h-[450px] bg-radial-gradient(circle,rgba(232,201,122,0.1)_0%,transparent_70%) pointer-events-none opacity-40 blur-3xl" />
@@ -33,13 +35,17 @@ export const Hero = () => {
           </p>
 
           <div className="flex flex-wrap gap-4 pt-4">
-            <a href="#projects" className="bg-[#e8c97a] text-[#0a0a0f] px-8 py-4 rounded-xl font-bold text-sm tracking-wide hover:scale-105 active:scale-95 transition-all shadow-lg hover:shadow-[#e8c97a]/20 flex items-center gap-2">
+            <a href="#projects" className="bg-[#e8c97a] text-[#0a0a0f] px-8 py-4 rounded-xl font-bold text-sm tracking-wide hover:scale-105 active:scale-95 transition-all shadow-lg hover:shadow-[#e8c97a]/20 flex items-center gap-2 no-underline">
               View Projects <ArrowDown size={18} />
             </a>
-            <a href="#contact" className="border border-white/10 text-white px-8 py-4 rounded-xl font-bold text-sm hover:border-[#e8c97a] hover:bg-[#e8c97a]/5 hover:scale-105 active:scale-95 transition-all">
+            <a 
+              href={emailHref} 
+              aria-label="Send email to Swapnil"
+              className="border border-white/10 text-white px-8 py-4 rounded-xl font-bold text-sm hover:border-[#e8c97a] hover:bg-[#e8c97a]/5 hover:scale-105 active:scale-95 transition-all no-underline"
+            >
               Contact Me
             </a>
-            <a href="https://github.com/SWAPNIL72902" target="_blank" rel="noopener noreferrer" className="border border-white/10 text-white px-8 py-4 rounded-xl font-bold text-sm hover:border-[#e8c97a] hover:bg-[#e8c97a]/5 hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+            <a href="https://github.com/SWAPNIL72902" target="_blank" rel="noopener noreferrer" className="border border-white/10 text-white px-8 py-4 rounded-xl font-bold text-sm hover:border-[#e8c97a] hover:bg-[#e8c97a]/5 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 no-underline">
               GitHub <Globe size={18} />
             </a>
           </div>

@@ -2,83 +2,84 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Users, Globe, TrendingUp } from 'lucide-react'
+import { Mail, Github, Linkedin, Send } from 'lucide-react'
 
 export const Contact = () => {
   const emailHref = "mailto:swapnilpahari05@gmail.com?subject=Let's%20Connect&body=Hi%20Swapnil%2C%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect!"
 
-  const links = [
-    { icon: <Users size={22} />, label: 'Professional networking', strong: 'LinkedIn', href: 'https://www.linkedin.com/in/swapnil-pahari', color: 'group-hover:text-blue-400' },
-    { icon: <Globe size={22} />, label: 'Code & contributions', strong: 'GitHub', href: 'https://github.com/SWAPNIL72902', color: 'group-hover:text-emerald-400' },
-    { icon: <TrendingUp size={22} />, label: 'Live market project', strong: 'Stock Predictor', href: 'https://stock-predictor-beige.vercel.app/', color: 'group-hover:text-amber-400' },
-    { icon: <Mail size={22} />, label: 'Inquiries & collaborations', strong: 'Email me', href: emailHref, color: 'group-hover:text-red-400' }
+  const socials = [
+    { icon: <Linkedin size={20} />, label: 'LinkedIn', href: 'https://linkedin.com/in/swapnil-pahari', color: 'bg-[#a78bfa]' },
+    { icon: <Github size={20} />, label: 'GitHub', href: 'https://github.com/SWAPNIL72902', color: 'bg-[#6ee7b7]' }
   ]
 
   return (
-    <section id="contact" className="bg-[#111118]">
-      <div className="section-wrapper section-padding">
-        <motion.div
-           initial={{ opacity: 0, y: 24 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           transition={{ duration: 0.7 }}
-           className="mb-12 md:mb-16"
-        >
-          <div className="font-mono text-xs tracking-[2px] uppercase text-[#e8c97a] mb-4 font-black">
-            // contact
-          </div>
-          <h2 className="font-serif text-4xl md:text-5xl text-white leading-tight mb-4">
-            Let&apos;s build something
-          </h2>
-        </motion.div>
+    <section id="contact" className="bg-[#0B0B0F] selection-gold">
+      <div className="max-w-limit section-padding px-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+           <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="space-y-12"
+           >
+              <div className="space-y-6">
+                 <div className="glass-pill mb-6 w-fit uppercase font-mono tracking-widest text-[#71717A]">
+                    Get In Touch
+                 </div>
+                 <h2 className="font-heading text-[30px] font-bold text-white leading-tight">
+                    Let&apos;s Build the Next<br />Big Outcome.
+                 </h2>
+                 <p className="text-lg text-[#A1A1AA] max-w-lg leading-relaxed">
+                    Always open to discussing 0→1 builds, analytics strategy, or potential full-time roles in Product & Engineering.
+                 </p>
+              </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="flex flex-col justify-center space-y-8"
-          >
-            <h3 className="font-serif text-3xl text-white leading-[1.3] max-w-lg">
-               Open to PM, Analytics & Program Management roles
-            </h3>
-            <p className="text-lg text-[#8888a8] leading-relaxed max-w-xl">
-              I bridge technical execution with business strategy. If you need a partner to solve complex systems-level problems — I&apos;m your person.
-            </p>
-            <a 
-              href={emailHref}
-              aria-label="Send email to Swapnil"
-              className="bg-[#e8c97a] text-[#0a0a0f] px-10 py-5 rounded-2xl font-black text-sm tracking-widest hover:scale-105 active:scale-95 transition-all w-fit shadow-lg hover:shadow-[#e8c97a]/30 flex items-center gap-3 no-underline outline-none focus:ring-2 focus:ring-[#e8c97a] focus:ring-offset-2 focus:ring-offset-[#111118]"
-            >
-              📩 SEND AN EMAIL
-            </a>
-          </motion.div>
+              <div className="flex flex-col gap-6">
+                 <a 
+                   href={emailHref}
+                   className="btn-primary w-fit no-underline"
+                 >
+                    <Mail size={18} /> Send an Email
+                 </a>
+                 <div className="flex gap-4">
+                    {socials.map((social) => (
+                      <a
+                        key={social.label}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-12 h-12 flex items-center justify-center border border-white/5 bg-[#111117] rounded-lg text-[#A1A1AA] hover:border-[#D4AF37]/40 hover:text-[#D4AF37] hover:scale-110 transition-all duration-300 no-underline"
+                        aria-label={social.label}
+                      >
+                         {social.icon}
+                      </a>
+                    ))}
+                 </div>
+              </div>
+           </motion.div>
 
-          <div className="grid gap-4 lg:gap-6">
-            {links.map((link, i) => (
-              <motion.a
-                key={i}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: i * 0.1 + 0.3 }}
-                href={link.href}
-                target={link.strong === 'Email me' ? undefined : "_blank"}
-                rel={link.strong === 'Email me' ? undefined : "noopener noreferrer"}
-                aria-label={link.strong === 'Email me' ? "Send email to Swapnil" : `Follow Swapnil on ${link.strong}`}
-                className="glass-card group flex items-center gap-6 p-6 md:p-8 hover:translate-x-4 transition-all no-underline outline-none focus:ring-2 focus:ring-[#e8c97a]/50"
+           <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="premium-card p-12 text-center flex flex-col items-center border-[#D4AF37]/10"
+           >
+              <div className="w-16 h-16 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mb-10 border border-[#D4AF37]/20 shadow-lg shadow-[#D4AF37]/5">
+                 <Mail size={24} className="text-[#D4AF37]" />
+              </div>
+              <h3 className="font-heading text-[24px] font-bold text-white mb-6">Drop a Note</h3>
+              <p className="text-[#A1A1AA] mb-10 max-w-xs mx-auto leading-relaxed font-medium">
+                 Direct inquiry? I usually respond within a few hours for high-signal opportunities.
+              </p>
+              <a 
+                href={emailHref}
+                className="btn-secondary w-full no-underline"
               >
-                <div className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center bg-white/5 text-[#555570] transition-colors ${link.color}`}>
-                  {link.icon}
-                </div>
-                <div className="flex flex-col gap-1">
-                  <span className="text-[0.65rem] md:text-[0.7rem] text-[#555570] font-mono font-black uppercase tracking-widest">{link.label}</span>
-                  <strong className="text-base md:text-lg text-white font-black group-hover:text-[#e8c97a] transition-all">{link.strong}</strong>
-                </div>
-              </motion.a>
-            ))}
-          </div>
+                 Open Mail Client <Send size={16} />
+              </a>
+           </motion.div>
         </div>
       </div>
     </section>

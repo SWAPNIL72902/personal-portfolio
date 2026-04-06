@@ -1,65 +1,87 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-serif: var(--font-dm-serif);
-  --font-sans: var(--font-dm-sans);
-  --font-mono: var(--font-jetbrains-mono);
+  --font-heading: var(--font-sora);
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-mono);
+
+  --color-primary: #0B0B0F;
+  --color-secondary: #D4AF37;
+  --color-accent: #F5D76E;
+  
+  --color-bg-main: #0B0B0F;
+  --color-bg-card: #111117;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A1A1AA;
+  --color-text-muted: #71717A;
+
+  --rounded-card: 12px;
+  --rounded-btn: 8px;
 }
 
-:root {
-  --bg: #0a0a0f;
-  --surface: #111118;
-  --surface2: #18181f;
-  --border: rgba(255, 255, 255, 0.07);
-  --accent: #e8c97a;
-  --accent2: #6ee7b7;
-  --accent3: #a78bfa;
-  --text: #e8e8f0;
-  --text-muted: #8888a8;
-  --text-dim: #555570;
-  --card-bg: rgba(255, 255, 255, 0.03);
-  --card-hover: rgba(255, 255, 255, 0.06);
-  --radius: 12px;
-  --radius-lg: 20px;
+@layer base {
+  * {
+    @apply border-white/5;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-bg-main text-text-primary font-body overflow-x-hidden;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
+  }
 }
 
-body {
-  font-family: var(--font-sans);
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.7;
-  overflow-x: hidden;
-  width: 100%;
+@layer components {
+  .section-padding {
+    @apply py-20 px-5 md:py-28;
+  }
+
+  .max-w-limit {
+    @apply max-w-[1200px] mx-auto;
+  }
+
+  .premium-card {
+    @apply bg-bg-card border border-white/5 p-6 rounded-[--rounded-card] shadow-2xl transition hover:border-secondary/20 duration-300;
+  }
+
+  .btn-primary {
+    @apply bg-secondary text-primary px-8 py-4 rounded-[--rounded-btn] font-heading font-black text-sm tracking-tight transition hover:bg-accent hover:scale-105 active:scale-95 flex items-center justify-center gap-2 duration-300;
+  }
+
+  .btn-secondary {
+    @apply border border-secondary text-secondary px-8 py-4 rounded-[--rounded-btn] font-heading font-black text-sm tracking-tight transition hover:bg-secondary/5 hover:scale-105 active:scale-95 flex items-center justify-center gap-2 duration-300;
+  }
+
+  .glass-pill {
+    @apply bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-xs font-mono text-text-secondary tracking-widest uppercase;
+  }
+
+  .metric-text {
+    @apply font-mono text-[17px] text-secondary font-black;
+  }
 }
 
-.section-wrapper {
-  @apply max-w-7xl mx-auto px-6 md:px-10 lg:px-16 w-full;
-}
+/* Custom Typography Mapping */
+h1 { font-size: 52px; font-weight: 700; line-height: 1.2; letter-spacing: -0.5px; }
+h2 { font-size: 30px; font-weight: 600; }
+h3 { font-size: 21px; font-weight: 600; }
 
-.section-padding {
-  @apply py-20 md:py-28;
-}
+.small-text { font-size: 14px; color: var(--color-text-muted); }
 
-.glass-card {
-  @apply bg-[#0f172a]/50 backdrop-blur-md border border-[var(--border)] rounded-[var(--radius-lg)] p-8 md:p-10 transition-all duration-300 hover:border-[#e8c97a]/30 shadow-xl;
-}
+/* Utilities */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-.pill-base {
-  @apply bg-[var(--card-bg)] border border-[var(--border)] px-4 py-1.5 rounded-full text-xs font-mono transition-all duration-300;
+.selection-gold::selection {
+  background: rgba(212, 175, 55, 0.3);
+  color: #fff;
 }
-
-/* Animations */
-@keyframes bounce {
-  0%, 60%, 100% { transform: translateY(0); }
-  30% { transform: translateY(-4px); }
-}
-
-.typing-dot {
-  @apply w-1.5 h-1.5 bg-[var(--text-dim)] rounded-full animate-bounce;
-}
-
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-::selection { background: rgba(232, 201, 122, 0.2); color: var(--accent); }

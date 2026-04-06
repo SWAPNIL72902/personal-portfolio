@@ -2,121 +2,99 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Briefcase, Calendar, MapPin, ChevronRight } from 'lucide-react'
+
+const experiences = [
+  {
+    role: 'Product Program Manager Intern',
+    company: 'Licious',
+    period: 'Jan 2026 – Present',
+    location: 'Bangalore, India',
+    desc: 'Driving city-level impact through automated reporting and data-led operational strategy.',
+    details: [
+      'Automated 7+ city analytics pipelines, reducing manual reporting time by 60%.',
+      'Enabled real-time KPI visibility for regional managers through interactive dashboards.',
+      'Optimizing delivery efficiency using predictive delivery interval models.'
+    ]
+  },
+  {
+    role: 'Product Analytics & Strategy',
+    company: 'BITS Pilani',
+    period: '2022 – 2026',
+    location: 'Hyderabad, India',
+    desc: 'Final year student specializing in product-market fit validation and engineering systems.',
+    details: [
+      'Developed 15+ multidisciplinary projects across finance, ML, and product management.',
+      'Consistently applying RICE prioritization to drive high-impact problem-solving.',
+      'Bridge engineering precision and core software scalability.'
+    ]
+  }
+]
 
 export const Experience = () => {
-  const experiences = [
-    {
-      company: 'Licious',
-      role: 'Program Management & Data Analytics Intern · City Business Team',
-      period: 'Jul 2025 – Dec 2025',
-      featured: true,
-      logoLetter: 'L',
-      logoClass: 'bg-gradient-to-br from-[#e63946] to-[#c1121f]',
-      overview: 'Drove data-backed decision-making at Licious by building scalable analytics systems, automating reporting pipelines, and enabling real-time business insights across 7+ cities. Worked at the intersection of program management and analytics — bridging BA, Ops, and City leadership teams to improve execution speed and data visibility.',
-      initiatives: [
-        {
-          title: '📊 Analytics Automation & Dashboard Infrastructure',
-          problem: 'No structured metric tracking at key ID (3×3 level); manual reporting consumed significant team bandwidth every week.',
-          action: 'Built automated weekly/monthly scripts, toggle-based dashboards for granular RCA, and semi-automated pipelines with Google Sheets integration.',
-          impact: '7+ cities now have real-time data visibility. Significantly reduced manual reporting effort across the BA team.'
-        }
-      ],
-      tools: ['SQL', 'Python', 'Google Sheets', 'Apps Script', 'Excel', 'Web Scraping', 'Dashboard Design', 'Stakeholder Mgmt']
-    },
-    {
-      company: 'NrityaTech',
-      role: 'Backend Developer Intern',
-      period: 'Prior Experience',
-      featured: false,
-      logoLetter: 'N',
-      logoClass: 'bg-gradient-to-br from-[#4361ee] to-[#3a0ca3]',
-      overview: 'Worked on backend development and API infrastructure, contributing to performance improvements and system scalability. Gained hands-on experience in building production-grade APIs and working with database systems.',
-      initiatives: [],
-      tools: ['Django', 'REST APIs', 'MySQL', 'Python', 'Backend Development']
-    }
-  ]
-
   return (
-    <section id="experience" className="bg-[#0a0a0f]">
-      <div className="section-wrapper section-padding">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mb-12 md:mb-16"
+    <section id="experience" className="bg-[#0B0B0F] selection-gold">
+      <div className="max-w-limit section-padding px-5">
+         <motion.div
+           initial={{ opacity: 0, y: 24 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ duration: 0.7 }}
+           className="mb-16 md:mb-24"
         >
-          <div className="font-mono text-xs tracking-[2px] uppercase text-[#e8c97a] mb-4 font-black">
-            // work experience
+          <div className="glass-pill mb-6 w-fit uppercase font-mono tracking-widest text-[#71717A]">
+            Professional Journey
           </div>
-          <h2 className="font-serif text-4xl md:text-5xl text-white leading-tight mb-4">
-            Where I&apos;ve delivered impact
+          <h2 className="font-heading text-[30px] font-semibold text-white leading-tight mb-8">
+            Experience & Impact
           </h2>
+          <p className="text-lg text-[#A1A1AA] max-w-2xl leading-relaxed">
+            Focused on building data-driven solutions at intersection of product and operations.
+          </p>
         </motion.div>
 
-        <div className="flex flex-col gap-10 md:gap-16">
-          {experiences.map((exp, i) => (
-            <motion.div
-              key={exp.company}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: i * 0.1 }}
-              className={`glass-card group relative p-8 md:p-12 overflow-hidden w-full max-w-full ${exp.featured ? 'border-[#e8c97a]/30' : ''}`}
-            >
-              {exp.featured && (
-                <div className="absolute top-6 right-6 font-mono text-[0.65rem] tracking-[3px] text-[#e8c97a] bg-[#e8c97a]/10 px-3 py-1 rounded-sm border border-[#e8c97a]/20 font-black">
-                  FEATURED
-                </div>
-              )}
-              
-              <div className="flex flex-col md:flex-row md:items-center gap-6 mb-10">
-                <div className={`w-14 h-14 rounded-xl flex items-center justify-center font-bold text-white text-lg shadow-xl shrink-0 ${exp.logoClass}`}>
-                  {exp.logoLetter}
-                </div>
-                <div className="flex flex-col gap-1">
-                  <h3 className="font-serif text-2xl text-white group-hover:text-[#e8c97a] transition-colors">{exp.company}</h3>
-                  <p className="text-sm font-bold text-[#8888a8] leading-relaxed">{exp.role}</p>
-                  <div className="font-mono text-xs text-[#555570] font-medium tracking-tighter">{exp.period}</div>
-                </div>
-              </div>
-
-              <p className="text-[#8888a8] text-base leading-relaxed mb-10 break-words max-w-4xl">{exp.overview}</p>
-              
-              {exp.initiatives.length > 0 && (
-                <div className="grid gap-8">
-                  {exp.initiatives.map((init, idx) => (
-                    <div key={idx} className="bg-[#18181f] border border-white/5 rounded-xl p-8 relative overflow-hidden group/init">
-                      <div className="absolute top-0 left-0 w-1 h-full bg-[#e8c97a] group-hover/init:w-2 transition-all" />
-                      <h4 className="font-bold text-white text-lg mb-6 flex items-center gap-3">{init.title}</h4>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                        <div className="flex flex-col gap-2">
-                          <label className="font-mono text-[0.6rem] tracking-[2px] uppercase text-[#6ee7b7] font-black opacity-80">Problem</label>
-                          <p className="text-sm text-[#8888a8] leading-relaxed break-words">{init.problem}</p>
-                        </div>
-                        <div className="flex flex-col gap-2">
-                          <label className="font-mono text-[0.6rem] tracking-[2px] uppercase text-[#6ee7b7] font-black opacity-80">Action</label>
-                          <p className="text-sm text-[#8888a8] leading-relaxed break-words">{init.action}</p>
-                        </div>
-                        <div className="md:col-span-2 flex flex-col gap-3 pt-4 border-t border-white/5">
-                          <label className="font-mono text-[0.6rem] tracking-[2px] uppercase text-[#e8c97a] font-black opacity-80">Impact</label>
-                          <p className="text-base text-[#e8c97a] font-bold leading-relaxed break-words">{init.impact}</p>
-                        </div>
+        <div className="flex flex-col gap-12">
+           {experiences.map((exp, i) => (
+             <motion.div
+               key={i}
+               initial={{ opacity: 0, y: 30 }}
+               whileInView={{ opacity: 1, y: 0 }}
+               viewport={{ once: true }}
+               transition={{ duration: 0.8, delay: i * 0.15 }}
+               className="premium-card p-12 group hover:translate-x-2 transition-all duration-500"
+             >
+                <div className="flex flex-wrap items-start justify-between gap-6 mb-10 border-b border-white/5 pb-10">
+                   <div className="space-y-4">
+                      <h3 className="font-heading text-[24px] font-bold text-white group-hover:text-[#D4AF37] transition-colors">{exp.role}</h3>
+                      <div className="flex items-center gap-2 text-[#D4AF37] font-heading font-black tracking-widest text-xs uppercase">
+                         <span className="bg-[#D4AF37]/10 px-3 py-1.5 rounded-lg border border-[#D4AF37]/20">{exp.company}</span>
                       </div>
-                    </div>
-                  ))}
+                   </div>
+                   <div className="space-y-3 md:text-right">
+                      <div className="flex items-center md:justify-end gap-2 text-[#71717A] text-sm font-medium">
+                         <Calendar size={14} className="text-[#D4AF37]" /> {exp.period}
+                      </div>
+                      <div className="flex items-center md:justify-end gap-2 text-[#71717A] text-sm font-medium">
+                         <MapPin size={14} className="text-[#D4AF37]" /> {exp.location}
+                      </div>
+                   </div>
                 </div>
-              )}
 
-              <div className="flex flex-wrap gap-2 pt-10 mt-10 border-t border-white/5">
-                {exp.tools.map((tool) => (
-                  <span key={tool} className="pill-base bg-emerald-400/5 text-emerald-400 border-emerald-400/20 py-1.5 hover:scale-110">
-                    {tool}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-12">
+                   <p className="text-lg text-[#A1A1AA] leading-relaxed italic font-medium border-l-2 border-[#D4AF37]/40 pl-8">
+                      {exp.desc}
+                   </p>
+                   <ul className="space-y-6">
+                      {exp.details.map((detail, idx) => (
+                        <li key={idx} className="flex gap-4 text-[#A1A1AA] leading-relaxed group/li">
+                           <ChevronRight size={18} className="shrink-0 text-[#D4AF37] group-hover/li:translate-x-2 transition-transform duration-300 mt-1" />
+                           <span className="font-medium group-hover:text-white transition-colors duration-300">{detail}</span>
+                        </li>
+                      ))}
+                   </ul>
+                </div>
+             </motion.div>
+           ))}
         </div>
       </div>
     </section>

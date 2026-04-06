@@ -2,83 +2,74 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
+import { BookOpen, Award, Target, Coffee } from 'lucide-react'
 
 export const About = () => {
+  const cards = [
+    {
+       icon: <Target className="text-[#D4AF37]" />,
+       title: "Product Execution",
+       desc: "Specializing in 0→1 builds, requirement gathering, and navigating high-uncertainty environments."
+    },
+    {
+       icon: <BookOpen className="text-[#D4AF37]" />,
+       title: "Analytical Depth",
+       desc: "Leveraging SQL, Python, and advanced ML to derive actionable insights from complex datasets."
+    },
+    {
+       icon: <Award className="text-[#D4AF37]" />,
+       title: "Systems Thinking",
+       desc: "Bridging mechanical engineering precision with enterprise software scalability."
+    }
+  ]
+
   return (
-    <section id="about" className="bg-[#111118]">
-      <div className="section-wrapper section-padding">
+    <section id="about" className="bg-[#0B0B0F] selection-gold">
+      <div className="max-w-limit section-padding px-5">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mb-16"
+           initial={{ opacity: 0, y: 24 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ duration: 0.7 }}
+           className="mb-16 md:mb-24"
         >
-          <div className="font-mono text-xs tracking-widest uppercase text-[#e8c97a] mb-3 font-black">
-            // about me
+          <div className="glass-pill mb-6 w-fit uppercase font-mono tracking-widest text-[#71717A]">
+            The Core Persona
           </div>
-          <h2 className="font-serif text-4xl md:text-5xl text-white leading-tight mb-4">
-            A problem-solver at heart
+          <h2 className="font-heading text-[30px] font-semibold text-white leading-tight mb-8">
+            Solving Friction Through Analytics & Design
           </h2>
-          <p className="text-lg text-[#8888a8] max-w-2xl leading-relaxed">
-            I start with the problem, not the solution. Every project begins with &quot;what&apos;s actually broken here?&quot;
-          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+             <p className="text-lg text-[#A1A1AA] leading-relaxed">
+               I am Swapnil Pahari, a final-year student at BITS Pilani Hyderabad with a focus on product management and data strategy. My background in mechanical engineering provides me with a unique structural perspective when approaching software systems and business logic.
+             </p>
+             <p className="text-lg text-[#A1A1AA] leading-relaxed">
+               From optimizing city-level delivery pipelines at Licious to building automated UPI failure recovery flows, I focus on measurable impact. I thrive where data meets empathy, ensuring products solve real user pain points efficiently.
+             </p>
+          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-[#8888a8] text-base leading-relaxed space-y-6"
-          >
-            <p>
-              I&apos;m a <span className="text-white font-bold">Mechanical Engineering student with a Finance minor</span> at BITS Pilani Hyderabad — but my real passion sits at the intersection of product thinking and data-driven decision-making.
-            </p>
-            <p>
-              At Licious, I built analytics systems from scratch — automating reporting pipelines, enabling real-time city-level insights, and driving decisions across 7+ cities. That experience taught me how to operate in ambiguity, move fast, and tie every action back to business impact.
-            </p>
-            <p>
-              I enjoy working on problems where <span className="text-white font-bold">data meets product strategy</span> — whether it&apos;s designing a feature to reduce cart abandonment or building a financial risk model from a 4.5-year dataset.
-            </p>
-            <p>
-              I&apos;m always open to discussing ideas, products, or interesting problems. If you&apos;re building something ambitious — I&apos;d love to hear about it.
-            </p>
-            <div className="flex flex-wrap gap-2 pt-6">
-              {['Product Thinking', 'Data Analytics', 'Systems Design', 'Stakeholder Mgmt', 'Financial Modeling', 'Automation'].map((pill) => (
-                <span key={pill} className="pill-base hover:border-[#e8c97a]/30 hover:scale-105">
-                  {pill}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="glass-card flex flex-col justify-center space-y-10"
-          >
-            <h3 className="font-serif text-2xl text-white">How I work</h3>
-            <div className="grid gap-8">
-              {[
-                { icon: '🎯', title: 'Problem-first thinking', text: 'Every project begins with a clear root-cause analysis.' },
-                { icon: '📊', title: 'Data-driven decisions', text: 'Gut feel is a starting point — data is the validator.' },
-                { icon: '⚡', title: 'Bias for action', text: 'I\'d rather ship a working V1 and iterate than wait for perfection.' },
-                { icon: '🤝', title: 'Cross-functional mindset', text: 'I thrive bridging data teams, operations, and leadership.' }
-              ].map((trait, i) => (
-                <div key={i} className="flex items-start gap-5 hover:translate-x-2 transition-transform">
-                  <div className="text-2xl mt-1">{trait.icon}</div>
-                  <div>
-                    <strong className="text-white block text-sm font-bold mb-1 tracking-wide">{trait.title}</strong>
-                    <p className="text-xs md:text-sm text-[#8888a8] leading-relaxed">{trait.text}</p>
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+           {cards.map((card, i) => (
+             <motion.div
+               key={i}
+               initial={{ opacity: 0, scale: 0.95 }}
+               whileInView={{ opacity: 1, scale: 1 }}
+               viewport={{ once: true }}
+               transition={{ duration: 0.5, delay: i * 0.1 }}
+               className="premium-card p-10 group"
+             >
+                <div className="w-12 h-12 bg-[#1a1a24] rounded-lg flex items-center justify-center mb-10 border border-white/5 group-hover:scale-110 transition-transform duration-500">
+                   {card.icon}
                 </div>
-              ))}
-            </div>
-          </motion.div>
+                <h3 className="font-heading text-[21px] text-white mb-6 font-semibold group-hover:text-[#D4AF37] transition-colors">
+                   {card.title}
+                </h3>
+                <p className="text-[#A1A1AA] leading-relaxed font-medium">
+                   {card.desc}
+                </p>
+             </motion.div>
+           ))}
         </div>
       </div>
     </section>

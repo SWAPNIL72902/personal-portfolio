@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Sun, Moon, Menu, X } from 'lucide-react'
+import { Sun, Moon, Menu, X, ArrowUpRight } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -17,29 +17,39 @@ export const Navbar = () => {
 
   if (!mounted) return null
 
+  const navLinks = [
+    { name: 'About', href: '#about' },
+    { name: 'Experience', href: '#experience' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Skills', href: '#skills' },
+    { name: 'Contact', href: '#contact' },
+  ]
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] border-b border-white/5 bg-[#0a0a0f]/80 backdrop-blur-lg">
-      <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 h-16 flex items-center justify-between">
-        <Link href="/" className="font-serif text-xl text-[#e8c97a] tracking-tight hover:scale-105 transition-transform">SP</Link>
+    <nav className="fixed top-0 left-0 right-0 z-[100] border-b border-white/5 bg-[#0B0B0F]/90 backdrop-blur-xl">
+      <div className="max-w-[1200px] mx-auto px-5 h-16 flex items-center justify-between">
+        <Link href="/" className="font-heading font-extrabold text-xl text-[#D4AF37] tracking-tighter hover:scale-105 transition-transform">
+          SP.
+        </Link>
         
         {/* Desktop Links */}
-        <ul className="hidden md:flex items-center gap-8 text-sm font-medium text-[#8888a8]">
-          {['About', 'Experience', 'Projects', 'Skills', 'Contact'].map((item) => (
-            <li key={item}>
+        <ul className="hidden md:flex items-center gap-10 text-sm font-medium text-[#A1A1AA]">
+          {navLinks.map((item) => (
+            <li key={item.name}>
               <Link
-                href={`#${item.toLowerCase()}`}
-                className="hover:text-white transition-colors duration-200"
+                href={item.href}
+                className="hover:text-white transition-colors duration-300"
               >
-                {item}
+                {item.name}
               </Link>
             </li>
           ))}
         </ul>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="w-10 h-10 flex items-center justify-center border border-white/10 rounded-lg text-[#8888a8] hover:border-[#e8c97a] hover:text-[#e8c97a] transition-all"
+            className="w-10 h-10 flex items-center justify-center border border-white/5 rounded-lg text-[#A1A1AA] hover:border-[#D4AF37]/40 hover:text-[#D4AF37] transition-all duration-300"
             aria-label="Toggle theme"
           >
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
@@ -48,14 +58,14 @@ export const Navbar = () => {
           <a
             href={emailHref}
             aria-label="Send email to Swapnil"
-            className="hidden md:block bg-[#e8c97a] text-[#0a0a0f] px-5 py-2 rounded-lg text-xs font-bold hover:scale-105 transition-transform no-underline"
+            className="hidden md:flex bg-[#D4AF37] text-[#0B0B0F] px-6 py-2.5 rounded-lg text-xs font-heading font-black tracking-tight hover:bg-[#F5D76E] hover:scale-105 active:scale-95 transition-all duration-300 items-center gap-2 no-underline"
           >
-            Connect
+            Connect <ArrowUpRight size={14} />
           </a>
 
           {/* Mobile Menu Toggle */}
           <button 
-            className="md:hidden text-[#8888a8] hover:text-white"
+            className="md:hidden text-[#A1A1AA] hover:text-white"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -67,20 +77,20 @@ export const Navbar = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-white/5 bg-[#111118] overflow-hidden"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden border-t border-white/5 bg-[#111117] overflow-hidden"
           >
-            <ul className="p-6 flex flex-col gap-4 text-sm font-medium text-[#8888a8]">
-              {['About', 'Experience', 'Projects', 'Skills', 'Contact'].map((item) => (
-                <li key={item}>
+            <ul className="p-10 flex flex-col gap-6 text-lg font-heading font-semibold text-[#A1A1AA]">
+              {navLinks.map((item) => (
+                <li key={item.name}>
                   <Link
-                    href={`#${item.toLowerCase()}`}
+                    href={item.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="block py-2 hover:text-white"
+                    className="block hover:text-[#D4AF37] transition-colors"
                   >
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -88,9 +98,9 @@ export const Navbar = () => {
                 <a
                   href={emailHref}
                   onClick={() => setIsMenuOpen(false)}
-                  className="block py-2 text-[#e8c97a] hover:text-white font-bold"
+                  className="block py-4 text-[#D4AF37] font-black border-t border-white/5 mt-4"
                 >
-                  Connect
+                  Get in touch
                 </a>
               </li>
             </ul>

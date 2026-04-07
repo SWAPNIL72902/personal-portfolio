@@ -128,22 +128,7 @@ export const Projects = () => {
             </p>
           </motion.div>
 
-          {/* Search Box */}
-          <div className="w-full md:w-96 relative group">
-            <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-accent-gold transition-colors" size={20} />
-            <input 
-              type="text"
-              placeholder="Search by keywords..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="w-full bg-[#13131A] border border-white/10 rounded-2xl py-5 pl-14 pr-12 text-sm focus:outline-none focus:border-accent-gold/50 focus:ring-4 focus:ring-accent-gold/5 transition-all text-white placeholder:text-text-muted/40 font-medium"
-            />
-            {query && (
-              <button onClick={() => setQuery('')} className="absolute right-5 top-1/2 -translate-y-1/2 text-text-muted hover:text-white">
-                <X size={18} />
-              </button>
-            )}
-          </div>
+
         </div>
 
         {/* Failsafe Notice */}

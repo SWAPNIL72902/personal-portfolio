@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Sparkles, X, Loader2, Package, TrendingUp, BarChart3, Settings2 } from 'lucide-react'
+import { Search, Sparkles, X, Loader2, Package, TrendingUp, BarChart3, Settings2, LayoutGrid } from 'lucide-react'
 import { projects } from '@/data/projects'
 
 export const ProjectSearch = () => {

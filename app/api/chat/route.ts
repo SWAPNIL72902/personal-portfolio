@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
 import { groq } from '@/lib/groq';
-import { projectsData } from '@/data/projects';
+import { projects } from '@/data/projects';
 
 export async function POST(req: Request) {
   try {
     const { message, history } = await req.json();
 
-    const projectsSummary = projectsData.map(p => `- ${p.title}: ${p.description} (Metrics: ${p.metrics.join(', ')})`).join('\n');
+    const projectsSummary = projects.map(p => `- ${p.title}: ${p.description} (Metrics: ${p.metrics.join(', ')})`).join('\n');
 
     const systemPrompt = `You are Swapnil's professional AI representative.
     Context about Swapnil:

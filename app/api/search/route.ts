@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { groq } from "@/lib/groq";
-import { projectsData } from "@/data/projects";
+import { projects } from "@/data/projects";
 
 export async function POST(req: Request) {
   try {
@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
     // Grab full objects for the top scored projects to give AI context
     const contextProjects = topProjects.map((tp: any) => 
-      projectsData.find(p => p.id === tp.id)
+      projects.find(p => p.id === tp.id)
     ).filter(Boolean);
 
     const systemPrompt = `You are a portfolio assistant.

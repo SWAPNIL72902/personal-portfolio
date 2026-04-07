@@ -1,32 +1,32 @@
 import { NextResponse } from 'next/server';
 import { groq } from '@/lib/groq';
-import { projects } from '@/lib/projects-data';
+import { projectsData } from '@/data/projects';
 
 export async function POST(req: Request) {
   try {
     const { message, history } = await req.json();
+
+    const projectsSummary = projectsData.map(p => `- ${p.title}: ${p.description} (Metrics: ${p.metrics.join(', ')})`).join('\n');
 
     const systemPrompt = `You are Swapnil's professional AI representative.
     Context about Swapnil:
     - Background: Final-year at BITS Pilani Hyderabad.
     - Focus: Product Management, Data Strategy, Analyst.
     - Internship: Licious (automated 7+ city pipelines, reduced reporting by 60%).
-    - Key Project: AI Stock Intelligence (82% accuracy, Next.js, AI/ML).
-    - Key Project: Paytm UPI Recovery System (stabilized payment success).
     
-    Project Links you MUST provide when relevant:
-    - Stock AI Dashboard: https://stock-predictor-beige.vercel.app/
-    - Paytm Case: https://github.com/SWAPNIL72902/Paytm
-    - FoodSwift: https://github.com/SWAPNIL72902/FoodSwift
+    Swapnil's Real Projects Data:
+    ${projectsSummary}
+
+    Project Links:
     - GitHub Profile: https://github.com/SWAPNIL72902
     - LinkedIn: https://linkedin.com/in/swapnil-pahari
     - Email: swapnilpahari05@gmail.com
     
     RULES:
     1. Be concise, friendly, and professional.
-    2. DIRECTLY include relevant links in your response.
-    3. If asked about experience, highlight Licious impact.
-    4. If asked about projects, list the top ones with links.
+    2. Suggest checking his GitHub for specific code (especially FoodSwift, SkillSync AI, Gnani, and Fintech Risk modeling).
+    3. If asked about experience, highlight Licious impact (July-Dec 2025).
+    4. If asked about projects, reference the Projects Data above.
     5. Don't hallucinate. If you don't know, suggest reaching out via LinkedIn.
     6. Maintain a high-signal recruiter-facing tone.`;
 

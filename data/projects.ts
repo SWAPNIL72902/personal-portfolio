@@ -8,6 +8,7 @@ export interface Project {
   tags: string[];
   metrics: string[];
   featured: boolean;
+  link?: string;
 }
 
 export const projects: Project[] = [
@@ -19,7 +20,8 @@ export const projects: Project[] = [
     category: "Product",
     tags: ["product", "supply chain", "analytics", "operations"],
     metrics: ["50K restaurants", "2M MAU", "39.6% failure rate identified"],
-    featured: true
+    featured: true,
+    link: "https://github.com/SWAPNIL72902/Finance/blob/main/LICIOUS_FINAL_REVIEW%20(3)%20(1).pdf"
   },
   {
     id: 2,
@@ -66,7 +68,8 @@ export const projects: Project[] = [
     category: "Finance",
     tags: ["finance", "risk", "time-series"],
     metrics: ["1000+ data points", "multi-model forecasting"],
-    featured: true
+    featured: true,
+    link: "https://github.com/SWAPNIL72902/Finance/blob/main/16_EKC_EMAMILTD_ENGINERSIN_ESABINDIA%20.pdf"
   },
   {
     id: 7,
@@ -75,7 +78,8 @@ export const projects: Project[] = [
     category: "Finance",
     tags: ["portfolio", "quant", "python"],
     metrics: ["Higher Sharpe ratio achieved"],
-    featured: false
+    featured: false,
+    link: "https://github.com/SWAPNIL72902/Finance/blob/main/SAPM%20Project%20.pdf"
   },
   {
     id: 8,
@@ -84,7 +88,8 @@ export const projects: Project[] = [
     category: "Finance",
     tags: ["options", "trading"],
     metrics: ["30% revenue growth analyzed"],
-    featured: false
+    featured: false,
+    link: "https://github.com/SWAPNIL72902/Finance/blob/main/Group_44-Manappuram_Finance.pdf"
   },
   {
     id: 9,
@@ -93,7 +98,8 @@ export const projects: Project[] = [
     category: "Finance",
     tags: ["ratios", "analysis"],
     metrics: ["10+ financial metrics evaluated"],
-    featured: false
+    featured: false,
+    link: "https://github.com/SWAPNIL72902/Finance/blob/main/39_FOFA_Assignment.pdf"
   },
   {
     id: 10,
@@ -102,7 +108,8 @@ export const projects: Project[] = [
     category: "Finance",
     tags: ["valuation", "corporate finance"],
     metrics: ["₹1.83L Cr company analysis"],
-    featured: false
+    featured: false,
+    link: "https://github.com/SWAPNIL72902/Finance/blob/main/Wacc%20LnT.pdf"
   },
   {
     id: 11,
@@ -111,7 +118,8 @@ export const projects: Project[] = [
     category: "Finance",
     tags: ["strategy", "industry"],
     metrics: ["80–85% revenue from core segment"],
-    featured: false
+    featured: false,
+    link: "https://github.com/SWAPNIL72902/Finance/blob/main/Ambuja.pdf"
   },
 
   // DATA / ANALYTICS PROJECTS
@@ -160,6 +168,7 @@ export const projects: Project[] = [
     category: "Mechanical",
     tags: ["mechanical", "CAD"],
     metrics: ["Full design-to-fabrication lifecycle"],
-    featured: false
+    featured: false,
+    link: "https://github.com/SWAPNIL72902/mechanical/blob/main/EpicyclicGearTrain_Group-12%20(1).pdf"
   }
 ];

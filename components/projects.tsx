@@ -248,9 +248,20 @@ const ProjectCard = ({ project }: { project: Project }) => {
         </div>
 
         {/* Action Button */}
-        <button className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.2em] text-white hover:text-accent-gold transition-colors group-hover:gap-5">
-           Deep Dive <ArrowRight size={16} className="text-accent-gold" />
-        </button>
+        {project.link ? (
+          <a 
+            href={project.link} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.2em] text-white hover:text-accent-gold transition-colors group-hover:gap-5 cursor-pointer"
+          >
+             View Case Study <ArrowRight size={16} className="text-accent-gold" />
+          </a>
+        ) : (
+          <button className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.2em] text-white hover:text-accent-gold transition-colors group-hover:gap-5">
+             Deep Dive <ArrowRight size={16} className="text-accent-gold" />
+          </button>
+        )}
       </div>
     </motion.div>
   )
